@@ -1,0 +1,17 @@
+TEXT
+{{.PageTitle}}
+TEXT
+{{range .Todos}}
+TEXT
+{{if .Done}}
+TEXT
+{{.Title}}
+TEXT
+{{else}}
+TEXT
+{{.Title}}
+TEXT
+{{end}}
+TEXT
+{{end}}
+TEXT

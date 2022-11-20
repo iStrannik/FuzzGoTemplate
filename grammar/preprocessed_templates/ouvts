@@ -1,0 +1,11 @@
+TEXT
+{{.Title}}
+TEXT
+{{range .Items}}
+TEXT
+{{ . }}
+TEXT
+{{else}}
+TEXT
+{{end}}
+TEXT

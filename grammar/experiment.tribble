@@ -1,0 +1,25 @@
+start = "\nTEMPLATE START\n" Template "\n END OF TEMAPLATE\n";
+
+Template = (Action)* ;
+Action = PipelineAction | IfAction | RangeAction | TemplateAction | BlockAction | WithAction ;
+PipelineAction = LD ( Pipeline | VarDeclarePipeline | VarAssignPipeline ) RD ;
+IfAction = LD " if " Pipeline RD Template ( LD " else " (" if " Pipeline)? RD Template )? End ;
+RangeAction = LD " range " ( Pipeline | VarDeclarePipeline ) RD Template ( LD " else " RD Template)? End ;
+TemplateAction = LD " template " Name (Pipeline)? RD ;
+BlockAction = LD " block " Name (Pipeline)? RD ;
+WithAction = LD " with " Pipeline RD Template ( LD " else " RD Template)? End ;
+Pipeline = Argument ( "|" Argument )* | MethodCall | FuncCall ( Argument )* ;
+VarDeclarePipeline =  Variable (" , " Variable)? " := " Pipeline ;
+VarAssignPipeline =  Variable " = " Pipeline ;
+Argument = Constant | " nil " | Variable | Fields | FuncCall | (" ( " Argument " ) " Fields? ) ;
+Variable = " $ " (Name)? ;
+Fields = (Variable)? " . " Name ( " . " Name)? ;
+FuncCall = Name ;
+MethodCall = ( Variable | Fields ) ( Argument )* ;
+End = LD " end " RD ;
+LD = " {{ " (" - ")? ;
+RD = (" - ")? " }} " ;
+Name = Letter ( Letter | Digit )* ;
+Constant = "\" HERE IS CONSTANT \"";
+Letter = /[a-zA-Z]/;
+Digit = /[0-9]/;
