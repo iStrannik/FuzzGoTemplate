@@ -15,7 +15,8 @@ import os
 
 if not os.path.exists('counter.json'):
     with open('counter.json', 'w+') as file:
-        file.write('{}') 
+        file.write('{}')
+
 
 def serializedATN():
     return [

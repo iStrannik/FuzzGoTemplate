@@ -1,7 +1,6 @@
-start = Template @@ 1.0;
-
-Template = (Text | Action)*;
-Action = CommentAction | PipelineAction | IfAction | RangeAction | TemplateAction | BlockAction | WithAction ;
+start = Template;
+Template = (Text | GoAction) (Text | GoAction)*;
+GoAction = CommentAction | PipelineAction | IfAction | RangeAction | TemplateAction | BlockAction | WithAction ;
 CommentAction = LD "/*" Text "*/" RD ;
 PipelineAction = LD ( Pipeline | VarDeclarePipeline | VarAssignPipeline ) RD ;
 IfAction = LD " if " Pipeline RD Template ( LD " else " (" if " Pipeline)? RD Template )? End ;
@@ -9,19 +8,19 @@ RangeAction = LD " range " ( Pipeline | VarDeclarePipeline ) RD Template ( LD " 
 TemplateAction = LD " template " Name (Pipeline)? RD ;
 BlockAction = LD " block " Name (Pipeline)? RD ;
 WithAction = LD " with " Pipeline RD Template ( LD " else " RD Template)? End ;
-Pipeline = Argument ( "|" Argument )* | MethodCall | FuncCall ( Argument )* ;
+Pipeline = Argument ( "|" Argument )* | MethodCall | FuncCall ;
 VarDeclarePipeline =  Variable (" , " Variable)? " := " Pipeline ;
 VarAssignPipeline =  Variable " = " Pipeline ;
-Argument = Constant | " nil " | Variable | Fields | FuncCall | (" ( " Argument " ) " Fields? ) ;
+Argument = Constant | " nil " | Variable | Fields | FuncCall | ("(" Argument " ) " Fields? ) ;
 Variable = " $ " (Name)? ;
 Fields = (Variable)? " . " Name ( " . " Name)? ;
-FuncCall = Name ;
+FuncCall = Name ( Argument )* ;
 MethodCall = ( Variable | Fields ) ( Argument )* ;
 End = LD " end " RD ;
 LD = " {{ " (" - ")? ;
 RD = (" - ")? " }} " ;
 Name = Letter ( Letter | Digit )* ;
-Text = "TEXT" ;
+Text = "TEXT\n " ;
 Constant = "CONSTANT";
 Letter = /[a-zA-Z]/;
-Digit = /[0-9]/;
+Digit = /[0-9]/ ;

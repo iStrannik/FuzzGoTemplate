@@ -1,31 +1,16 @@
-import argparse
-import os
-import string
 import random
+import string
 
-parser = argparse.ArgumentParser()
-
-parser.add_argument('--filename', dest='filename', default='1.tpl')
-
-parser.add_argument('--directory-to-save', dest='directory', default='preprocessed_tests', required=False)
 
 def randomword(length):
-   letters = string.ascii_lowercase
-   return ''.join(random.choice(letters) for i in range(length))
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for _ in range(length))
 
-args = parser.parse_args()
 
-directory = args.directory
-
-filename = args.filename
-
-if not os.path.isdir(directory):
-    os.mkdir(directory)
-
-with open(filename, 'r') as file:
+def preprocess_template(tpl):
     cur = 0
     result = 'TEXT\n'
-    for line in file.readlines():
+    for line in tpl:
         start = 0
         end = len(line)
         while start < end:
@@ -56,7 +41,4 @@ with open(filename, 'r') as file:
 
         if cur > 0:
             result += line[max(0, start - 1):]
-    with open(directory + '/' + randomword(5), 'w') as ans:
-        ans.write(result)
-    
-
+    return result

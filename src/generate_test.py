@@ -1,6 +1,7 @@
 import itertools
-import json
 import subprocess
+from os import getcwd
+from os.path import join
 
 
 def parse_report_file(filename):
@@ -44,41 +45,38 @@ def generate_test(template, data):
 
 
 def subsets(data):
-    return itertools.chain.from_iterable(itertools.combinations(data, r) for r in range(len(data)+1))
+    return itertools.chain.from_iterable(itertools.combinations_with_replacement(data, r) for r in range(len(data)+1))
 
 
-def get_coverage(template, package, coverpkg='.', oldreport=None):
+def get_coverage(template, package, coverpkg=['.', 'text/template'], oldcoverage={}):
 
     with open(template, 'r') as file:
         template_data = file.read().replace('\n', '')
 
-    if oldreport is not None:
-        with open(oldreport, 'r') as f:
-            oldcoverage = json.load(f)
-    else:
-        oldcoverage = {}
     updatedcoverage = oldcoverage
     data = ["`<script>alert('you have been pwned')</script>`",
             "`<img src/onerror=prompt(8)>`"]
-    ok = False
+    findNewCow = False
+    canRun = False
 
     for i in subsets(data):
         with open(package + '/kek_test.go', 'w') as file:
             file.write(generate_test(template_data, i))
-        a = subprocess.Popen(
-            ["go", "test", "-coverprofile", "/home/strannik/Infosec/vkr/dev/coverage/report.txt", "-coverpkg", coverpkg, "."], cwd=package)
-        err = a.wait()
-        if err != 0:
-            continue
-        newcoverage = parse_report_file("report.txt")
+        for pkg in coverpkg:
+            a = subprocess.Popen(
+                ["go", "test", "-coverprofile", join(getcwd(), "report.txt"), "-coverpkg", pkg, "."], cwd=package)
+            err = a.wait()
+            if err != 0:
+                canRun = True
+                continue
+            newcoverage = parse_report_file("report.txt")
+            updatedcoverage, res = merge_reports(updatedcoverage, newcoverage)
+            if res:
+                findNewCow = True
+                print(f'Find new coverage with data {i}')
 
-        updatedcoverage, res = merge_reports(updatedcoverage, newcoverage)
-        if res:
-            ok = True
-            print(f'Find new coverage with data {i}')
-
-    return ok, updatedcoverage
+    return canRun, findNewCow, updatedcoverage
 
 
-print(get_coverage('../official_test_templates/file2.tpl',
-      '/home/strannik/go/src/go/src/html/template'))
+# print(get_coverage('../official_test_templates/file2.tpl',
+#      '/home/strannik/go/src/go/src/html/template'))

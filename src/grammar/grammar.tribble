@@ -1,6 +1,6 @@
 start = Template;
-Template = (Text | Action) (Text | Action)*;
-Action = CommentAction | PipelineAction | IfAction | RangeAction | TemplateAction | BlockAction | WithAction ;
+Template = (Text | GoAction) (Text | GoAction)*;
+GoAction = CommentAction | PipelineAction | IfAction | RangeAction | TemplateAction | BlockAction | WithAction ;
 CommentAction = LD "/*" Text "*/" RD ;
 PipelineAction = LD ( Pipeline | VarDeclarePipeline | VarAssignPipeline ) RD ;
 IfAction = LD " if " Pipeline RD Template ( LD " else " (" if " Pipeline)? RD Template )? End ;
@@ -11,7 +11,7 @@ WithAction = LD " with " Pipeline RD Template ( LD " else " RD Template)? End ;
 Pipeline = Argument ( "|" Argument )* | MethodCall | FuncCall ( Argument )* ;
 VarDeclarePipeline =  Variable (" , " Variable)? " := " Pipeline ;
 VarAssignPipeline =  Variable " = " Pipeline ;
-Argument = Constant | " nil " | Variable | Fields | FuncCall | (" ( " Argument " ) " Fields? ) ;
+Argument = Constant | " nil " | Variable | Fields | FuncCall | ("(" Argument " ) " Fields? ) ;
 Variable = " $ " (Name)? ;
 Fields = (Variable)? " . " Name ( " . " Name)? ;
 FuncCall = Name ;
