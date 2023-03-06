@@ -24,19 +24,33 @@ def merge_reports(oldreport, newreport):
 
 
 def generate_test(template, data):
-    data = ','.join(data)
+    #data = ','.join(data)
     a = '''
     package template
     import (
-        "strings"
+        // "strings"
+        "fmt"
         "testing"
+        // "io/ioutil"
+        "os"
     )
     func TestKek(t *testing.T) {
-        test_input := "''' + template + '''"
+        f, err := os.OpenFile("./prepared.html", os.O_CREATE | os.O_WRONLY, 0777)
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+        defer f.Close()
+        test_input := `''' + template + '''`
+        data := struct {
+            A []string
+        }{
+            A: []string{''' + data + '''},
+        }
         tmpl := New("foo")
         tmpl = Must(tmpl.Parse(test_input))
-        b := new(strings.Builder)
-        if err := tmpl.Execute(b,''' + data + ''' ); err != nil {
+        // b := new(strings.Builder)
+        if err := tmpl.Execute(f, data); err != nil {
             t.Errorf("%v", err)
         }
     }
@@ -55,11 +69,15 @@ def get_coverage(template, package, coverpkg=['.', 'text/template'], oldcoverage
 
     updatedcoverage = oldcoverage
     data = ["`<script>alert('you have been pwned')</script>`",
-            "`<img src/onerror=prompt(8)>`"]
+            "`<img src/onerror=alert(1)>`",
+            "onerror=alert(1)",
+            "<is-custom onload='alert(1)' super-custom='test' />",
+            "javascript:alert",
+            "<svg onload=alert(1)>"]
     findNewCow = False
     canRun = False
 
-    for i in subsets(data):
+    for i in data:
         with open(package + '/kek_test.go', 'w') as file:
             file.write(generate_test(template_data, i))
         for pkg in coverpkg:
@@ -69,6 +87,13 @@ def get_coverage(template, package, coverpkg=['.', 'text/template'], oldcoverage
             if err != 0:
                 canRun = True
                 continue
+            b = subprocess.Popen(['node', 'detect_alerts/detect_alert.js'], stdin=subprocess.PIPE,
+                                 stdout=subprocess.PIPE)
+            b.stdin.write((package + '/prepared.html').encode())
+            b.stdin.close()
+            ans = b.stdout.readline()
+            if b'pwned_succesfull' in ans:
+                print(f'temaplate {template} pwned!!!!!!!!!!!!!')
             newcoverage = parse_report_file("report.txt")
             updatedcoverage, res = merge_reports(updatedcoverage, newcoverage)
             if res:

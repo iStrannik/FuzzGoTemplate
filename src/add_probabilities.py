@@ -26,6 +26,17 @@ def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar):
                 i = i[:-1]
                 tag = i.split(' =')[0].lower()
 
+                if tag == 'text':
+                    out.write(
+                        'Text = Href @@ 0.3| Default @@ 0.2 | Img @@ 0.3 | Style @@ 0.2;\n')
+                    continue
+
+                if tag == 'name':
+                    out.write('Name = "A" @@ 1.0;\n')
+                    continue
+                if tag == 'digit' or tag == 'letter':
+                    continue
+
                 if i.find(' | ') == -1 or tag not in probabilities:
                     out.write(i[:i.rfind(';')] + ' @@ 1.0;\n')
                 else:
@@ -62,3 +73,13 @@ def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar):
                     idx = res.rfind(';')
                     res = res[:idx] + res[idx + 1:] + ' ;'
                     out.write(res + '\n')
+            out.write('''
+Style = "<style>" Template "</style>" @@ 1.0;\n
+Img = "<img src=xx:" Template ">" @@ 1.0;\n
+Default = "<br>" Template "</br>" @@ 1.0;\n
+Href = AStart Template AEnd @@ 0.5 | HrefStart Template HrefEnd @@ 0.5;\n
+AStart = "<a href=\\"#\\">" @@ 1.0;\n
+AEnd = "</a>" @@ 1.0;\n
+HrefStart = "<a href=\\"" @@ 1.0;\n
+HrefEnd = "\\">abc</a>" @@ 1.0;\n
+                      ''')

@@ -64,3 +64,4 @@ for epoch in range(1, 3):
     _ = input('Waiting...')
     basetemplates = [read_template(join(goodTemplates, f)) for f in listdir(
         goodTemplates) if isfile(join(goodTemplates, f))]
+    basetemplates = [preprocess_template(tpl) for tpl in basetemplates]

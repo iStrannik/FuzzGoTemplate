@@ -12,15 +12,31 @@ Pipeline = Argument ( "|" Argument )* @@ 1.0 | MethodCall @@ 0.0 | FuncCall  @@ 
 VarDeclarePipeline =  Variable (" , " Variable)? " := " Pipeline  @@ 1.0;
 VarAssignPipeline =  Variable " = " Pipeline  @@ 1.0;
 Argument = Constant @@ 0.0 | " nil " @@ 0.0 | Variable @@ 0.0 | Fields @@ 1.0 | FuncCall @@ 0.0 | ("(" Argument " ) " Fields? )  @@ 0.0 ;
-Variable = " $ " (Name)?  @@ 1.0;
-Fields = (Variable)? " . " Name ( " . " Name)?  @@ 1.0;
+Variable = "$" (Name)?  @@ 1.0;
+Fields = (Variable)? "." Name ( " ." Name)?  @@ 1.0;
 FuncCall = Name ( Argument )*  @@ 1.0;
 MethodCall = ( Variable @@ 1.0 | Fields  @@ 0.0) ( Argument )*  ;
 End = LD " end " RD  @@ 1.0;
-LD = " {{ " (" - ")?  @@ 1.0;
-RD = (" - ")? " }} "  @@ 1.0;
-Name = Letter ( Letter @@ 1.0 | Digit  @@ 0.0)*  ;
-Text = "TEXT\n "  @@ 1.0;
+LD = " {{" ("- ")?  @@ 1.0;
+RD = (" -")? "}} "  @@ 1.0;
+Name = "A" @@ 1.0;
+Text = Href @@ 0.3| Default @@ 0.2 | Img @@ 0.3 | Style @@ 0.2;
 Constant = "CONSTANT" @@ 1.0;
-Letter = /[a-zA-Z]/ @@ 1.0;
-Digit = /[0-9]/ @@ 1.0;
+
+Style = "<style>" Template "</style>" @@ 1.0;
+
+Img = "<img src=xx:" Template ">" @@ 1.0;
+
+Default = "<br>" Template "</br>" @@ 1.0;
+
+Href = AStart Template AEnd @@ 0.5 | HrefStart Template HrefEnd @@ 0.5;
+
+AStart = "<a href=\"#\">" @@ 1.0;
+
+AEnd = "</a>" @@ 1.0;
+
+HrefStart = "<a href=\"" @@ 1.0;
+
+HrefEnd = "\">abc</a>" @@ 1.0;
+
+                      
