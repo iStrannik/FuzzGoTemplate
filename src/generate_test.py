@@ -9,17 +9,16 @@ def parse_report_file(filename):
     with open(filename, 'r') as file:
         for i in file.readlines()[1:]:
             a = i.split(' ')
-            if int(a[2]) > 0:
-                result[a[0]] = 1
+            result[a[0]] = (a[1], a[2])
     return result
 
 
 def merge_reports(oldreport, newreport):
     result = False
-    for key, _ in newreport.items():
-        if key not in oldreport:
+    for key, value in newreport.items():
+        if key not in oldreport or newreport[key][1] > oldreport[key][1]:
             result = True
-            oldreport[key] = 1
+            oldreport[key] = value
     return oldreport, result
 
 
@@ -75,32 +74,29 @@ def get_coverage(template, package, coverpkg=['.', 'text/template'], oldcoverage
             "javascript:alert",
             "<svg onload=alert(1)>"]
     findNewCow = False
-    canRun = False
 
     for i in data:
         with open(package + '/kek_test.go', 'w') as file:
             file.write(generate_test(template_data, i))
         for pkg in coverpkg:
             a = subprocess.Popen(
-                ["go", "test", "-coverprofile", join(getcwd(), "report.txt"), "-coverpkg", pkg, "."], cwd=package)
+                ["go", "test", "-coverprofile", join(getcwd(), "report.txt"), "-covermode", "count", "-coverpkg", pkg, "."], cwd=package)
             err = a.wait()
             if err != 0:
-                canRun = True
-                continue
-            b = subprocess.Popen(['node', 'detect_alerts/detect_alert.js'], stdin=subprocess.PIPE,
-                                 stdout=subprocess.PIPE)
-            b.stdin.write((package + '/prepared.html').encode())
-            b.stdin.close()
-            ans = b.stdout.readline()
-            if b'pwned_succesfull' in ans:
-                print(f'temaplate {template} pwned!!!!!!!!!!!!!')
+                b = subprocess.Popen(['node', 'detect_alerts/detect_alert.js'], stdin=subprocess.PIPE,
+                                     stdout=subprocess.PIPE)
+                b.stdin.write((package + '/prepared.html').encode())
+                b.stdin.close()
+                ans = b.stdout.readline()
+                if b'pwned_succesfull' in ans:
+                    print(f'temaplate {template} pwned!!!!!!!!!!!!!')
             newcoverage = parse_report_file("report.txt")
             updatedcoverage, res = merge_reports(updatedcoverage, newcoverage)
             if res:
                 findNewCow = True
                 print(f'Find new coverage with data {i}')
 
-    return canRun, findNewCow, updatedcoverage
+    return findNewCow, updatedcoverage
 
 
 # print(get_coverage('../official_test_templates/file2.tpl',

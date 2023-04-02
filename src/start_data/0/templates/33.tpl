@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    {{if eq .Title ""}}
+    <title>Just GO</title>
+    {{else}}
+    <title>Just GO - {{.Title}}</title>
+    {{end}}
+
+    <!-- Bootstrap -->
+    <link href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Sweet alert -->
+    <link href="/public/bower_components/sweetalert/dist/sweetalert.css" rel="stylesheet">
+
+    <!-- Growl -->
+    <link href="/public/bower_components/growl/stylesheets/jquery.growl.css" rel="stylesheet">
+
+    <!-- Page CSS -->
+    <link href="/public/css/test.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+        window.title = "{{.Title}}";
+        window.code = "{{.Code}}";
+        window.description = "{{.Description}}";
+        window.expectedStdout = "{{.ExpectedStdout}}";
+        window.prevKey = "{{.PrevKey}}";
+        window.nextKey = "{{.NextKey}}";
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Just GO</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/public/about.html">About</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+
+    <div id="editor_wrapper">
+        {{if eq .Code ""}}
+        <div id="editor" >package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}</div>
+        {{else}}
+        <div id="editor">{{.Code}}</div>
+        {{end}}
+        <button type="button" id="btn_run"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> RUN</button>
+    </div>
+
+    <div id="right_panel">
+        {{if ne .Title ""}}
+        <h1 id="title">
+            {{.Title}}
+            {{if ne .PrevKey ""}}
+            <a href="/test/{{.PrevKey}}"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a>
+            {{end}}
+            {{if ne .NextKey ""}}
+            <a href="/test/{{.NextKey}}"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+            {{end}}
+        </h1>
+        <!-- Description -->
+        <div id="description_wrapper">
+            <div id="description"><p>{{.Description}}</p></div>
+        </div>
+        {{end}}
+
+        <hr>
+
+        {{if ne .ExpectedStdout ""}}
+        <!-- Expected Output -->
+        <div id="expected_output_wrapper">
+            <p>Expected Output:</p>
+            <textarea class="form-control" rows="3" readonly id="expected_output">{{.ExpectedStdout}}</textarea>
+        </div>
+        {{end}}
+
+        <hr>
+
+        <!-- Running Results -->
+        <div id="result_wrapper">
+            <!-- Stdout -->
+            <div id="stdout_wrapper">
+                <p class="overlay">Standard Output</p>
+                <textarea class="form-control" rows="7" readonly id="stdout"></textarea>
+            </div>
+            <!-- Stderr -->
+            <div id="stderr_wrapper">
+                <p id="overlay_stderr" class="overlay">Standard Error</p>
+                <textarea class="form-control" rows="7" readonly id="stderr"></textarea>
+            </div>
+            <!-- Compile Error -->
+            <div id="compile_error_wrapper">
+                <p id="overlay_error" class="overlay">Error</p>
+                <textarea class="form-control" rows="7" readonly id="compile_error"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+</div><!-- /.container -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Ace code editor -->
+<script src="/public/bower_components/ace-builds/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<!-- Marded for markdown rendering -->
+<script src="/public/bower_components/marked/lib/marked.js" type="text/javascript" charset="utf-8"></script>
+<!-- Sweet alert -->
+<script src="/public/bower_components/sweetalert/dist/sweetalert.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- Growl -->
+<script src="/public/bower_components/growl/javascripts/jquery.growl.js" type="text/javascript" charset="utf-8"></script>
+<!-- Page JS -->
+<script src="/public/js/test.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

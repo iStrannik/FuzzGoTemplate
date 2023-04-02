@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCov &gt; option.go</title>
+<meta name="description" content="Code coverage report">
+<meta name="generator" content="https://gitlab.com/stone.code/scov">
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<!--[if lte IE 8]>
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+<!--<![endif]-->
+<style>
+html { padding:1em; }
+body { max-width:70em; margin:auto; }
+table { margin-bottom: 1em; }
+.coverage { min-width:100%; }
+.coverage td:nth-child(2), .coverage th:nth-child(2) { text-align:center; }
+.coverage td:nth-child(3), .coverage th:nth-child(3) { text-align:center; }
+.coverage td:nth-child(4), .coverage th:nth-child(4) { text-align:center; }
+.sparkbar { border: 1px solid black; border-radius:1px; min-width:50px; height:1em; }
+.sparkbar .fill { display: inline-block; height: 100%; }
+.sparkbar .high { background-color:lightgreen; }
+.sparkbar .medium { background-color:yellow; }
+.sparkbar .low { background-color:red; }
+.sparkbar .empty { display: inline-block; height: 1em; background-color: white; }
+.source { font-family: monospace; width:100%; margin:0; }
+.source th { padding: .1em .5em; text-align:left; border-bottom: 1px solid black; }
+.source td { padding: .1em .5em; white-space: pre; }
+.source .hit { background:lightblue; }
+.source .miss { background:LightCoral; }
+.source td:nth-child(1), .source th:nth-child(1) { background:PaleGoldenrod; text-align:right; }
+.source td:nth-child(2), .source th:nth-child(2) { background:#f6f3d4; text-align:right; }
+footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: #e0e0e0; padding: .5em 1em; }
+@media screen and (min-width: 48em) {
+	.pure-gutter-md > div { box-sizing: border-box; padding: 0 0.5em; }
+	.pure-gutter-md > div:first-child { padding-left: 0; }
+	.pure-gutter-md > div:last-child { padding-right: 0; }
+}
+@media screen and (max-width: 48em) {
+	.table-md td, .table-md th { padding: 0.5em; }
+}
+</style>
+</head>
+<body>
+<div class="pure-g"><h1 class="pure-u">SCov &gt; option.go</h1></div>
+<div class="pure-g pure-gutter-md"><div class="pure-u-1 pure-u-md-1-2">
+<h2>Metadata</h2>
+<table class="pure-table pure-table-horizontal">
+<tr><td>Date:</td><td>Tue Mar 21 16:20:02 UTC 2023</td></tr>
+<tr><td>Filename:</td><td>text/template/option.go</td></tr>
+</table>
+</div><div class="pure-u-1 pure-u-md-1-2">
+<h2>Coverage</h2>
+<table class="pure-table pure-table-horizontal coverage">
+<thead><tr><th></th><th>Hits</th><th>Total</th><th>Coverage</th></tr></thead>
+<tbody>
+<tr><td>Lines:</td><td>0</td><td>23</td><td>0.0%</td></tr>
+<tr><td>Regions:</td><td>0</td><td>12</td><td>0.0%</td></tr>
+</tbody>
+</table>
+</div></div>
+<div class="pure-g"><div class="pure-u">
+<h2>File Listing</h2>
+<table class="source"><thead>
+<tr><th>Line #</th><th>Hit count</th><th>Source code</th></tr>
+</thead><tbody>
+<tr id="L1"><td>1</td><td></td><td>// Copyright 2015 The Go Authors. All rights reserved.</td></tr>
+<tr id="L2"><td>2</td><td></td><td>// Use of this source code is governed by a BSD-style</td></tr>
+<tr id="L3"><td>3</td><td></td><td>// license that can be found in the LICENSE file.</td></tr>
+<tr id="L4"><td>4</td><td></td><td></td></tr>
+<tr id="L5"><td>5</td><td></td><td>// This file contains the code to handle template options.</td></tr>
+<tr id="L6"><td>6</td><td></td><td></td></tr>
+<tr id="L7"><td>7</td><td></td><td>package template</td></tr>
+<tr id="L8"><td>8</td><td></td><td></td></tr>
+<tr id="L9"><td>9</td><td></td><td>import &#34;strings&#34;</td></tr>
+<tr id="L10"><td>10</td><td></td><td></td></tr>
+<tr id="L11"><td>11</td><td></td><td>// missingKeyAction defines how to respond to indexing a map with a key that is not present.</td></tr>
+<tr id="L12"><td>12</td><td></td><td>type missingKeyAction int</td></tr>
+<tr id="L13"><td>13</td><td></td><td></td></tr>
+<tr id="L14"><td>14</td><td></td><td>const (</td></tr>
+<tr id="L15"><td>15</td><td></td><td>	mapInvalid   missingKeyAction = iota // Return an invalid reflect.Value.</td></tr>
+<tr id="L16"><td>16</td><td></td><td>	mapZeroValue                         // Return the zero value for the map element.</td></tr>
+<tr id="L17"><td>17</td><td></td><td>	mapError                             // Error out</td></tr>
+<tr id="L18"><td>18</td><td></td><td>)</td></tr>
+<tr id="L19"><td>19</td><td></td><td></td></tr>
+<tr id="L20"><td>20</td><td></td><td>type option struct {</td></tr>
+<tr id="L21"><td>21</td><td></td><td>	missingKey missingKeyAction</td></tr>
+<tr id="L22"><td>22</td><td></td><td>}</td></tr>
+<tr id="L23"><td>23</td><td></td><td></td></tr>
+<tr id="L24"><td>24</td><td></td><td>// Option sets options for the template. Options are described by</td></tr>
+<tr id="L25"><td>25</td><td></td><td>// strings, either a simple string or &#34;key=value&#34;. There can be at</td></tr>
+<tr id="L26"><td>26</td><td></td><td>// most one equals sign in an option string. If the option string</td></tr>
+<tr id="L27"><td>27</td><td></td><td>// is unrecognized or otherwise invalid, Option panics.</td></tr>
+<tr id="L28"><td>28</td><td></td><td>//</td></tr>
+<tr id="L29"><td>29</td><td></td><td>// Known options:</td></tr>
+<tr id="L30"><td>30</td><td></td><td>//</td></tr>
+<tr id="L31"><td>31</td><td></td><td>// missingkey: Control the behavior during execution if a map is</td></tr>
+<tr id="L32"><td>32</td><td></td><td>// indexed with a key that is not present in the map.</td></tr>
+<tr id="L33"><td>33</td><td></td><td>//</td></tr>
+<tr id="L34"><td>34</td><td></td><td>//	&#34;missingkey=default&#34; or &#34;missingkey=invalid&#34;</td></tr>
+<tr id="L35"><td>35</td><td></td><td>//		The default behavior: Do nothing and continue execution.</td></tr>
+<tr id="L36"><td>36</td><td></td><td>//		If printed, the result of the index operation is the string</td></tr>
+<tr id="L37"><td>37</td><td></td><td>//		&#34;&lt;no value&gt;&#34;.</td></tr>
+<tr id="L38"><td>38</td><td></td><td>//	&#34;missingkey=zero&#34;</td></tr>
+<tr id="L39"><td>39</td><td></td><td>//		The operation returns the zero value for the map type&#39;s element.</td></tr>
+<tr id="L40"><td>40</td><td></td><td>//	&#34;missingkey=error&#34;</td></tr>
+<tr id="L41"><td>41</td><td></td><td>//		Execution stops immediately with an error.</td></tr>
+<tr id="L42" class="miss"><td>42</td><td>0</td><td>func (t *Template) Option(opt ...string) *Template {</td></tr>
+<tr id="L43" class="miss"><td>43</td><td>0</td><td>	t.init()</td></tr>
+<tr id="L44" class="miss"><td>44</td><td>0</td><td>	for _, s := range opt {</td></tr>
+<tr id="L45" class="miss"><td>45</td><td>0</td><td>		t.setOption(s)</td></tr>
+<tr id="L46" class="miss"><td>46</td><td>0</td><td>	}</td></tr>
+<tr id="L47" class="miss"><td>47</td><td>0</td><td>	return t</td></tr>
+<tr id="L48"><td>48</td><td></td><td>}</td></tr>
+<tr id="L49"><td>49</td><td></td><td></td></tr>
+<tr id="L50" class="miss"><td>50</td><td>0</td><td>func (t *Template) setOption(opt string) {</td></tr>
+<tr id="L51" class="miss"><td>51</td><td>0</td><td>	if opt == &#34;&#34; {</td></tr>
+<tr id="L52" class="miss"><td>52</td><td>0</td><td>		panic(&#34;empty option string&#34;)</td></tr>
+<tr id="L53"><td>53</td><td></td><td>	}</td></tr>
+<tr id="L54"><td>54</td><td></td><td>	// key=value</td></tr>
+<tr id="L55" class="miss"><td>55</td><td>0</td><td>	if key, value, ok := strings.Cut(opt, &#34;=&#34;); ok {</td></tr>
+<tr id="L56" class="miss"><td>56</td><td>0</td><td>		switch key {</td></tr>
+<tr id="L57" class="miss"><td>57</td><td>0</td><td>		case &#34;missingkey&#34;:</td></tr>
+<tr id="L58" class="miss"><td>58</td><td>0</td><td>			switch value {</td></tr>
+<tr id="L59" class="miss"><td>59</td><td>0</td><td>			case &#34;invalid&#34;, &#34;default&#34;:</td></tr>
+<tr id="L60" class="miss"><td>60</td><td>0</td><td>				t.option.missingKey = mapInvalid</td></tr>
+<tr id="L61" class="miss"><td>61</td><td>0</td><td>				return</td></tr>
+<tr id="L62" class="miss"><td>62</td><td>0</td><td>			case &#34;zero&#34;:</td></tr>
+<tr id="L63" class="miss"><td>63</td><td>0</td><td>				t.option.missingKey = mapZeroValue</td></tr>
+<tr id="L64" class="miss"><td>64</td><td>0</td><td>				return</td></tr>
+<tr id="L65" class="miss"><td>65</td><td>0</td><td>			case &#34;error&#34;:</td></tr>
+<tr id="L66" class="miss"><td>66</td><td>0</td><td>				t.option.missingKey = mapError</td></tr>
+<tr id="L67" class="miss"><td>67</td><td>0</td><td>				return</td></tr>
+<tr id="L68"><td>68</td><td></td><td>			}</td></tr>
+<tr id="L69"><td>69</td><td></td><td>		}</td></tr>
+<tr id="L70"><td>70</td><td></td><td>	}</td></tr>
+<tr id="L71" class="miss"><td>71</td><td>0</td><td>	panic(&#34;unrecognized option: &#34; + opt)</td></tr>
+<tr id="L72"><td>72</td><td></td><td>}</td></tr>
+</tbody></table>
+</div></div>
+<footer>Generated by <a href="https://gitlab.com/stone.code/scov">SCov</a>.</footer>
+</body></html>

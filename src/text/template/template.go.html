@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCov &gt; template.go</title>
+<meta name="description" content="Code coverage report">
+<meta name="generator" content="https://gitlab.com/stone.code/scov">
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<!--[if lte IE 8]>
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+<!--<![endif]-->
+<style>
+html { padding:1em; }
+body { max-width:70em; margin:auto; }
+table { margin-bottom: 1em; }
+.coverage { min-width:100%; }
+.coverage td:nth-child(2), .coverage th:nth-child(2) { text-align:center; }
+.coverage td:nth-child(3), .coverage th:nth-child(3) { text-align:center; }
+.coverage td:nth-child(4), .coverage th:nth-child(4) { text-align:center; }
+.sparkbar { border: 1px solid black; border-radius:1px; min-width:50px; height:1em; }
+.sparkbar .fill { display: inline-block; height: 100%; }
+.sparkbar .high { background-color:lightgreen; }
+.sparkbar .medium { background-color:yellow; }
+.sparkbar .low { background-color:red; }
+.sparkbar .empty { display: inline-block; height: 1em; background-color: white; }
+.source { font-family: monospace; width:100%; margin:0; }
+.source th { padding: .1em .5em; text-align:left; border-bottom: 1px solid black; }
+.source td { padding: .1em .5em; white-space: pre; }
+.source .hit { background:lightblue; }
+.source .miss { background:LightCoral; }
+.source td:nth-child(1), .source th:nth-child(1) { background:PaleGoldenrod; text-align:right; }
+.source td:nth-child(2), .source th:nth-child(2) { background:#f6f3d4; text-align:right; }
+footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: #e0e0e0; padding: .5em 1em; }
+@media screen and (min-width: 48em) {
+	.pure-gutter-md > div { box-sizing: border-box; padding: 0 0.5em; }
+	.pure-gutter-md > div:first-child { padding-left: 0; }
+	.pure-gutter-md > div:last-child { padding-right: 0; }
+}
+@media screen and (max-width: 48em) {
+	.table-md td, .table-md th { padding: 0.5em; }
+}
+</style>
+</head>
+<body>
+<div class="pure-g"><h1 class="pure-u">SCov &gt; template.go</h1></div>
+<div class="pure-g pure-gutter-md"><div class="pure-u-1 pure-u-md-1-2">
+<h2>Metadata</h2>
+<table class="pure-table pure-table-horizontal">
+<tr><td>Date:</td><td>Tue Mar 21 16:20:02 UTC 2023</td></tr>
+<tr><td>Filename:</td><td>text/template/template.go</td></tr>
+</table>
+</div><div class="pure-u-1 pure-u-md-1-2">
+<h2>Coverage</h2>
+<table class="pure-table pure-table-horizontal coverage">
+<thead><tr><th></th><th>Hits</th><th>Total</th><th>Coverage</th></tr></thead>
+<tbody>
+<tr><td>Lines:</td><td>64</td><td>127</td><td>50.4%</td></tr>
+<tr><td>Regions:</td><td>22</td><td>43</td><td>51.2%</td></tr>
+</tbody>
+</table>
+</div></div>
+<div class="pure-g"><div class="pure-u">
+<h2>File Listing</h2>
+<table class="source"><thead>
+<tr><th>Line #</th><th>Hit count</th><th>Source code</th></tr>
+</thead><tbody>
+<tr id="L1"><td>1</td><td></td><td>// Copyright 2011 The Go Authors. All rights reserved.</td></tr>
+<tr id="L2"><td>2</td><td></td><td>// Use of this source code is governed by a BSD-style</td></tr>
+<tr id="L3"><td>3</td><td></td><td>// license that can be found in the LICENSE file.</td></tr>
+<tr id="L4"><td>4</td><td></td><td></td></tr>
+<tr id="L5"><td>5</td><td></td><td>package template</td></tr>
+<tr id="L6"><td>6</td><td></td><td></td></tr>
+<tr id="L7"><td>7</td><td></td><td>import (</td></tr>
+<tr id="L8"><td>8</td><td></td><td>	&#34;reflect&#34;</td></tr>
+<tr id="L9"><td>9</td><td></td><td>	&#34;sync&#34;</td></tr>
+<tr id="L10"><td>10</td><td></td><td>	&#34;text/template/parse&#34;</td></tr>
+<tr id="L11"><td>11</td><td></td><td>)</td></tr>
+<tr id="L12"><td>12</td><td></td><td></td></tr>
+<tr id="L13"><td>13</td><td></td><td>// common holds the information shared by related templates.</td></tr>
+<tr id="L14"><td>14</td><td></td><td>type common struct {</td></tr>
+<tr id="L15"><td>15</td><td></td><td>	tmpl   map[string]*Template // Map from name to defined templates.</td></tr>
+<tr id="L16"><td>16</td><td></td><td>	muTmpl sync.RWMutex         // protects tmpl</td></tr>
+<tr id="L17"><td>17</td><td></td><td>	option option</td></tr>
+<tr id="L18"><td>18</td><td></td><td>	// We use two maps, one for parsing and one for execution.</td></tr>
+<tr id="L19"><td>19</td><td></td><td>	// This separation makes the API cleaner since it doesn&#39;t</td></tr>
+<tr id="L20"><td>20</td><td></td><td>	// expose reflection to the client.</td></tr>
+<tr id="L21"><td>21</td><td></td><td>	muFuncs    sync.RWMutex // protects parseFuncs and execFuncs</td></tr>
+<tr id="L22"><td>22</td><td></td><td>	parseFuncs FuncMap</td></tr>
+<tr id="L23"><td>23</td><td></td><td>	execFuncs  map[string]reflect.Value</td></tr>
+<tr id="L24"><td>24</td><td></td><td>}</td></tr>
+<tr id="L25"><td>25</td><td></td><td></td></tr>
+<tr id="L26"><td>26</td><td></td><td>// Template is the representation of a parsed template. The *parse.Tree</td></tr>
+<tr id="L27"><td>27</td><td></td><td>// field is exported only for use by html/template and should be treated</td></tr>
+<tr id="L28"><td>28</td><td></td><td>// as unexported by all other clients.</td></tr>
+<tr id="L29"><td>29</td><td></td><td>type Template struct {</td></tr>
+<tr id="L30"><td>30</td><td></td><td>	name string</td></tr>
+<tr id="L31"><td>31</td><td></td><td>	*parse.Tree</td></tr>
+<tr id="L32"><td>32</td><td></td><td>	*common</td></tr>
+<tr id="L33"><td>33</td><td></td><td>	leftDelim  string</td></tr>
+<tr id="L34"><td>34</td><td></td><td>	rightDelim string</td></tr>
+<tr id="L35"><td>35</td><td></td><td>}</td></tr>
+<tr id="L36"><td>36</td><td></td><td></td></tr>
+<tr id="L37"><td>37</td><td></td><td>// New allocates a new, undefined template with the given name.</td></tr>
+<tr id="L38" class="hit"><td>38</td><td>1</td><td>func New(name string) *Template {</td></tr>
+<tr id="L39" class="hit"><td>39</td><td>1</td><td>	t := &amp;Template{</td></tr>
+<tr id="L40" class="hit"><td>40</td><td>1</td><td>		name: name,</td></tr>
+<tr id="L41" class="hit"><td>41</td><td>1</td><td>	}</td></tr>
+<tr id="L42" class="hit"><td>42</td><td>1</td><td>	t.init()</td></tr>
+<tr id="L43" class="hit"><td>43</td><td>1</td><td>	return t</td></tr>
+<tr id="L44" class="hit"><td>44</td><td>1</td><td>}</td></tr>
+<tr id="L45"><td>45</td><td></td><td></td></tr>
+<tr id="L46"><td>46</td><td></td><td>// Name returns the name of the template.</td></tr>
+<tr id="L47" class="hit"><td>47</td><td>6</td><td>func (t *Template) Name() string {</td></tr>
+<tr id="L48" class="hit"><td>48</td><td>6</td><td>	return t.name</td></tr>
+<tr id="L49" class="hit"><td>49</td><td>6</td><td>}</td></tr>
+<tr id="L50"><td>50</td><td></td><td></td></tr>
+<tr id="L51"><td>51</td><td></td><td>// New allocates a new, undefined template associated with the given one and with the same</td></tr>
+<tr id="L52"><td>52</td><td></td><td>// delimiters. The association, which is transitive, allows one template to</td></tr>
+<tr id="L53"><td>53</td><td></td><td>// invoke another with a {{template}} action.</td></tr>
+<tr id="L54"><td>54</td><td></td><td>//</td></tr>
+<tr id="L55"><td>55</td><td></td><td>// Because associated templates share underlying data, template construction</td></tr>
+<tr id="L56"><td>56</td><td></td><td>// cannot be done safely in parallel. Once the templates are constructed, they</td></tr>
+<tr id="L57"><td>57</td><td></td><td>// can be executed in parallel.</td></tr>
+<tr id="L58" class="miss"><td>58</td><td>0</td><td>func (t *Template) New(name string) *Template {</td></tr>
+<tr id="L59" class="miss"><td>59</td><td>0</td><td>	t.init()</td></tr>
+<tr id="L60" class="miss"><td>60</td><td>0</td><td>	nt := &amp;Template{</td></tr>
+<tr id="L61" class="miss"><td>61</td><td>0</td><td>		name:       name,</td></tr>
+<tr id="L62" class="miss"><td>62</td><td>0</td><td>		common:     t.common,</td></tr>
+<tr id="L63" class="miss"><td>63</td><td>0</td><td>		leftDelim:  t.leftDelim,</td></tr>
+<tr id="L64" class="miss"><td>64</td><td>0</td><td>		rightDelim: t.rightDelim,</td></tr>
+<tr id="L65" class="miss"><td>65</td><td>0</td><td>	}</td></tr>
+<tr id="L66" class="miss"><td>66</td><td>0</td><td>	return nt</td></tr>
+<tr id="L67" class="miss"><td>67</td><td>0</td><td>}</td></tr>
+<tr id="L68"><td>68</td><td></td><td></td></tr>
+<tr id="L69"><td>69</td><td></td><td>// init guarantees that t has a valid common structure.</td></tr>
+<tr id="L70" class="hit"><td>70</td><td>4</td><td>func (t *Template) init() {</td></tr>
+<tr id="L71" class="hit"><td>71</td><td>5</td><td>	if t.common == nil {</td></tr>
+<tr id="L72" class="hit"><td>72</td><td>1</td><td>		c := new(common)</td></tr>
+<tr id="L73" class="hit"><td>73</td><td>1</td><td>		c.tmpl = make(map[string]*Template)</td></tr>
+<tr id="L74" class="hit"><td>74</td><td>1</td><td>		c.parseFuncs = make(FuncMap)</td></tr>
+<tr id="L75" class="hit"><td>75</td><td>1</td><td>		c.execFuncs = make(map[string]reflect.Value)</td></tr>
+<tr id="L76" class="hit"><td>76</td><td>1</td><td>		t.common = c</td></tr>
+<tr id="L77" class="hit"><td>77</td><td>1</td><td>	}</td></tr>
+<tr id="L78"><td>78</td><td></td><td>}</td></tr>
+<tr id="L79"><td>79</td><td></td><td></td></tr>
+<tr id="L80"><td>80</td><td></td><td>// Clone returns a duplicate of the template, including all associated</td></tr>
+<tr id="L81"><td>81</td><td></td><td>// templates. The actual representation is not copied, but the name space of</td></tr>
+<tr id="L82"><td>82</td><td></td><td>// associated templates is, so further calls to Parse in the copy will add</td></tr>
+<tr id="L83"><td>83</td><td></td><td>// templates to the copy but not to the original. Clone can be used to prepare</td></tr>
+<tr id="L84"><td>84</td><td></td><td>// common templates and use them with variant definitions for other templates</td></tr>
+<tr id="L85"><td>85</td><td></td><td>// by adding the variants after the clone is made.</td></tr>
+<tr id="L86" class="miss"><td>86</td><td>0</td><td>func (t *Template) Clone() (*Template, error) {</td></tr>
+<tr id="L87" class="miss"><td>87</td><td>0</td><td>	nt := t.copy(nil)</td></tr>
+<tr id="L88" class="miss"><td>88</td><td>0</td><td>	nt.init()</td></tr>
+<tr id="L89" class="miss"><td>89</td><td>0</td><td>	if t.common == nil {</td></tr>
+<tr id="L90" class="miss"><td>90</td><td>0</td><td>		return nt, nil</td></tr>
+<tr id="L91" class="miss"><td>91</td><td>0</td><td>	}</td></tr>
+<tr id="L92" class="miss"><td>92</td><td>0</td><td>	t.muTmpl.RLock()</td></tr>
+<tr id="L93" class="miss"><td>93</td><td>0</td><td>	defer t.muTmpl.RUnlock()</td></tr>
+<tr id="L94" class="miss"><td>94</td><td>0</td><td>	for k, v := range t.tmpl {</td></tr>
+<tr id="L95" class="miss"><td>95</td><td>0</td><td>		if k == t.name {</td></tr>
+<tr id="L96" class="miss"><td>96</td><td>0</td><td>			nt.tmpl[t.name] = nt</td></tr>
+<tr id="L97" class="miss"><td>97</td><td>0</td><td>			continue</td></tr>
+<tr id="L98"><td>98</td><td></td><td>		}</td></tr>
+<tr id="L99"><td>99</td><td></td><td>		// The associated templates share nt&#39;s common structure.</td></tr>
+<tr id="L100" class="miss"><td>100</td><td>0</td><td>		tmpl := v.copy(nt.common)</td></tr>
+<tr id="L101" class="miss"><td>101</td><td>0</td><td>		nt.tmpl[k] = tmpl</td></tr>
+<tr id="L102"><td>102</td><td></td><td>	}</td></tr>
+<tr id="L103" class="miss"><td>103</td><td>0</td><td>	t.muFuncs.RLock()</td></tr>
+<tr id="L104" class="miss"><td>104</td><td>0</td><td>	defer t.muFuncs.RUnlock()</td></tr>
+<tr id="L105" class="miss"><td>105</td><td>0</td><td>	for k, v := range t.parseFuncs {</td></tr>
+<tr id="L106" class="miss"><td>106</td><td>0</td><td>		nt.parseFuncs[k] = v</td></tr>
+<tr id="L107" class="miss"><td>107</td><td>0</td><td>	}</td></tr>
+<tr id="L108" class="miss"><td>108</td><td>0</td><td>	for k, v := range t.execFuncs {</td></tr>
+<tr id="L109" class="miss"><td>109</td><td>0</td><td>		nt.execFuncs[k] = v</td></tr>
+<tr id="L110" class="miss"><td>110</td><td>0</td><td>	}</td></tr>
+<tr id="L111" class="miss"><td>111</td><td>0</td><td>	return nt, nil</td></tr>
+<tr id="L112"><td>112</td><td></td><td>}</td></tr>
+<tr id="L113"><td>113</td><td></td><td></td></tr>
+<tr id="L114"><td>114</td><td></td><td>// copy returns a shallow copy of t, with common set to the argument.</td></tr>
+<tr id="L115" class="miss"><td>115</td><td>0</td><td>func (t *Template) copy(c *common) *Template {</td></tr>
+<tr id="L116" class="miss"><td>116</td><td>0</td><td>	return &amp;Template{</td></tr>
+<tr id="L117" class="miss"><td>117</td><td>0</td><td>		name:       t.name,</td></tr>
+<tr id="L118" class="miss"><td>118</td><td>0</td><td>		Tree:       t.Tree,</td></tr>
+<tr id="L119" class="miss"><td>119</td><td>0</td><td>		common:     c,</td></tr>
+<tr id="L120" class="miss"><td>120</td><td>0</td><td>		leftDelim:  t.leftDelim,</td></tr>
+<tr id="L121" class="miss"><td>121</td><td>0</td><td>		rightDelim: t.rightDelim,</td></tr>
+<tr id="L122" class="miss"><td>122</td><td>0</td><td>	}</td></tr>
+<tr id="L123" class="miss"><td>123</td><td>0</td><td>}</td></tr>
+<tr id="L124"><td>124</td><td></td><td></td></tr>
+<tr id="L125"><td>125</td><td></td><td>// AddParseTree associates the argument parse tree with the template t, giving</td></tr>
+<tr id="L126"><td>126</td><td></td><td>// it the specified name. If the template has not been defined, this tree becomes</td></tr>
+<tr id="L127"><td>127</td><td></td><td>// its definition. If it has been defined and already has that name, the existing</td></tr>
+<tr id="L128"><td>128</td><td></td><td>// definition is replaced; otherwise a new template is created, defined, and returned.</td></tr>
+<tr id="L129" class="hit"><td>129</td><td>1</td><td>func (t *Template) AddParseTree(name string, tree *parse.Tree) (*Template, error) {</td></tr>
+<tr id="L130" class="hit"><td>130</td><td>1</td><td>	t.init()</td></tr>
+<tr id="L131" class="hit"><td>131</td><td>1</td><td>	t.muTmpl.Lock()</td></tr>
+<tr id="L132" class="hit"><td>132</td><td>1</td><td>	defer t.muTmpl.Unlock()</td></tr>
+<tr id="L133" class="hit"><td>133</td><td>1</td><td>	nt := t</td></tr>
+<tr id="L134" class="hit"><td>134</td><td>1</td><td>	if name != t.name {</td></tr>
+<tr id="L135" class="miss"><td>135</td><td>0</td><td>		nt = t.New(name)</td></tr>
+<tr id="L136" class="miss"><td>136</td><td>0</td><td>	}</td></tr>
+<tr id="L137"><td>137</td><td></td><td>	// Even if nt == t, we need to install it in the common.tmpl map.</td></tr>
+<tr id="L138" class="hit"><td>138</td><td>2</td><td>	if t.associate(nt, tree) || nt.Tree == nil {</td></tr>
+<tr id="L139" class="hit"><td>139</td><td>1</td><td>		nt.Tree = tree</td></tr>
+<tr id="L140" class="hit"><td>140</td><td>1</td><td>	}</td></tr>
+<tr id="L141" class="hit"><td>141</td><td>1</td><td>	return nt, nil</td></tr>
+<tr id="L142"><td>142</td><td></td><td>}</td></tr>
+<tr id="L143"><td>143</td><td></td><td></td></tr>
+<tr id="L144"><td>144</td><td></td><td>// Templates returns a slice of defined templates associated with t.</td></tr>
+<tr id="L145" class="hit"><td>145</td><td>1</td><td>func (t *Template) Templates() []*Template {</td></tr>
+<tr id="L146" class="hit"><td>146</td><td>1</td><td>	if t.common == nil {</td></tr>
+<tr id="L147" class="miss"><td>147</td><td>0</td><td>		return nil</td></tr>
+<tr id="L148" class="miss"><td>148</td><td>0</td><td>	}</td></tr>
+<tr id="L149"><td>149</td><td></td><td>	// Return a slice so we don&#39;t expose the map.</td></tr>
+<tr id="L150" class="hit"><td>150</td><td>1</td><td>	t.muTmpl.RLock()</td></tr>
+<tr id="L151" class="hit"><td>151</td><td>1</td><td>	defer t.muTmpl.RUnlock()</td></tr>
+<tr id="L152" class="hit"><td>152</td><td>1</td><td>	m := make([]*Template, 0, len(t.tmpl))</td></tr>
+<tr id="L153" class="hit"><td>153</td><td>2</td><td>	for _, v := range t.tmpl {</td></tr>
+<tr id="L154" class="hit"><td>154</td><td>1</td><td>		m = append(m, v)</td></tr>
+<tr id="L155" class="hit"><td>155</td><td>1</td><td>	}</td></tr>
+<tr id="L156" class="hit"><td>156</td><td>1</td><td>	return m</td></tr>
+<tr id="L157"><td>157</td><td></td><td>}</td></tr>
+<tr id="L158"><td>158</td><td></td><td></td></tr>
+<tr id="L159"><td>159</td><td></td><td>// Delims sets the action delimiters to the specified strings, to be used in</td></tr>
+<tr id="L160"><td>160</td><td></td><td>// subsequent calls to Parse, ParseFiles, or ParseGlob. Nested template</td></tr>
+<tr id="L161"><td>161</td><td></td><td>// definitions will inherit the settings. An empty delimiter stands for the</td></tr>
+<tr id="L162"><td>162</td><td></td><td>// corresponding default: {{ or }}.</td></tr>
+<tr id="L163"><td>163</td><td></td><td>// The return value is the template, so calls can be chained.</td></tr>
+<tr id="L164" class="miss"><td>164</td><td>0</td><td>func (t *Template) Delims(left, right string) *Template {</td></tr>
+<tr id="L165" class="miss"><td>165</td><td>0</td><td>	t.init()</td></tr>
+<tr id="L166" class="miss"><td>166</td><td>0</td><td>	t.leftDelim = left</td></tr>
+<tr id="L167" class="miss"><td>167</td><td>0</td><td>	t.rightDelim = right</td></tr>
+<tr id="L168" class="miss"><td>168</td><td>0</td><td>	return t</td></tr>
+<tr id="L169" class="miss"><td>169</td><td>0</td><td>}</td></tr>
+<tr id="L170"><td>170</td><td></td><td></td></tr>
+<tr id="L171"><td>171</td><td></td><td>// Funcs adds the elements of the argument map to the template&#39;s function map.</td></tr>
+<tr id="L172"><td>172</td><td></td><td>// It must be called before the template is parsed.</td></tr>
+<tr id="L173"><td>173</td><td></td><td>// It panics if a value in the map is not a function with appropriate return</td></tr>
+<tr id="L174"><td>174</td><td></td><td>// type or if the name cannot be used syntactically as a function in a template.</td></tr>
+<tr id="L175"><td>175</td><td></td><td>// It is legal to overwrite elements of the map. The return value is the template,</td></tr>
+<tr id="L176"><td>176</td><td></td><td>// so calls can be chained.</td></tr>
+<tr id="L177" class="hit"><td>177</td><td>1</td><td>func (t *Template) Funcs(funcMap FuncMap) *Template {</td></tr>
+<tr id="L178" class="hit"><td>178</td><td>1</td><td>	t.init()</td></tr>
+<tr id="L179" class="hit"><td>179</td><td>1</td><td>	t.muFuncs.Lock()</td></tr>
+<tr id="L180" class="hit"><td>180</td><td>1</td><td>	defer t.muFuncs.Unlock()</td></tr>
+<tr id="L181" class="hit"><td>181</td><td>1</td><td>	addValueFuncs(t.execFuncs, funcMap)</td></tr>
+<tr id="L182" class="hit"><td>182</td><td>1</td><td>	addFuncs(t.parseFuncs, funcMap)</td></tr>
+<tr id="L183" class="hit"><td>183</td><td>1</td><td>	return t</td></tr>
+<tr id="L184" class="hit"><td>184</td><td>1</td><td>}</td></tr>
+<tr id="L185"><td>185</td><td></td><td></td></tr>
+<tr id="L186"><td>186</td><td></td><td>// Lookup returns the template with the given name that is associated with t.</td></tr>
+<tr id="L187"><td>187</td><td></td><td>// It returns nil if there is no such template or the template has no definition.</td></tr>
+<tr id="L188" class="hit"><td>188</td><td>2</td><td>func (t *Template) Lookup(name string) *Template {</td></tr>
+<tr id="L189" class="hit"><td>189</td><td>2</td><td>	if t.common == nil {</td></tr>
+<tr id="L190" class="miss"><td>190</td><td>0</td><td>		return nil</td></tr>
+<tr id="L191" class="miss"><td>191</td><td>0</td><td>	}</td></tr>
+<tr id="L192" class="hit"><td>192</td><td>2</td><td>	t.muTmpl.RLock()</td></tr>
+<tr id="L193" class="hit"><td>193</td><td>2</td><td>	defer t.muTmpl.RUnlock()</td></tr>
+<tr id="L194" class="hit"><td>194</td><td>2</td><td>	return t.tmpl[name]</td></tr>
+<tr id="L195"><td>195</td><td></td><td>}</td></tr>
+<tr id="L196"><td>196</td><td></td><td></td></tr>
+<tr id="L197"><td>197</td><td></td><td>// Parse parses text as a template body for t.</td></tr>
+<tr id="L198"><td>198</td><td></td><td>// Named template definitions ({{define ...}} or {{block ...}} statements) in text</td></tr>
+<tr id="L199"><td>199</td><td></td><td>// define additional templates associated with t and are removed from the</td></tr>
+<tr id="L200"><td>200</td><td></td><td>// definition of t itself.</td></tr>
+<tr id="L201"><td>201</td><td></td><td>//</td></tr>
+<tr id="L202"><td>202</td><td></td><td>// Templates can be redefined in successive calls to Parse.</td></tr>
+<tr id="L203"><td>203</td><td></td><td>// A template definition with a body containing only white space and comments</td></tr>
+<tr id="L204"><td>204</td><td></td><td>// is considered empty and will not replace an existing template&#39;s body.</td></tr>
+<tr id="L205"><td>205</td><td></td><td>// This allows using Parse to add new named template definitions without</td></tr>
+<tr id="L206"><td>206</td><td></td><td>// overwriting the main template body.</td></tr>
+<tr id="L207" class="hit"><td>207</td><td>1</td><td>func (t *Template) Parse(text string) (*Template, error) {</td></tr>
+<tr id="L208" class="hit"><td>208</td><td>1</td><td>	t.init()</td></tr>
+<tr id="L209" class="hit"><td>209</td><td>1</td><td>	t.muFuncs.RLock()</td></tr>
+<tr id="L210" class="hit"><td>210</td><td>1</td><td>	trees, err := parse.Parse(t.name, text, t.leftDelim, t.rightDelim, t.parseFuncs, builtins())</td></tr>
+<tr id="L211" class="hit"><td>211</td><td>1</td><td>	t.muFuncs.RUnlock()</td></tr>
+<tr id="L212" class="hit"><td>212</td><td>1</td><td>	if err != nil {</td></tr>
+<tr id="L213" class="miss"><td>213</td><td>0</td><td>		return nil, err</td></tr>
+<tr id="L214" class="miss"><td>214</td><td>0</td><td>	}</td></tr>
+<tr id="L215"><td>215</td><td></td><td>	// Add the newly parsed trees, including the one for t, into our common structure.</td></tr>
+<tr id="L216" class="hit"><td>216</td><td>2</td><td>	for name, tree := range trees {</td></tr>
+<tr id="L217" class="hit"><td>217</td><td>1</td><td>		if _, err := t.AddParseTree(name, tree); err != nil {</td></tr>
+<tr id="L218" class="miss"><td>218</td><td>0</td><td>			return nil, err</td></tr>
+<tr id="L219" class="miss"><td>219</td><td>0</td><td>		}</td></tr>
+<tr id="L220"><td>220</td><td></td><td>	}</td></tr>
+<tr id="L221" class="hit"><td>221</td><td>1</td><td>	return t, nil</td></tr>
+<tr id="L222"><td>222</td><td></td><td>}</td></tr>
+<tr id="L223"><td>223</td><td></td><td></td></tr>
+<tr id="L224"><td>224</td><td></td><td>// associate installs the new template into the group of templates associated</td></tr>
+<tr id="L225"><td>225</td><td></td><td>// with t. The two are already known to share the common structure.</td></tr>
+<tr id="L226"><td>226</td><td></td><td>// The boolean return value reports whether to store this tree as t.Tree.</td></tr>
+<tr id="L227" class="hit"><td>227</td><td>1</td><td>func (t *Template) associate(new *Template, tree *parse.Tree) bool {</td></tr>
+<tr id="L228" class="hit"><td>228</td><td>1</td><td>	if new.common != t.common {</td></tr>
+<tr id="L229" class="miss"><td>229</td><td>0</td><td>		panic(&#34;internal error: associate not common&#34;)</td></tr>
+<tr id="L230"><td>230</td><td></td><td>	}</td></tr>
+<tr id="L231" class="hit"><td>231</td><td>1</td><td>	if old := t.tmpl[new.name]; old != nil &amp;&amp; parse.IsEmptyTree(tree.Root) &amp;&amp; old.Tree != nil {</td></tr>
+<tr id="L232" class="miss"><td>232</td><td>0</td><td>		// If a template by that name exists,</td></tr>
+<tr id="L233" class="miss"><td>233</td><td>0</td><td>		// don&#39;t replace it with an empty template.</td></tr>
+<tr id="L234" class="miss"><td>234</td><td>0</td><td>		return false</td></tr>
+<tr id="L235" class="miss"><td>235</td><td>0</td><td>	}</td></tr>
+<tr id="L236" class="hit"><td>236</td><td>1</td><td>	t.tmpl[new.name] = new</td></tr>
+<tr id="L237" class="hit"><td>237</td><td>1</td><td>	return true</td></tr>
+<tr id="L238"><td>238</td><td></td><td>}</td></tr>
+</tbody></table>
+</div></div>
+<footer>Generated by <a href="https://gitlab.com/stone.code/scov">SCov</a>.</footer>
+</body></html>

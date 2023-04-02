@@ -1,0 +1,3 @@
+[submodule "tribble"]
+	path = tribble
+	url = https://github.com/havrikov/tribble

@@ -1,0 +1,93 @@
+{{if .authList}}
+<h2>Index of {{.path}} - {{.prefix}}</h2>
+<table>
+	{{range .files}}
+	{{$ft := ftypes .Name}}
+	<tr>
+		
+		<td>
+			{{if $.authRead}}
+				{{if $ft.DirectlyViewable}}
+					<a href="{{.Name}}?html">{{.Name}}{{if .IsDir}}/{{end}}</a> (<a href="{{.Name}}">Direct</a>)</td>
+				{{else}}
+					<a href="{{.Name}}{{if .IsDir}}/{{end}}">{{.Name}}{{if .IsDir}}/{{end}}</a></td>
+				{{end}}
+			{{else}}
+				{{.Name}}{{if .IsDir}}/{{end}}
+			{{end}}
+		{{if $.authDelete}}
+			<td><a href="/FileDelete?file={{$.path}}{{.Name}}&prefix={{$.prefix}}">Delete</a></td>
+		{{end}}
+		{{if .IsDir}}	
+			{{if $.authZip}}
+				<td><a href="/FileZip?path={{$.path}}\{{.Name}}&prefix={{$.prefix}}">Zip</a></td>
+			{{end}}
+		{{end}}
+		
+		
+		{{if $ft.WebAudio}}
+			<td> 
+				<audio src="{{.Name}}" controls preload="none">
+				</audio>
+			</td>
+		{{end}}
+		
+	</tr>
+	{{end}}
+</table>
+{{else}}
+<h2>{{.prefix}}</h2>
+{{end}}
+
+{{if .authUpload}}
+
+<br />
+
+<h2>Upload</h2>
+
+<form enctype="multipart/form-data" method="POST" action="/FileUpload">
+	<input type="hidden" name="prefix" value="{{.prefix}}" />
+	<input type="hidden" name="path" value="{{.path}}" />
+
+	<table>
+		<tr>
+			<td>File: </td>
+			<td><input type="file" name="file" /></td>
+		</tr>
+		<tr>
+			<td>Filename {{if .authZip}}/ subfolder for ZIP{{end}}: </td>
+			<td><input type="text" name="filename" /></td>
+		</tr>
+		{{if .authZip}}
+		<tr>
+			<td>Unpack ZIP</td>
+			<td><input type="checkbox" name="unzip" /></td>
+		</tr>
+		{{end}}
+		<tr>
+			<td>&nbsp;</td>
+			<td><input type="submit" name="submit" value="Submit" /></td>
+		</tr>
+	</table>
+</form>
+{{end}}
+
+
+{{if .authCreateFolder}}
+<h2>Create folder</h2>
+
+<form method="POST" action="/FileCreateFolder">
+	<input type="hidden" name="prefix" value="{{.prefix}}" />
+	<input type="hidden" name="path" value="{{.path}}" />
+	<table>
+		<tr>
+			<td>Folder name: </td>
+			<td><input type="text" name="foldername" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><input type="submit" name="submit" value="Submit" /></td>
+		</tr>
+	</table>
+</form>
+{{end}}

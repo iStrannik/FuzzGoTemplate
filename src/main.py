@@ -3,6 +3,7 @@ import os
 from os import listdir
 from os.path import isfile, join
 from shutil import rmtree
+import subprocess
 
 import grammar
 from add_probabilities import create_grammar_with_probabilities
@@ -33,7 +34,7 @@ basetemplates = [read_template(join(pathToTemplates, f)) for f in listdir(
 basetemplates = [preprocess_template(tpl) for tpl in basetemplates]
 updatedcoverage = {}
 
-for epoch in range(1, 3):
+for epoch in range(1, 10000000001):
     if os.path.exists(join(args.workingDir, f'{epoch}/')):
         rmtree(join(args.workingDir, f'{epoch}/'))
     os.mkdir(join(args.workingDir, f'{epoch}/'))
@@ -53,15 +54,25 @@ for epoch in range(1, 3):
     os.rename('counter.json', join(args.workingDir, f'{epoch}/counter.json'))
     os.system(
         f'java -jar {args.tribble} generate --mode=10-probabilistic-10 --out-dir={pathToTemplates} --suffix=.tpl --grammar-file={probabilistic_grammar}')
-    _ = input('Waiting...')
+    #_ = input('Waiting...')
     templates = [f for f in listdir(
         pathToTemplates) if isfile(join(pathToTemplates, f))]
     for tpl in templates:
-        canRun, findNewCow, updatedcoverage = get_coverage(
+        findNewCow, updatedcoverage = get_coverage(
             join(pathToTemplates, tpl), '/home/strannik/go/src/go/src/html/template', oldcoverage=updatedcoverage)
         if findNewCow:
             os.rename(join(pathToTemplates, tpl), join(goodTemplates, tpl))
-    _ = input('Waiting...')
+    #_ = input('Waiting...')
+    with open('total_coverage.out', 'w') as cov:
+        cov.write('mode: count\n')
+        for i in updatedcoverage.items():
+            cov.write(f'{i[0].replace("std/","")} {i[1][0]} {i[1][1]}')
+    a = subprocess.Popen(
+                ["scov", "--srcdir", "/home/strannik/go/src/go/src/", "total_coverage.out"])
+    _ = a.wait()
     basetemplates = [read_template(join(goodTemplates, f)) for f in listdir(
         goodTemplates) if isfile(join(goodTemplates, f))]
+    if len(basetemplates) == 0:
+        basetemplates = [read_template(join(pathToTemplates, f)) for f in listdir(
+            pathToTemplates) if isfile(join(pathToTemplates, f))]
     basetemplates = [preprocess_template(tpl) for tpl in basetemplates]
