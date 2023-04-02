@@ -34,7 +34,7 @@ basetemplates = [read_template(join(pathToTemplates, f)) for f in listdir(
 basetemplates = [preprocess_template(tpl) for tpl in basetemplates]
 updatedcoverage = {}
 
-for epoch in range(1, 10000000001):
+for epoch in range(1, 2):
     if os.path.exists(join(args.workingDir, f'{epoch}/')):
         rmtree(join(args.workingDir, f'{epoch}/'))
     os.mkdir(join(args.workingDir, f'{epoch}/'))

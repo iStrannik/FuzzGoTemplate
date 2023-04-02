@@ -13,7 +13,7 @@
 <body>
 <header>
   <nav><ul>
-    {{/* We know if a user is logged in or not. */}}
+    {{/*Comment*/}}
     {{ if .user }}
     <li>Logged in as {{ .user.GetEmail }}</li>
     <li><form action="{{ .config.RouteLogOut }}" method="post"><button>Log out</button></form></li>

@@ -23,7 +23,7 @@ if not os.path.exists('counter.json'):
     self.counter['pipeline'] = self.counter['pipeline'] if 'pipeline' in self.counter else {};
     self.counter['argument'] = self.counter['argument'] if 'argument' in self.counter else {};
     self.counter['methodcall'] = self.counter['methodcall'] if 'methodcall' in self.counter else {};
-    self.counter['name'] = self.counter['name'] if 'name' in self.counter else {};
+    self.counter['globalFunctions'] = self.counter['globalFunctions'] if 'globalFunctions' in self.counter else {};
 }
 
 start @after{
@@ -45,8 +45,9 @@ commentaction {self.counter[inspect.stack()[0][3]]['commentaction'] = self.count
 | rangeaction {self.counter[inspect.stack()[0][3]]['rangeaction'] = self.counter[inspect.stack()[0][3]]['rangeaction'] + 1 if 'rangeaction' in self.counter[inspect.stack()[0][3]] else 1}
 | templateaction {self.counter[inspect.stack()[0][3]]['templateaction'] = self.counter[inspect.stack()[0][3]]['templateaction'] + 1 if 'templateaction' in self.counter[inspect.stack()[0][3]] else 1}
 | blockAction {self.counter[inspect.stack()[0][3]]['blockAction'] = self.counter[inspect.stack()[0][3]]['blockAction'] + 1 if 'blockAction' in self.counter[inspect.stack()[0][3]] else 1}
-| withAction {self.counter[inspect.stack()[0][3]]['withAction'] = self.counter[inspect.stack()[0][3]]['withAction'] + 1 if 'withAction' in self.counter[inspect.stack()[0][3]] else 1};
-commentaction : ld CommentBegin Text CommentEnd rd ;
+| withAction {self.counter[inspect.stack()[0][3]]['withAction'] = self.counter[inspect.stack()[0][3]]['withAction'] + 1 if 'withAction' in self.counter[inspect.stack()[0][3]] else 1}
+| defineAction {self.counter[inspect.stack()[0][3]]['defineAction'] = self.counter[inspect.stack()[0][3]]['defineAction'] + 1 if 'defineAction' in self.counter[inspect.stack()[0][3]] else 1};
+commentaction : ld CommentBegin AnyText CommentEnd rd ;
 pipelineaction : ld ( 
     pipeline {self.counter[inspect.stack()[0][3]]['pipeline'] = self.counter[inspect.stack()[0][3]]['pipeline'] + 1 if 'pipeline' in self.counter[inspect.stack()[0][3]] else 1}
     | vardeclarepipeline {self.counter[inspect.stack()[0][3]]['vardeclarepipeline'] = self.counter[inspect.stack()[0][3]]['vardeclarepipeline'] + 1 if 'vardeclarepipeline' in self.counter[inspect.stack()[0][3]] else 1}
@@ -57,26 +58,28 @@ rangeaction : ld Range (
     pipeline {self.counter[inspect.stack()[0][3]]['pipeline'] = self.counter[inspect.stack()[0][3]]['pipeline'] + 1 if 'pipeline' in self.counter[inspect.stack()[0][3]] else 1}
     | vardeclarepipeline {self.counter[inspect.stack()[0][3]]['vardeclarepipeline'] = self.counter[inspect.stack()[0][3]]['vardeclarepipeline'] + 1 if 'vardeclarepipeline' in self.counter[inspect.stack()[0][3]] else 1}
     ) rd template ( ld Else rd template)? end ;
-templateaction : ld Template name (pipeline)? rd ;
-blockAction : ld Block name (pipeline)? rd ;
+templateaction : ld Template StringConstant (pipeline)? rd ;
+defineAction : ld Define StringConstant rd ;
+blockAction : ld Block Name (pipeline)? rd ;
 withAction : ld With pipeline rd template ( ld Else rd template)? end ;
 pipeline : 
 argument ( Pipe argument )* {self.counter[inspect.stack()[0][3]]['argument'] = self.counter[inspect.stack()[0][3]]['argument'] + 1 if 'argument' in self.counter[inspect.stack()[0][3]] else 1}
 | methodcall {self.counter[inspect.stack()[0][3]]['methodcall'] = self.counter[inspect.stack()[0][3]]['methodcall'] + 1 if 'methodcall' in self.counter[inspect.stack()[0][3]] else 1}
-| funccall ( argument )* methodcall {self.counter[inspect.stack()[0][3]]['funccall'] = self.counter[inspect.stack()[0][3]]['funccall'] + 1 if 'funccall' in self.counter[inspect.stack()[0][3]] else 1};
+| funccall {self.counter[inspect.stack()[0][3]]['funccall'] = self.counter[inspect.stack()[0][3]]['funccall'] + 1 if 'funccall' in self.counter[inspect.stack()[0][3]] else 1};
 vardeclarepipeline :  variable (Comma variable)? Assignment pipeline ;
 varassignpipeline :  variable Equal pipeline ;
 argument : 
-Constant {self.counter[inspect.stack()[0][3]]['Constant'] = self.counter[inspect.stack()[0][3]]['Constant'] + 1 if 'Constant' in self.counter[inspect.stack()[0][3]] else 1}
-| Nil {self.counter[inspect.stack()[0][3]]['Nil'] = self.counter[inspect.stack()[0][3]]['Nil'] + 1 if 'Nil' in self.counter[inspect.stack()[0][3]] else 1}
+Nil {self.counter[inspect.stack()[0][3]]['Nil'] = self.counter[inspect.stack()[0][3]]['Nil'] + 1 if 'Nil' in self.counter[inspect.stack()[0][3]] else 1}
+| StringConstant {self.counter[inspect.stack()[0][3]]['StringConstant'] = self.counter[inspect.stack()[0][3]]['StringConstant'] + 1 if 'StringConstant' in self.counter[inspect.stack()[0][3]] else 1}
+| NumberConstant {self.counter[inspect.stack()[0][3]]['NumberConstant'] = self.counter[inspect.stack()[0][3]]['NumberConstant'] + 1 if 'NumberConstant' in self.counter[inspect.stack()[0][3]] else 1}
 | variable {self.counter[inspect.stack()[0][3]]['variable'] = self.counter[inspect.stack()[0][3]]['variable'] + 1 if 'variable' in self.counter[inspect.stack()[0][3]] else 1}
 | fields {self.counter[inspect.stack()[0][3]]['fields'] = self.counter[inspect.stack()[0][3]]['fields'] + 1 if 'fields' in self.counter[inspect.stack()[0][3]] else 1}
 | funccall {self.counter[inspect.stack()[0][3]]['funccall'] = self.counter[inspect.stack()[0][3]]['funccall'] + 1 if 'funccall' in self.counter[inspect.stack()[0][3]] else 1}
-| (LeftParenthesis argument RightParenthesis fields? ) 
+| LeftParenthesis argument RightParenthesis
 {self.counter[inspect.stack()[0][3]]['LeftParenthesis'] = self.counter[inspect.stack()[0][3]]['LeftParenthesis'] + 1 if 'LeftParenthesis' in self.counter[inspect.stack()[0][3]] else 1};
-variable : Dollar (name)? ;
-fields : (variable)? Dot (name)? ( Dot (name)?)? ;
-funccall : name ;
+variable : Dollar (Name)? ;
+fields : (variable)? Dot (Name)? ( Dot (Name)?)? ;
+funccall : globalFunctions ;
 methodcall : ( 
     variable {self.counter[inspect.stack()[0][3]]['variable'] = self.counter[inspect.stack()[0][3]]['variable'] + 1 if 'variable' in self.counter[inspect.stack()[0][3]] else 1}
     | fields {self.counter[inspect.stack()[0][3]]['fields'] = self.counter[inspect.stack()[0][3]]['fields'] + 1 if 'fields' in self.counter[inspect.stack()[0][3]] else 1}
@@ -84,7 +87,18 @@ methodcall : (
 end : ld End rd ;
 ld : BlockStart (Dash)? ;
 rd : (Dash)? BlockEnd ;
-name : Letter ( 
-    Letter {self.counter[inspect.stack()[0][3]]['Letter'] = self.counter[inspect.stack()[0][3]]['Letter'] + 1 if 'Letter' in self.counter[inspect.stack()[0][3]] else 1}
-    | Digit {self.counter[inspect.stack()[0][3]]['Digit'] = self.counter[inspect.stack()[0][3]]['Digit'] + 1 if 'Digit' in self.counter[inspect.stack()[0][3]] else 1}
-    )* ;
+globalFunctions : (And argument argument) {self.counter[inspect.stack()[0][3]]['And'] = self.counter[inspect.stack()[0][3]]['And'] + 1 if 'And' in self.counter[inspect.stack()[0][3]] else 1}
+| Index argument (argument)* {self.counter[inspect.stack()[0][3]]['Index'] = self.counter[inspect.stack()[0][3]]['Index'] + 1 if 'Index' in self.counter[inspect.stack()[0][3]] else 1}
+| Slice argument (argument)* {self.counter[inspect.stack()[0][3]]['Slice'] = self.counter[inspect.stack()[0][3]]['Slice'] + 1 if 'Slice' in self.counter[inspect.stack()[0][3]] else 1}
+| Len argument {self.counter[inspect.stack()[0][3]]['Len'] = self.counter[inspect.stack()[0][3]]['Len'] + 1 if 'Len' in self.counter[inspect.stack()[0][3]] else 1}
+| Not argument {self.counter[inspect.stack()[0][3]]['Len'] = self.counter[inspect.stack()[0][3]]['Len'] + 1 if 'Len' in self.counter[inspect.stack()[0][3]] else 1}
+| Or argument argument {self.counter[inspect.stack()[0][3]]['Or'] = self.counter[inspect.stack()[0][3]]['Or'] + 1 if 'Or' in self.counter[inspect.stack()[0][3]] else 1}
+| Printf argument (argument)* {self.counter[inspect.stack()[0][3]]['Printf'] = self.counter[inspect.stack()[0][3]]['Printf'] + 1 if 'Printf' in self.counter[inspect.stack()[0][3]] else 1}
+| Eq argument argument {self.counter[inspect.stack()[0][3]]['Eq'] = self.counter[inspect.stack()[0][3]]['Eq'] + 1 if 'Eq' in self.counter[inspect.stack()[0][3]] else 1}
+| Ne argument argument {self.counter[inspect.stack()[0][3]]['Ne'] = self.counter[inspect.stack()[0][3]]['Ne'] + 1 if 'Ne' in self.counter[inspect.stack()[0][3]] else 1}
+| Lt argument argument {self.counter[inspect.stack()[0][3]]['Lt'] = self.counter[inspect.stack()[0][3]]['Lt'] + 1 if 'Lt' in self.counter[inspect.stack()[0][3]] else 1}
+| Le argument argument {self.counter[inspect.stack()[0][3]]['Le'] = self.counter[inspect.stack()[0][3]]['Le'] + 1 if 'Le' in self.counter[inspect.stack()[0][3]] else 1}
+| (Gt argument argument) {self.counter[inspect.stack()[0][3]]['Gt'] = self.counter[inspect.stack()[0][3]]['Gt'] + 1 if 'Gt' in self.counter[inspect.stack()[0][3]] else 1}
+| Ge argument argument {self.counter[inspect.stack()[0][3]]['Ge'] = self.counter[inspect.stack()[0][3]]['Ge'] + 1 if 'Ge' in self.counter[inspect.stack()[0][3]] else 1}
+| local (argument)* {self.counter[inspect.stack()[0][3]]['local'] = self.counter[inspect.stack()[0][3]]['local'] + 1 if 'local' in self.counter[inspect.stack()[0][3]] else 1};
+local : Name;

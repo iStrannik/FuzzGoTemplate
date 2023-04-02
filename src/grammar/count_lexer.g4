@@ -23,7 +23,28 @@ BlockStart : '{{';
 Dash : '-';
 BlockEnd : '}}';
 Constant : 'CONSTANT';
-Letter : /[a-zA-Z]/;
-Digit : /[0-9]/;
+Define : 'define';
+
+And : 'and';
+Eq : 'eq';
+Lt : 'lt';
+Le : 'le';
+Ne : 'ne';
+Gt : 'gt';
+Ge : 'ge';
+Len : 'len';
+Not : 'not';
+Or : 'or';
+Index : 'index';
+Slice : 'slice';
+Printf : 'printf';
+AnyText : 'Comment';
+
+StringConstant: '"' /[ a-zA-Z0-9_\-/\\.]*/ '"';
+
+NumberConstant: /[0-9]{1}[0-9.]*/;
+
+Name: /[a-zA-Z]{1}[a-zA-Z0-9_]*/;
+
 
 WS : [ \r\t\n]+ -> skip;

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="corporate">
 <head>
-    {{ template "app/views/meta.html.got" . }}
-    {{ template "app/views/scripts.html.got" . }}
-    {{ template "app/views/includes.html.got" . }}
+    {{ template "1324" . }}
+    {{ template "1234" . }}
+    {{ template "1324" . }}
 </head>
 <body>
     
     <header>
-    {{ template "app/views/header.html.got" . }}
+    {{ template "341234" . }}
     </header>
   
     {{ if .warning }}
@@ -20,7 +20,7 @@
 
     </section>
     <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded mt-5">
-            {{ template "app/views/footer.html.got" . }}
+            {{ template "1324" . }}
     </footer>
 
 </body>

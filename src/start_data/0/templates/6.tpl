@@ -1,4 +1,4 @@
-{{ template "header.tmpl" "Index" }}
+{{ template "1" "Index" }}
 
 <section>
 {{ range $post := . }}

@@ -50,7 +50,7 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <div class="pure-g pure-gutter-md"><div class="pure-u-1 pure-u-md-1-2">
 <h2>Metadata</h2>
 <table class="pure-table pure-table-horizontal">
-<tr><td>Date:</td><td>Tue Mar 21 16:20:02 UTC 2023</td></tr>
+<tr><td>Date:</td><td>Sun Apr  2 22:02:43 UTC 2023</td></tr>
 <tr><td>Filename:</td><td>text/template/exec.go</td></tr>
 </table>
 </div><div class="pure-u-1 pure-u-md-1-2">
@@ -58,8 +58,8 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <table class="pure-table pure-table-horizontal coverage">
 <thead><tr><th></th><th>Hits</th><th>Total</th><th>Coverage</th></tr></thead>
 <tbody>
-<tr><td>Lines:</td><td>237</td><td>734</td><td>32.3%</td></tr>
-<tr><td>Regions:</td><td>111</td><td>350</td><td>31.7%</td></tr>
+<tr><td>Lines:</td><td>186</td><td>734</td><td>25.3%</td></tr>
+<tr><td>Regions:</td><td>87</td><td>350</td><td>24.9%</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -121,14 +121,14 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L51" class="miss"><td>51</td><td>0</td><td>}</td></tr>
 <tr id="L52"><td>52</td><td></td><td></td></tr>
 <tr id="L53"><td>53</td><td></td><td>// mark returns the length of the variable stack.</td></tr>
-<tr id="L54" class="hit"><td>54</td><td>5</td><td>func (s *state) mark() int {</td></tr>
-<tr id="L55" class="hit"><td>55</td><td>5</td><td>	return len(s.vars)</td></tr>
-<tr id="L56" class="hit"><td>56</td><td>5</td><td>}</td></tr>
+<tr id="L54" class="hit"><td>54</td><td>1</td><td>func (s *state) mark() int {</td></tr>
+<tr id="L55" class="hit"><td>55</td><td>1</td><td>	return len(s.vars)</td></tr>
+<tr id="L56" class="hit"><td>56</td><td>1</td><td>}</td></tr>
 <tr id="L57"><td>57</td><td></td><td></td></tr>
 <tr id="L58"><td>58</td><td></td><td>// pop pops the variable stack up to the mark.</td></tr>
-<tr id="L59" class="hit"><td>59</td><td>5</td><td>func (s *state) pop(mark int) {</td></tr>
-<tr id="L60" class="hit"><td>60</td><td>5</td><td>	s.vars = s.vars[0:mark]</td></tr>
-<tr id="L61" class="hit"><td>61</td><td>5</td><td>}</td></tr>
+<tr id="L59" class="hit"><td>59</td><td>1</td><td>func (s *state) pop(mark int) {</td></tr>
+<tr id="L60" class="hit"><td>60</td><td>1</td><td>	s.vars = s.vars[0:mark]</td></tr>
+<tr id="L61" class="hit"><td>61</td><td>1</td><td>}</td></tr>
 <tr id="L62"><td>62</td><td></td><td></td></tr>
 <tr id="L63"><td>63</td><td></td><td>// setVar overwrites the last declared variable with the given name.</td></tr>
 <tr id="L64"><td>64</td><td></td><td>// Used by variable assignments.</td></tr>
@@ -171,15 +171,15 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L101" class="hit"><td>101</td><td>9</td><td>}</td></tr>
 <tr id="L102"><td>102</td><td></td><td></td></tr>
 <tr id="L103"><td>103</td><td></td><td>// at marks the state to be on node n, for error reporting.</td></tr>
-<tr id="L104" class="hit"><td>104</td><td>99</td><td>func (s *state) at(node parse.Node) {</td></tr>
-<tr id="L105" class="hit"><td>105</td><td>99</td><td>	s.node = node</td></tr>
-<tr id="L106" class="hit"><td>106</td><td>99</td><td>}</td></tr>
+<tr id="L104" class="hit"><td>104</td><td>8</td><td>func (s *state) at(node parse.Node) {</td></tr>
+<tr id="L105" class="hit"><td>105</td><td>8</td><td>	s.node = node</td></tr>
+<tr id="L106" class="hit"><td>106</td><td>8</td><td>}</td></tr>
 <tr id="L107"><td>107</td><td></td><td></td></tr>
 <tr id="L108"><td>108</td><td></td><td>// doublePercent returns the string with %&#39;s replaced by %%, if necessary,</td></tr>
 <tr id="L109"><td>109</td><td></td><td>// so it can be used safely inside a Printf format string.</td></tr>
-<tr id="L110" class="hit"><td>110</td><td>2</td><td>func doublePercent(str string) string {</td></tr>
-<tr id="L111" class="hit"><td>111</td><td>2</td><td>	return strings.ReplaceAll(str, &#34;%&#34;, &#34;%%&#34;)</td></tr>
-<tr id="L112" class="hit"><td>112</td><td>2</td><td>}</td></tr>
+<tr id="L110" class="miss"><td>110</td><td>0</td><td>func doublePercent(str string) string {</td></tr>
+<tr id="L111" class="miss"><td>111</td><td>0</td><td>	return strings.ReplaceAll(str, &#34;%&#34;, &#34;%%&#34;)</td></tr>
+<tr id="L112" class="miss"><td>112</td><td>0</td><td>}</td></tr>
 <tr id="L113"><td>113</td><td></td><td></td></tr>
 <tr id="L114"><td>114</td><td></td><td>// TODO: It would be nice if ExecError was more broken down, but</td></tr>
 <tr id="L115"><td>115</td><td></td><td>// the way ErrorContext embeds the template name makes the</td></tr>
@@ -193,27 +193,27 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L123"><td>123</td><td></td><td>	Err  error  // Pre-formatted error.</td></tr>
 <tr id="L124"><td>124</td><td></td><td>}</td></tr>
 <tr id="L125"><td>125</td><td></td><td></td></tr>
-<tr id="L126" class="hit"><td>126</td><td>1</td><td>func (e ExecError) Error() string {</td></tr>
-<tr id="L127" class="hit"><td>127</td><td>1</td><td>	return e.Err.Error()</td></tr>
-<tr id="L128" class="hit"><td>128</td><td>1</td><td>}</td></tr>
+<tr id="L126" class="miss"><td>126</td><td>0</td><td>func (e ExecError) Error() string {</td></tr>
+<tr id="L127" class="miss"><td>127</td><td>0</td><td>	return e.Err.Error()</td></tr>
+<tr id="L128" class="miss"><td>128</td><td>0</td><td>}</td></tr>
 <tr id="L129"><td>129</td><td></td><td></td></tr>
 <tr id="L130" class="miss"><td>130</td><td>0</td><td>func (e ExecError) Unwrap() error {</td></tr>
 <tr id="L131" class="miss"><td>131</td><td>0</td><td>	return e.Err</td></tr>
 <tr id="L132" class="miss"><td>132</td><td>0</td><td>}</td></tr>
 <tr id="L133"><td>133</td><td></td><td></td></tr>
 <tr id="L134"><td>134</td><td></td><td>// errorf records an ExecError and terminates processing.</td></tr>
-<tr id="L135" class="hit"><td>135</td><td>1</td><td>func (s *state) errorf(format string, args ...any) {</td></tr>
-<tr id="L136" class="hit"><td>136</td><td>1</td><td>	name := doublePercent(s.tmpl.Name())</td></tr>
-<tr id="L137" class="hit"><td>137</td><td>1</td><td>	if s.node == nil {</td></tr>
+<tr id="L135" class="miss"><td>135</td><td>0</td><td>func (s *state) errorf(format string, args ...any) {</td></tr>
+<tr id="L136" class="miss"><td>136</td><td>0</td><td>	name := doublePercent(s.tmpl.Name())</td></tr>
+<tr id="L137" class="miss"><td>137</td><td>0</td><td>	if s.node == nil {</td></tr>
 <tr id="L138" class="miss"><td>138</td><td>0</td><td>		format = fmt.Sprintf(&#34;template: %s: %s&#34;, name, format)</td></tr>
-<tr id="L139" class="hit"><td>139</td><td>1</td><td>	} else {</td></tr>
-<tr id="L140" class="hit"><td>140</td><td>1</td><td>		location, context := s.tmpl.ErrorContext(s.node)</td></tr>
-<tr id="L141" class="hit"><td>141</td><td>1</td><td>		format = fmt.Sprintf(&#34;template: %s: executing %q at &lt;%s&gt;: %s&#34;, location, name, doublePercent(context), format)</td></tr>
-<tr id="L142" class="hit"><td>142</td><td>1</td><td>	}</td></tr>
-<tr id="L143" class="hit"><td>143</td><td>1</td><td>	panic(ExecError{</td></tr>
-<tr id="L144" class="hit"><td>144</td><td>1</td><td>		Name: s.tmpl.Name(),</td></tr>
-<tr id="L145" class="hit"><td>145</td><td>1</td><td>		Err:  fmt.Errorf(format, args...),</td></tr>
-<tr id="L146" class="hit"><td>146</td><td>1</td><td>	})</td></tr>
+<tr id="L139" class="miss"><td>139</td><td>0</td><td>	} else {</td></tr>
+<tr id="L140" class="miss"><td>140</td><td>0</td><td>		location, context := s.tmpl.ErrorContext(s.node)</td></tr>
+<tr id="L141" class="miss"><td>141</td><td>0</td><td>		format = fmt.Sprintf(&#34;template: %s: executing %q at &lt;%s&gt;: %s&#34;, location, name, doublePercent(context), format)</td></tr>
+<tr id="L142" class="miss"><td>142</td><td>0</td><td>	}</td></tr>
+<tr id="L143" class="miss"><td>143</td><td>0</td><td>	panic(ExecError{</td></tr>
+<tr id="L144" class="miss"><td>144</td><td>0</td><td>		Name: s.tmpl.Name(),</td></tr>
+<tr id="L145" class="miss"><td>145</td><td>0</td><td>		Err:  fmt.Errorf(format, args...),</td></tr>
+<tr id="L146" class="miss"><td>146</td><td>0</td><td>	})</td></tr>
 <tr id="L147"><td>147</td><td></td><td>}</td></tr>
 <tr id="L148"><td>148</td><td></td><td></td></tr>
 <tr id="L149"><td>149</td><td></td><td>// writeError is the wrapper type used internally when Execute has an</td></tr>
@@ -234,14 +234,14 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L164"><td>164</td><td></td><td>// level of Parse.</td></tr>
 <tr id="L165" class="hit"><td>165</td><td>1</td><td>func errRecover(errp *error) {</td></tr>
 <tr id="L166" class="hit"><td>166</td><td>1</td><td>	e := recover()</td></tr>
-<tr id="L167" class="hit"><td>167</td><td>2</td><td>	if e != nil {</td></tr>
-<tr id="L168" class="hit"><td>168</td><td>1</td><td>		switch err := e.(type) {</td></tr>
+<tr id="L167" class="hit"><td>167</td><td>1</td><td>	if e != nil {</td></tr>
+<tr id="L168" class="miss"><td>168</td><td>0</td><td>		switch err := e.(type) {</td></tr>
 <tr id="L169" class="miss"><td>169</td><td>0</td><td>		case runtime.Error:</td></tr>
 <tr id="L170" class="miss"><td>170</td><td>0</td><td>			panic(e)</td></tr>
 <tr id="L171" class="miss"><td>171</td><td>0</td><td>		case writeError:</td></tr>
 <tr id="L172" class="miss"><td>172</td><td>0</td><td>			*errp = err.Err // Strip the wrapper.</td></tr>
-<tr id="L173" class="hit"><td>173</td><td>1</td><td>		case ExecError:</td></tr>
-<tr id="L174" class="hit"><td>174</td><td>1</td><td>			*errp = err // Keep the wrapper.</td></tr>
+<tr id="L173" class="miss"><td>173</td><td>0</td><td>		case ExecError:</td></tr>
+<tr id="L174" class="miss"><td>174</td><td>0</td><td>			*errp = err // Keep the wrapper.</td></tr>
 <tr id="L175" class="miss"><td>175</td><td>0</td><td>		default:</td></tr>
 <tr id="L176" class="miss"><td>176</td><td>0</td><td>			panic(e)</td></tr>
 <tr id="L177"><td>177</td><td></td><td>		}</td></tr>
@@ -328,33 +328,33 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L258"><td>258</td><td></td><td></td></tr>
 <tr id="L259"><td>259</td><td></td><td>// Walk functions step through the major pieces of the template structure,</td></tr>
 <tr id="L260"><td>260</td><td></td><td>// generating output as they go.</td></tr>
-<tr id="L261" class="hit"><td>261</td><td>9</td><td>func (s *state) walk(dot reflect.Value, node parse.Node) {</td></tr>
-<tr id="L262" class="hit"><td>262</td><td>9</td><td>	s.at(node)</td></tr>
-<tr id="L263" class="hit"><td>263</td><td>9</td><td>	switch node := node.(type) {</td></tr>
-<tr id="L264" class="hit"><td>264</td><td>9</td><td>	case *parse.ActionNode:</td></tr>
-<tr id="L265" class="hit"><td>265</td><td>9</td><td>		// Do not pop variables so they persist until next end.</td></tr>
-<tr id="L266" class="hit"><td>266</td><td>9</td><td>		// Also, if the action declares variables, don&#39;t print the result.</td></tr>
-<tr id="L267" class="hit"><td>267</td><td>9</td><td>		val := s.evalPipeline(dot, node.Pipe)</td></tr>
-<tr id="L268" class="hit"><td>268</td><td>18</td><td>		if len(node.Pipe.Decl) == 0 {</td></tr>
-<tr id="L269" class="hit"><td>269</td><td>9</td><td>			s.printValue(node, val)</td></tr>
-<tr id="L270" class="hit"><td>270</td><td>9</td><td>		}</td></tr>
+<tr id="L261" class="hit"><td>261</td><td>8</td><td>func (s *state) walk(dot reflect.Value, node parse.Node) {</td></tr>
+<tr id="L262" class="hit"><td>262</td><td>8</td><td>	s.at(node)</td></tr>
+<tr id="L263" class="hit"><td>263</td><td>8</td><td>	switch node := node.(type) {</td></tr>
+<tr id="L264" class="hit"><td>264</td><td>5</td><td>	case *parse.ActionNode:</td></tr>
+<tr id="L265" class="hit"><td>265</td><td>5</td><td>		// Do not pop variables so they persist until next end.</td></tr>
+<tr id="L266" class="hit"><td>266</td><td>5</td><td>		// Also, if the action declares variables, don&#39;t print the result.</td></tr>
+<tr id="L267" class="hit"><td>267</td><td>5</td><td>		val := s.evalPipeline(dot, node.Pipe)</td></tr>
+<tr id="L268" class="hit"><td>268</td><td>10</td><td>		if len(node.Pipe.Decl) == 0 {</td></tr>
+<tr id="L269" class="hit"><td>269</td><td>5</td><td>			s.printValue(node, val)</td></tr>
+<tr id="L270" class="hit"><td>270</td><td>5</td><td>		}</td></tr>
 <tr id="L271" class="miss"><td>271</td><td>0</td><td>	case *parse.BreakNode:</td></tr>
 <tr id="L272" class="miss"><td>272</td><td>0</td><td>		panic(walkBreak)</td></tr>
 <tr id="L273" class="miss"><td>273</td><td>0</td><td>	case *parse.CommentNode:</td></tr>
 <tr id="L274" class="miss"><td>274</td><td>0</td><td>	case *parse.ContinueNode:</td></tr>
 <tr id="L275" class="miss"><td>275</td><td>0</td><td>		panic(walkContinue)</td></tr>
-<tr id="L276" class="hit"><td>276</td><td>5</td><td>	case *parse.IfNode:</td></tr>
-<tr id="L277" class="hit"><td>277</td><td>5</td><td>		s.walkIfOrWith(parse.NodeIf, dot, node.Pipe, node.List, node.ElseList)</td></tr>
-<tr id="L278" class="hit"><td>278</td><td>6</td><td>	case *parse.ListNode:</td></tr>
-<tr id="L279" class="hit"><td>279</td><td>15</td><td>		for _, node := range node.Nodes {</td></tr>
-<tr id="L280" class="hit"><td>280</td><td>9</td><td>			s.walk(dot, node)</td></tr>
-<tr id="L281" class="hit"><td>281</td><td>9</td><td>		}</td></tr>
-<tr id="L282" class="hit"><td>282</td><td>2</td><td>	case *parse.RangeNode:</td></tr>
-<tr id="L283" class="hit"><td>283</td><td>2</td><td>		s.walkRange(dot, node)</td></tr>
+<tr id="L276" class="hit"><td>276</td><td>1</td><td>	case *parse.IfNode:</td></tr>
+<tr id="L277" class="hit"><td>277</td><td>1</td><td>		s.walkIfOrWith(parse.NodeIf, dot, node.Pipe, node.List, node.ElseList)</td></tr>
+<tr id="L278" class="hit"><td>278</td><td>2</td><td>	case *parse.ListNode:</td></tr>
+<tr id="L279" class="hit"><td>279</td><td>9</td><td>		for _, node := range node.Nodes {</td></tr>
+<tr id="L280" class="hit"><td>280</td><td>7</td><td>			s.walk(dot, node)</td></tr>
+<tr id="L281" class="hit"><td>281</td><td>7</td><td>		}</td></tr>
+<tr id="L282" class="miss"><td>282</td><td>0</td><td>	case *parse.RangeNode:</td></tr>
+<tr id="L283" class="miss"><td>283</td><td>0</td><td>		s.walkRange(dot, node)</td></tr>
 <tr id="L284" class="miss"><td>284</td><td>0</td><td>	case *parse.TemplateNode:</td></tr>
 <tr id="L285" class="miss"><td>285</td><td>0</td><td>		s.walkTemplate(dot, node)</td></tr>
-<tr id="L286" class="hit"><td>286</td><td>9</td><td>	case *parse.TextNode:</td></tr>
-<tr id="L287" class="hit"><td>287</td><td>9</td><td>		if _, err := s.wr.Write(node.Text); err != nil {</td></tr>
+<tr id="L286" class="hit"><td>286</td><td>2</td><td>	case *parse.TextNode:</td></tr>
+<tr id="L287" class="hit"><td>287</td><td>2</td><td>		if _, err := s.wr.Write(node.Text); err != nil {</td></tr>
 <tr id="L288" class="miss"><td>288</td><td>0</td><td>			s.writeError(err)</td></tr>
 <tr id="L289" class="miss"><td>289</td><td>0</td><td>		}</td></tr>
 <tr id="L290" class="miss"><td>290</td><td>0</td><td>	case *parse.WithNode:</td></tr>
@@ -366,19 +366,19 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L296"><td>296</td><td></td><td></td></tr>
 <tr id="L297"><td>297</td><td></td><td>// walkIfOrWith walks an &#39;if&#39; or &#39;with&#39; node. The two control structures</td></tr>
 <tr id="L298"><td>298</td><td></td><td>// are identical in behavior except that &#39;with&#39; sets dot.</td></tr>
-<tr id="L299" class="hit"><td>299</td><td>5</td><td>func (s *state) walkIfOrWith(typ parse.NodeType, dot reflect.Value, pipe *parse.PipeNode, list, elseList *parse.ListNode) {</td></tr>
-<tr id="L300" class="hit"><td>300</td><td>5</td><td>	defer s.pop(s.mark())</td></tr>
-<tr id="L301" class="hit"><td>301</td><td>5</td><td>	val := s.evalPipeline(dot, pipe)</td></tr>
-<tr id="L302" class="hit"><td>302</td><td>5</td><td>	truth, ok := isTrue(indirectInterface(val))</td></tr>
-<tr id="L303" class="hit"><td>303</td><td>5</td><td>	if !ok {</td></tr>
+<tr id="L299" class="hit"><td>299</td><td>1</td><td>func (s *state) walkIfOrWith(typ parse.NodeType, dot reflect.Value, pipe *parse.PipeNode, list, elseList *parse.ListNode) {</td></tr>
+<tr id="L300" class="hit"><td>300</td><td>1</td><td>	defer s.pop(s.mark())</td></tr>
+<tr id="L301" class="hit"><td>301</td><td>1</td><td>	val := s.evalPipeline(dot, pipe)</td></tr>
+<tr id="L302" class="hit"><td>302</td><td>1</td><td>	truth, ok := isTrue(indirectInterface(val))</td></tr>
+<tr id="L303" class="hit"><td>303</td><td>1</td><td>	if !ok {</td></tr>
 <tr id="L304" class="miss"><td>304</td><td>0</td><td>		s.errorf(&#34;if/with can&#39;t use %v&#34;, val)</td></tr>
 <tr id="L305" class="miss"><td>305</td><td>0</td><td>	}</td></tr>
-<tr id="L306" class="hit"><td>306</td><td>10</td><td>	if truth {</td></tr>
-<tr id="L307" class="hit"><td>307</td><td>5</td><td>		if typ == parse.NodeWith {</td></tr>
+<tr id="L306" class="hit"><td>306</td><td>2</td><td>	if truth {</td></tr>
+<tr id="L307" class="hit"><td>307</td><td>1</td><td>		if typ == parse.NodeWith {</td></tr>
 <tr id="L308" class="miss"><td>308</td><td>0</td><td>			s.walk(val, list)</td></tr>
-<tr id="L309" class="hit"><td>309</td><td>5</td><td>		} else {</td></tr>
-<tr id="L310" class="hit"><td>310</td><td>5</td><td>			s.walk(dot, list)</td></tr>
-<tr id="L311" class="hit"><td>311</td><td>5</td><td>		}</td></tr>
+<tr id="L309" class="hit"><td>309</td><td>1</td><td>		} else {</td></tr>
+<tr id="L310" class="hit"><td>310</td><td>1</td><td>			s.walk(dot, list)</td></tr>
+<tr id="L311" class="hit"><td>311</td><td>1</td><td>		}</td></tr>
 <tr id="L312" class="miss"><td>312</td><td>0</td><td>	} else if elseList != nil {</td></tr>
 <tr id="L313" class="miss"><td>313</td><td>0</td><td>		s.walk(dot, elseList)</td></tr>
 <tr id="L314" class="miss"><td>314</td><td>0</td><td>	}</td></tr>
@@ -391,14 +391,14 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L321" class="miss"><td>321</td><td>0</td><td>	return isTrue(reflect.ValueOf(val))</td></tr>
 <tr id="L322" class="miss"><td>322</td><td>0</td><td>}</td></tr>
 <tr id="L323"><td>323</td><td></td><td></td></tr>
-<tr id="L324" class="hit"><td>324</td><td>5</td><td>func isTrue(val reflect.Value) (truth, ok bool) {</td></tr>
-<tr id="L325" class="hit"><td>325</td><td>5</td><td>	if !val.IsValid() {</td></tr>
+<tr id="L324" class="hit"><td>324</td><td>1</td><td>func isTrue(val reflect.Value) (truth, ok bool) {</td></tr>
+<tr id="L325" class="hit"><td>325</td><td>1</td><td>	if !val.IsValid() {</td></tr>
 <tr id="L326" class="miss"><td>326</td><td>0</td><td>		// Something like var x interface{}, never set. It&#39;s a form of nil.</td></tr>
 <tr id="L327" class="miss"><td>327</td><td>0</td><td>		return false, true</td></tr>
 <tr id="L328" class="miss"><td>328</td><td>0</td><td>	}</td></tr>
-<tr id="L329" class="hit"><td>329</td><td>5</td><td>	switch val.Kind() {</td></tr>
-<tr id="L330" class="hit"><td>330</td><td>5</td><td>	case reflect.Array, reflect.Map, reflect.Slice, reflect.String:</td></tr>
-<tr id="L331" class="hit"><td>331</td><td>5</td><td>		truth = val.Len() &gt; 0</td></tr>
+<tr id="L329" class="hit"><td>329</td><td>1</td><td>	switch val.Kind() {</td></tr>
+<tr id="L330" class="hit"><td>330</td><td>1</td><td>	case reflect.Array, reflect.Map, reflect.Slice, reflect.String:</td></tr>
+<tr id="L331" class="hit"><td>331</td><td>1</td><td>		truth = val.Len() &gt; 0</td></tr>
 <tr id="L332" class="miss"><td>332</td><td>0</td><td>	case reflect.Bool:</td></tr>
 <tr id="L333" class="miss"><td>333</td><td>0</td><td>		truth = val.Bool()</td></tr>
 <tr id="L334" class="miss"><td>334</td><td>0</td><td>	case reflect.Complex64, reflect.Complex128:</td></tr>
@@ -416,23 +416,23 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L346" class="miss"><td>346</td><td>0</td><td>	default:</td></tr>
 <tr id="L347" class="miss"><td>347</td><td>0</td><td>		return</td></tr>
 <tr id="L348"><td>348</td><td></td><td>	}</td></tr>
-<tr id="L349" class="hit"><td>349</td><td>5</td><td>	return truth, true</td></tr>
+<tr id="L349" class="hit"><td>349</td><td>1</td><td>	return truth, true</td></tr>
 <tr id="L350"><td>350</td><td></td><td>}</td></tr>
 <tr id="L351"><td>351</td><td></td><td></td></tr>
-<tr id="L352" class="hit"><td>352</td><td>2</td><td>func (s *state) walkRange(dot reflect.Value, r *parse.RangeNode) {</td></tr>
-<tr id="L353" class="hit"><td>353</td><td>2</td><td>	s.at(r)</td></tr>
-<tr id="L354" class="hit"><td>354</td><td>4</td><td>	defer func() {</td></tr>
-<tr id="L355" class="hit"><td>355</td><td>4</td><td>		if r := recover(); r != nil &amp;&amp; r != walkBreak {</td></tr>
-<tr id="L356" class="hit"><td>356</td><td>2</td><td>			panic(r)</td></tr>
+<tr id="L352" class="miss"><td>352</td><td>0</td><td>func (s *state) walkRange(dot reflect.Value, r *parse.RangeNode) {</td></tr>
+<tr id="L353" class="miss"><td>353</td><td>0</td><td>	s.at(r)</td></tr>
+<tr id="L354" class="miss"><td>354</td><td>0</td><td>	defer func() {</td></tr>
+<tr id="L355" class="miss"><td>355</td><td>0</td><td>		if r := recover(); r != nil &amp;&amp; r != walkBreak {</td></tr>
+<tr id="L356" class="miss"><td>356</td><td>0</td><td>			panic(r)</td></tr>
 <tr id="L357"><td>357</td><td></td><td>		}</td></tr>
 <tr id="L358"><td>358</td><td></td><td>	}()</td></tr>
-<tr id="L359" class="hit"><td>359</td><td>2</td><td>	defer s.pop(s.mark())</td></tr>
-<tr id="L360" class="hit"><td>360</td><td>2</td><td>	val, _ := indirect(s.evalPipeline(dot, r.Pipe))</td></tr>
-<tr id="L361" class="hit"><td>361</td><td>2</td><td>	// mark top of stack before any variables in the body are pushed.</td></tr>
-<tr id="L362" class="hit"><td>362</td><td>2</td><td>	mark := s.mark()</td></tr>
-<tr id="L363" class="hit"><td>363</td><td>3</td><td>	oneIteration := func(index, elem reflect.Value) {</td></tr>
-<tr id="L364" class="hit"><td>364</td><td>1</td><td>		// Set top var (lexically the second if there are two) to the element.</td></tr>
-<tr id="L365" class="hit"><td>365</td><td>1</td><td>		if len(r.Pipe.Decl) &gt; 0 {</td></tr>
+<tr id="L359" class="miss"><td>359</td><td>0</td><td>	defer s.pop(s.mark())</td></tr>
+<tr id="L360" class="miss"><td>360</td><td>0</td><td>	val, _ := indirect(s.evalPipeline(dot, r.Pipe))</td></tr>
+<tr id="L361" class="miss"><td>361</td><td>0</td><td>	// mark top of stack before any variables in the body are pushed.</td></tr>
+<tr id="L362" class="miss"><td>362</td><td>0</td><td>	mark := s.mark()</td></tr>
+<tr id="L363" class="miss"><td>363</td><td>0</td><td>	oneIteration := func(index, elem reflect.Value) {</td></tr>
+<tr id="L364" class="miss"><td>364</td><td>0</td><td>		// Set top var (lexically the second if there are two) to the element.</td></tr>
+<tr id="L365" class="miss"><td>365</td><td>0</td><td>		if len(r.Pipe.Decl) &gt; 0 {</td></tr>
 <tr id="L366" class="miss"><td>366</td><td>0</td><td>			if r.Pipe.IsAssign {</td></tr>
 <tr id="L367" class="miss"><td>367</td><td>0</td><td>				s.setVar(r.Pipe.Decl[0].Ident[0], elem)</td></tr>
 <tr id="L368" class="miss"><td>368</td><td>0</td><td>			} else {</td></tr>
@@ -440,30 +440,30 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L370" class="miss"><td>370</td><td>0</td><td>			}</td></tr>
 <tr id="L371"><td>371</td><td></td><td>		}</td></tr>
 <tr id="L372"><td>372</td><td></td><td>		// Set next var (lexically the first if there are two) to the index.</td></tr>
-<tr id="L373" class="hit"><td>373</td><td>1</td><td>		if len(r.Pipe.Decl) &gt; 1 {</td></tr>
+<tr id="L373" class="miss"><td>373</td><td>0</td><td>		if len(r.Pipe.Decl) &gt; 1 {</td></tr>
 <tr id="L374" class="miss"><td>374</td><td>0</td><td>			if r.Pipe.IsAssign {</td></tr>
 <tr id="L375" class="miss"><td>375</td><td>0</td><td>				s.setVar(r.Pipe.Decl[1].Ident[0], index)</td></tr>
 <tr id="L376" class="miss"><td>376</td><td>0</td><td>			} else {</td></tr>
 <tr id="L377" class="miss"><td>377</td><td>0</td><td>				s.setTopVar(2, index)</td></tr>
 <tr id="L378" class="miss"><td>378</td><td>0</td><td>			}</td></tr>
 <tr id="L379"><td>379</td><td></td><td>		}</td></tr>
-<tr id="L380" class="hit"><td>380</td><td>1</td><td>		defer s.pop(mark)</td></tr>
-<tr id="L381" class="hit"><td>381</td><td>2</td><td>		defer func() {</td></tr>
-<tr id="L382" class="hit"><td>382</td><td>1</td><td>			// Consume panic(walkContinue)</td></tr>
-<tr id="L383" class="hit"><td>383</td><td>2</td><td>			if r := recover(); r != nil &amp;&amp; r != walkContinue {</td></tr>
-<tr id="L384" class="hit"><td>384</td><td>1</td><td>				panic(r)</td></tr>
+<tr id="L380" class="miss"><td>380</td><td>0</td><td>		defer s.pop(mark)</td></tr>
+<tr id="L381" class="miss"><td>381</td><td>0</td><td>		defer func() {</td></tr>
+<tr id="L382" class="miss"><td>382</td><td>0</td><td>			// Consume panic(walkContinue)</td></tr>
+<tr id="L383" class="miss"><td>383</td><td>0</td><td>			if r := recover(); r != nil &amp;&amp; r != walkContinue {</td></tr>
+<tr id="L384" class="miss"><td>384</td><td>0</td><td>				panic(r)</td></tr>
 <tr id="L385"><td>385</td><td></td><td>			}</td></tr>
 <tr id="L386"><td>386</td><td></td><td>		}()</td></tr>
-<tr id="L387" class="hit"><td>387</td><td>1</td><td>		s.walk(elem, r.List)</td></tr>
+<tr id="L387" class="miss"><td>387</td><td>0</td><td>		s.walk(elem, r.List)</td></tr>
 <tr id="L388"><td>388</td><td></td><td>	}</td></tr>
-<tr id="L389" class="hit"><td>389</td><td>1</td><td>	switch val.Kind() {</td></tr>
-<tr id="L390" class="hit"><td>390</td><td>1</td><td>	case reflect.Array, reflect.Slice:</td></tr>
-<tr id="L391" class="hit"><td>391</td><td>1</td><td>		if val.Len() == 0 {</td></tr>
+<tr id="L389" class="miss"><td>389</td><td>0</td><td>	switch val.Kind() {</td></tr>
+<tr id="L390" class="miss"><td>390</td><td>0</td><td>	case reflect.Array, reflect.Slice:</td></tr>
+<tr id="L391" class="miss"><td>391</td><td>0</td><td>		if val.Len() == 0 {</td></tr>
 <tr id="L392" class="miss"><td>392</td><td>0</td><td>			break</td></tr>
 <tr id="L393"><td>393</td><td></td><td>		}</td></tr>
-<tr id="L394" class="hit"><td>394</td><td>2</td><td>		for i := 0; i &lt; val.Len(); i++ {</td></tr>
-<tr id="L395" class="hit"><td>395</td><td>1</td><td>			oneIteration(reflect.ValueOf(i), val.Index(i))</td></tr>
-<tr id="L396" class="hit"><td>396</td><td>1</td><td>		}</td></tr>
+<tr id="L394" class="miss"><td>394</td><td>0</td><td>		for i := 0; i &lt; val.Len(); i++ {</td></tr>
+<tr id="L395" class="miss"><td>395</td><td>0</td><td>			oneIteration(reflect.ValueOf(i), val.Index(i))</td></tr>
+<tr id="L396" class="miss"><td>396</td><td>0</td><td>		}</td></tr>
 <tr id="L397" class="miss"><td>397</td><td>0</td><td>		return</td></tr>
 <tr id="L398" class="miss"><td>398</td><td>0</td><td>	case reflect.Map:</td></tr>
 <tr id="L399" class="miss"><td>399</td><td>0</td><td>		if val.Len() == 0 {</td></tr>
@@ -531,27 +531,27 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L461"><td>461</td><td></td><td>// pipeline has a variable declaration, the variable will be pushed on the</td></tr>
 <tr id="L462"><td>462</td><td></td><td>// stack. Callers should therefore pop the stack after they are finished</td></tr>
 <tr id="L463"><td>463</td><td></td><td>// executing commands depending on the pipeline value.</td></tr>
-<tr id="L464" class="hit"><td>464</td><td>9</td><td>func (s *state) evalPipeline(dot reflect.Value, pipe *parse.PipeNode) (value reflect.Value) {</td></tr>
-<tr id="L465" class="hit"><td>465</td><td>9</td><td>	if pipe == nil {</td></tr>
+<tr id="L464" class="hit"><td>464</td><td>5</td><td>func (s *state) evalPipeline(dot reflect.Value, pipe *parse.PipeNode) (value reflect.Value) {</td></tr>
+<tr id="L465" class="hit"><td>465</td><td>5</td><td>	if pipe == nil {</td></tr>
 <tr id="L466" class="miss"><td>466</td><td>0</td><td>		return</td></tr>
 <tr id="L467" class="miss"><td>467</td><td>0</td><td>	}</td></tr>
-<tr id="L468" class="hit"><td>468</td><td>9</td><td>	s.at(pipe)</td></tr>
-<tr id="L469" class="hit"><td>469</td><td>9</td><td>	value = missingVal</td></tr>
-<tr id="L470" class="hit"><td>470</td><td>18</td><td>	for _, cmd := range pipe.Cmds {</td></tr>
-<tr id="L471" class="hit"><td>471</td><td>9</td><td>		value = s.evalCommand(dot, cmd, value) // previous value is this one&#39;s final arg.</td></tr>
-<tr id="L472" class="hit"><td>472</td><td>9</td><td>		// If the object has type interface{}, dig down one level to the thing inside.</td></tr>
-<tr id="L473" class="hit"><td>473</td><td>9</td><td>		if value.Kind() == reflect.Interface &amp;&amp; value.Type().NumMethod() == 0 {</td></tr>
+<tr id="L468" class="hit"><td>468</td><td>5</td><td>	s.at(pipe)</td></tr>
+<tr id="L469" class="hit"><td>469</td><td>5</td><td>	value = missingVal</td></tr>
+<tr id="L470" class="hit"><td>470</td><td>11</td><td>	for _, cmd := range pipe.Cmds {</td></tr>
+<tr id="L471" class="hit"><td>471</td><td>6</td><td>		value = s.evalCommand(dot, cmd, value) // previous value is this one&#39;s final arg.</td></tr>
+<tr id="L472" class="hit"><td>472</td><td>6</td><td>		// If the object has type interface{}, dig down one level to the thing inside.</td></tr>
+<tr id="L473" class="hit"><td>473</td><td>6</td><td>		if value.Kind() == reflect.Interface &amp;&amp; value.Type().NumMethod() == 0 {</td></tr>
 <tr id="L474" class="miss"><td>474</td><td>0</td><td>			value = reflect.ValueOf(value.Interface()) // lovely!</td></tr>
 <tr id="L475" class="miss"><td>475</td><td>0</td><td>		}</td></tr>
 <tr id="L476"><td>476</td><td></td><td>	}</td></tr>
-<tr id="L477" class="hit"><td>477</td><td>9</td><td>	for _, variable := range pipe.Decl {</td></tr>
+<tr id="L477" class="hit"><td>477</td><td>5</td><td>	for _, variable := range pipe.Decl {</td></tr>
 <tr id="L478" class="miss"><td>478</td><td>0</td><td>		if pipe.IsAssign {</td></tr>
 <tr id="L479" class="miss"><td>479</td><td>0</td><td>			s.setVar(variable.Ident[0], value)</td></tr>
 <tr id="L480" class="miss"><td>480</td><td>0</td><td>		} else {</td></tr>
 <tr id="L481" class="miss"><td>481</td><td>0</td><td>			s.push(variable.Ident[0], value)</td></tr>
 <tr id="L482" class="miss"><td>482</td><td>0</td><td>		}</td></tr>
 <tr id="L483"><td>483</td><td></td><td>	}</td></tr>
-<tr id="L484" class="hit"><td>484</td><td>9</td><td>	return value</td></tr>
+<tr id="L484" class="hit"><td>484</td><td>5</td><td>	return value</td></tr>
 <tr id="L485"><td>485</td><td></td><td>}</td></tr>
 <tr id="L486"><td>486</td><td></td><td></td></tr>
 <tr id="L487" class="miss"><td>487</td><td>0</td><td>func (s *state) notAFunction(args []parse.Node, final reflect.Value) {</td></tr>
@@ -560,16 +560,16 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L490" class="miss"><td>490</td><td>0</td><td>	}</td></tr>
 <tr id="L491"><td>491</td><td></td><td>}</td></tr>
 <tr id="L492"><td>492</td><td></td><td></td></tr>
-<tr id="L493" class="hit"><td>493</td><td>9</td><td>func (s *state) evalCommand(dot reflect.Value, cmd *parse.CommandNode, final reflect.Value) reflect.Value {</td></tr>
-<tr id="L494" class="hit"><td>494</td><td>9</td><td>	firstWord := cmd.Args[0]</td></tr>
-<tr id="L495" class="hit"><td>495</td><td>9</td><td>	switch n := firstWord.(type) {</td></tr>
-<tr id="L496" class="hit"><td>496</td><td>9</td><td>	case *parse.FieldNode:</td></tr>
-<tr id="L497" class="hit"><td>497</td><td>9</td><td>		return s.evalFieldNode(dot, n, cmd.Args, final)</td></tr>
+<tr id="L493" class="hit"><td>493</td><td>6</td><td>func (s *state) evalCommand(dot reflect.Value, cmd *parse.CommandNode, final reflect.Value) reflect.Value {</td></tr>
+<tr id="L494" class="hit"><td>494</td><td>6</td><td>	firstWord := cmd.Args[0]</td></tr>
+<tr id="L495" class="hit"><td>495</td><td>6</td><td>	switch n := firstWord.(type) {</td></tr>
+<tr id="L496" class="hit"><td>496</td><td>5</td><td>	case *parse.FieldNode:</td></tr>
+<tr id="L497" class="hit"><td>497</td><td>5</td><td>		return s.evalFieldNode(dot, n, cmd.Args, final)</td></tr>
 <tr id="L498" class="miss"><td>498</td><td>0</td><td>	case *parse.ChainNode:</td></tr>
 <tr id="L499" class="miss"><td>499</td><td>0</td><td>		return s.evalChainNode(dot, n, cmd.Args, final)</td></tr>
-<tr id="L500" class="hit"><td>500</td><td>9</td><td>	case *parse.IdentifierNode:</td></tr>
-<tr id="L501" class="hit"><td>501</td><td>9</td><td>		// Must be a function.</td></tr>
-<tr id="L502" class="hit"><td>502</td><td>9</td><td>		return s.evalFunction(dot, n, cmd, cmd.Args, final)</td></tr>
+<tr id="L500" class="hit"><td>500</td><td>5</td><td>	case *parse.IdentifierNode:</td></tr>
+<tr id="L501" class="hit"><td>501</td><td>5</td><td>		// Must be a function.</td></tr>
+<tr id="L502" class="hit"><td>502</td><td>5</td><td>		return s.evalFunction(dot, n, cmd, cmd.Args, final)</td></tr>
 <tr id="L503" class="miss"><td>503</td><td>0</td><td>	case *parse.PipeNode:</td></tr>
 <tr id="L504" class="miss"><td>504</td><td>0</td><td>		// Parenthesized pipeline. The arguments are all inside the pipeline; final must be absent.</td></tr>
 <tr id="L505" class="miss"><td>505</td><td>0</td><td>		s.notAFunction(cmd.Args, final)</td></tr>
@@ -634,10 +634,10 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L564" class="miss"><td>564</td><td>0</td><td>	return len(s) &gt; 2 &amp;&amp; s[0] == &#39;0&#39; &amp;&amp; (s[1] == &#39;x&#39; || s[1] == &#39;X&#39;) &amp;&amp; !strings.ContainsAny(s, &#34;pP&#34;)</td></tr>
 <tr id="L565" class="miss"><td>565</td><td>0</td><td>}</td></tr>
 <tr id="L566"><td>566</td><td></td><td></td></tr>
-<tr id="L567" class="hit"><td>567</td><td>9</td><td>func (s *state) evalFieldNode(dot reflect.Value, field *parse.FieldNode, args []parse.Node, final reflect.Value) reflect.Value {</td></tr>
-<tr id="L568" class="hit"><td>568</td><td>9</td><td>	s.at(field)</td></tr>
-<tr id="L569" class="hit"><td>569</td><td>9</td><td>	return s.evalFieldChain(dot, dot, field, field.Ident, args, final)</td></tr>
-<tr id="L570" class="hit"><td>570</td><td>9</td><td>}</td></tr>
+<tr id="L567" class="hit"><td>567</td><td>5</td><td>func (s *state) evalFieldNode(dot reflect.Value, field *parse.FieldNode, args []parse.Node, final reflect.Value) reflect.Value {</td></tr>
+<tr id="L568" class="hit"><td>568</td><td>5</td><td>	s.at(field)</td></tr>
+<tr id="L569" class="hit"><td>569</td><td>5</td><td>	return s.evalFieldChain(dot, dot, field, field.Ident, args, final)</td></tr>
+<tr id="L570" class="hit"><td>570</td><td>5</td><td>}</td></tr>
 <tr id="L571"><td>571</td><td></td><td></td></tr>
 <tr id="L572" class="miss"><td>572</td><td>0</td><td>func (s *state) evalChainNode(dot reflect.Value, chain *parse.ChainNode, args []parse.Node, final reflect.Value) reflect.Value {</td></tr>
 <tr id="L573" class="miss"><td>573</td><td>0</td><td>	s.at(chain)</td></tr>
@@ -666,38 +666,38 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L596"><td>596</td><td></td><td>// evalFieldChain evaluates .X.Y.Z possibly followed by arguments.</td></tr>
 <tr id="L597"><td>597</td><td></td><td>// dot is the environment in which to evaluate arguments, while</td></tr>
 <tr id="L598"><td>598</td><td></td><td>// receiver is the value being walked along the chain.</td></tr>
-<tr id="L599" class="hit"><td>599</td><td>9</td><td>func (s *state) evalFieldChain(dot, receiver reflect.Value, node parse.Node, ident []string, args []parse.Node, final reflect.Value) reflect.Value {</td></tr>
-<tr id="L600" class="hit"><td>600</td><td>9</td><td>	n := len(ident)</td></tr>
-<tr id="L601" class="hit"><td>601</td><td>9</td><td>	for i := 0; i &lt; n-1; i++ {</td></tr>
+<tr id="L599" class="hit"><td>599</td><td>5</td><td>func (s *state) evalFieldChain(dot, receiver reflect.Value, node parse.Node, ident []string, args []parse.Node, final reflect.Value) reflect.Value {</td></tr>
+<tr id="L600" class="hit"><td>600</td><td>5</td><td>	n := len(ident)</td></tr>
+<tr id="L601" class="hit"><td>601</td><td>5</td><td>	for i := 0; i &lt; n-1; i++ {</td></tr>
 <tr id="L602" class="miss"><td>602</td><td>0</td><td>		receiver = s.evalField(dot, ident[i], node, nil, missingVal, receiver)</td></tr>
 <tr id="L603" class="miss"><td>603</td><td>0</td><td>	}</td></tr>
 <tr id="L604"><td>604</td><td></td><td>	// Now if it&#39;s a method, it gets the arguments.</td></tr>
-<tr id="L605" class="hit"><td>605</td><td>9</td><td>	return s.evalField(dot, ident[n-1], node, args, final, receiver)</td></tr>
+<tr id="L605" class="hit"><td>605</td><td>5</td><td>	return s.evalField(dot, ident[n-1], node, args, final, receiver)</td></tr>
 <tr id="L606"><td>606</td><td></td><td>}</td></tr>
 <tr id="L607"><td>607</td><td></td><td></td></tr>
-<tr id="L608" class="hit"><td>608</td><td>9</td><td>func (s *state) evalFunction(dot reflect.Value, node *parse.IdentifierNode, cmd parse.Node, args []parse.Node, final reflect.Value) reflect.Value {</td></tr>
-<tr id="L609" class="hit"><td>609</td><td>9</td><td>	s.at(node)</td></tr>
-<tr id="L610" class="hit"><td>610</td><td>9</td><td>	name := node.Ident</td></tr>
-<tr id="L611" class="hit"><td>611</td><td>9</td><td>	function, isBuiltin, ok := findFunction(name, s.tmpl)</td></tr>
-<tr id="L612" class="hit"><td>612</td><td>9</td><td>	if !ok {</td></tr>
+<tr id="L608" class="hit"><td>608</td><td>5</td><td>func (s *state) evalFunction(dot reflect.Value, node *parse.IdentifierNode, cmd parse.Node, args []parse.Node, final reflect.Value) reflect.Value {</td></tr>
+<tr id="L609" class="hit"><td>609</td><td>5</td><td>	s.at(node)</td></tr>
+<tr id="L610" class="hit"><td>610</td><td>5</td><td>	name := node.Ident</td></tr>
+<tr id="L611" class="hit"><td>611</td><td>5</td><td>	function, isBuiltin, ok := findFunction(name, s.tmpl)</td></tr>
+<tr id="L612" class="hit"><td>612</td><td>5</td><td>	if !ok {</td></tr>
 <tr id="L613" class="miss"><td>613</td><td>0</td><td>		s.errorf(&#34;%q is not a defined function&#34;, name)</td></tr>
 <tr id="L614" class="miss"><td>614</td><td>0</td><td>	}</td></tr>
-<tr id="L615" class="hit"><td>615</td><td>9</td><td>	return s.evalCall(dot, function, isBuiltin, cmd, name, args, final)</td></tr>
+<tr id="L615" class="hit"><td>615</td><td>5</td><td>	return s.evalCall(dot, function, isBuiltin, cmd, name, args, final)</td></tr>
 <tr id="L616"><td>616</td><td></td><td>}</td></tr>
 <tr id="L617"><td>617</td><td></td><td></td></tr>
 <tr id="L618"><td>618</td><td></td><td>// evalField evaluates an expression like (.Field) or (.Field arg1 arg2).</td></tr>
 <tr id="L619"><td>619</td><td></td><td>// The &#39;final&#39; argument represents the return value from the preceding</td></tr>
 <tr id="L620"><td>620</td><td></td><td>// value of the pipeline, if any.</td></tr>
-<tr id="L621" class="hit"><td>621</td><td>9</td><td>func (s *state) evalField(dot reflect.Value, fieldName string, node parse.Node, args []parse.Node, final, receiver reflect.Value) reflect.Value {</td></tr>
-<tr id="L622" class="hit"><td>622</td><td>9</td><td>	if !receiver.IsValid() {</td></tr>
+<tr id="L621" class="hit"><td>621</td><td>5</td><td>func (s *state) evalField(dot reflect.Value, fieldName string, node parse.Node, args []parse.Node, final, receiver reflect.Value) reflect.Value {</td></tr>
+<tr id="L622" class="hit"><td>622</td><td>5</td><td>	if !receiver.IsValid() {</td></tr>
 <tr id="L623" class="miss"><td>623</td><td>0</td><td>		if s.tmpl.option.missingKey == mapError { // Treat invalid value as missing map key.</td></tr>
 <tr id="L624" class="miss"><td>624</td><td>0</td><td>			s.errorf(&#34;nil data; no entry for key %q&#34;, fieldName)</td></tr>
 <tr id="L625" class="miss"><td>625</td><td>0</td><td>		}</td></tr>
 <tr id="L626" class="miss"><td>626</td><td>0</td><td>		return zero</td></tr>
 <tr id="L627"><td>627</td><td></td><td>	}</td></tr>
-<tr id="L628" class="hit"><td>628</td><td>9</td><td>	typ := receiver.Type()</td></tr>
-<tr id="L629" class="hit"><td>629</td><td>9</td><td>	receiver, isNil := indirect(receiver)</td></tr>
-<tr id="L630" class="hit"><td>630</td><td>9</td><td>	if receiver.Kind() == reflect.Interface &amp;&amp; isNil {</td></tr>
+<tr id="L628" class="hit"><td>628</td><td>5</td><td>	typ := receiver.Type()</td></tr>
+<tr id="L629" class="hit"><td>629</td><td>5</td><td>	receiver, isNil := indirect(receiver)</td></tr>
+<tr id="L630" class="hit"><td>630</td><td>5</td><td>	if receiver.Kind() == reflect.Interface &amp;&amp; isNil {</td></tr>
 <tr id="L631" class="miss"><td>631</td><td>0</td><td>		// Calling a method on a nil interface can&#39;t work. The</td></tr>
 <tr id="L632" class="miss"><td>632</td><td>0</td><td>		// MethodByName method call below would panic.</td></tr>
 <tr id="L633" class="miss"><td>633</td><td>0</td><td>		s.errorf(&#34;nil pointer evaluating %s.%s&#34;, typ, fieldName)</td></tr>
@@ -706,31 +706,31 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L636"><td>636</td><td></td><td></td></tr>
 <tr id="L637"><td>637</td><td></td><td>	// Unless it&#39;s an interface, need to get to a value of type *T to guarantee</td></tr>
 <tr id="L638"><td>638</td><td></td><td>	// we see all methods of T and *T.</td></tr>
-<tr id="L639" class="hit"><td>639</td><td>9</td><td>	ptr := receiver</td></tr>
-<tr id="L640" class="hit"><td>640</td><td>10</td><td>	if ptr.Kind() != reflect.Interface &amp;&amp; ptr.Kind() != reflect.Pointer &amp;&amp; ptr.CanAddr() {</td></tr>
-<tr id="L641" class="hit"><td>641</td><td>1</td><td>		ptr = ptr.Addr()</td></tr>
-<tr id="L642" class="hit"><td>642</td><td>1</td><td>	}</td></tr>
-<tr id="L643" class="hit"><td>643</td><td>9</td><td>	if method := ptr.MethodByName(fieldName); method.IsValid() {</td></tr>
+<tr id="L639" class="hit"><td>639</td><td>5</td><td>	ptr := receiver</td></tr>
+<tr id="L640" class="hit"><td>640</td><td>5</td><td>	if ptr.Kind() != reflect.Interface &amp;&amp; ptr.Kind() != reflect.Pointer &amp;&amp; ptr.CanAddr() {</td></tr>
+<tr id="L641" class="miss"><td>641</td><td>0</td><td>		ptr = ptr.Addr()</td></tr>
+<tr id="L642" class="miss"><td>642</td><td>0</td><td>	}</td></tr>
+<tr id="L643" class="hit"><td>643</td><td>5</td><td>	if method := ptr.MethodByName(fieldName); method.IsValid() {</td></tr>
 <tr id="L644" class="miss"><td>644</td><td>0</td><td>		return s.evalCall(dot, method, false, node, fieldName, args, final)</td></tr>
 <tr id="L645" class="miss"><td>645</td><td>0</td><td>	}</td></tr>
-<tr id="L646" class="hit"><td>646</td><td>9</td><td>	hasArgs := len(args) &gt; 1 || !isMissing(final)</td></tr>
-<tr id="L647" class="hit"><td>647</td><td>9</td><td>	// It&#39;s not a method; must be a field of a struct or an element of a map.</td></tr>
-<tr id="L648" class="hit"><td>648</td><td>9</td><td>	switch receiver.Kind() {</td></tr>
-<tr id="L649" class="hit"><td>649</td><td>9</td><td>	case reflect.Struct:</td></tr>
-<tr id="L650" class="hit"><td>650</td><td>9</td><td>		tField, ok := receiver.Type().FieldByName(fieldName)</td></tr>
-<tr id="L651" class="hit"><td>651</td><td>18</td><td>		if ok {</td></tr>
-<tr id="L652" class="hit"><td>652</td><td>9</td><td>			field, err := receiver.FieldByIndexErr(tField.Index)</td></tr>
-<tr id="L653" class="hit"><td>653</td><td>9</td><td>			if !tField.IsExported() {</td></tr>
+<tr id="L646" class="hit"><td>646</td><td>5</td><td>	hasArgs := len(args) &gt; 1 || !isMissing(final)</td></tr>
+<tr id="L647" class="hit"><td>647</td><td>5</td><td>	// It&#39;s not a method; must be a field of a struct or an element of a map.</td></tr>
+<tr id="L648" class="hit"><td>648</td><td>5</td><td>	switch receiver.Kind() {</td></tr>
+<tr id="L649" class="hit"><td>649</td><td>5</td><td>	case reflect.Struct:</td></tr>
+<tr id="L650" class="hit"><td>650</td><td>5</td><td>		tField, ok := receiver.Type().FieldByName(fieldName)</td></tr>
+<tr id="L651" class="hit"><td>651</td><td>10</td><td>		if ok {</td></tr>
+<tr id="L652" class="hit"><td>652</td><td>5</td><td>			field, err := receiver.FieldByIndexErr(tField.Index)</td></tr>
+<tr id="L653" class="hit"><td>653</td><td>5</td><td>			if !tField.IsExported() {</td></tr>
 <tr id="L654" class="miss"><td>654</td><td>0</td><td>				s.errorf(&#34;%s is an unexported field of struct type %s&#34;, fieldName, typ)</td></tr>
 <tr id="L655" class="miss"><td>655</td><td>0</td><td>			}</td></tr>
-<tr id="L656" class="hit"><td>656</td><td>9</td><td>			if err != nil {</td></tr>
+<tr id="L656" class="hit"><td>656</td><td>5</td><td>			if err != nil {</td></tr>
 <tr id="L657" class="miss"><td>657</td><td>0</td><td>				s.errorf(&#34;%v&#34;, err)</td></tr>
 <tr id="L658" class="miss"><td>658</td><td>0</td><td>			}</td></tr>
 <tr id="L659"><td>659</td><td></td><td>			// If it&#39;s a function, we must call it.</td></tr>
-<tr id="L660" class="hit"><td>660</td><td>9</td><td>			if hasArgs {</td></tr>
+<tr id="L660" class="hit"><td>660</td><td>5</td><td>			if hasArgs {</td></tr>
 <tr id="L661" class="miss"><td>661</td><td>0</td><td>				s.errorf(&#34;%s has arguments but cannot be invoked as function&#34;, fieldName)</td></tr>
 <tr id="L662" class="miss"><td>662</td><td>0</td><td>			}</td></tr>
-<tr id="L663" class="hit"><td>663</td><td>9</td><td>			return field</td></tr>
+<tr id="L663" class="hit"><td>663</td><td>5</td><td>			return field</td></tr>
 <tr id="L664"><td>664</td><td></td><td>		}</td></tr>
 <tr id="L665" class="miss"><td>665</td><td>0</td><td>	case reflect.Map:</td></tr>
 <tr id="L666" class="miss"><td>666</td><td>0</td><td>		// If it&#39;s a map, attempt to use the field name as a key.</td></tr>
@@ -765,8 +765,8 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L695" class="miss"><td>695</td><td>0</td><td>			s.errorf(&#34;nil pointer evaluating %s.%s&#34;, typ, fieldName)</td></tr>
 <tr id="L696" class="miss"><td>696</td><td>0</td><td>		}</td></tr>
 <tr id="L697"><td>697</td><td></td><td>	}</td></tr>
-<tr id="L698" class="hit"><td>698</td><td>1</td><td>	s.errorf(&#34;can&#39;t evaluate field %s in type %s&#34;, fieldName, typ)</td></tr>
-<tr id="L699" class="hit"><td>699</td><td>1</td><td>	panic(&#34;not reached&#34;)</td></tr>
+<tr id="L698" class="miss"><td>698</td><td>0</td><td>	s.errorf(&#34;can&#39;t evaluate field %s in type %s&#34;, fieldName, typ)</td></tr>
+<tr id="L699" class="miss"><td>699</td><td>0</td><td>	panic(&#34;not reached&#34;)</td></tr>
 <tr id="L700"><td>700</td><td></td><td>}</td></tr>
 <tr id="L701"><td>701</td><td></td><td></td></tr>
 <tr id="L702"><td>702</td><td></td><td>var (</td></tr>
@@ -778,38 +778,38 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L708"><td>708</td><td></td><td>// evalCall executes a function or method call. If it&#39;s a method, fun already has the receiver bound, so</td></tr>
 <tr id="L709"><td>709</td><td></td><td>// it looks just like a function call. The arg list, if non-nil, includes (in the manner of the shell), arg[0]</td></tr>
 <tr id="L710"><td>710</td><td></td><td>// as the function itself.</td></tr>
-<tr id="L711" class="hit"><td>711</td><td>9</td><td>func (s *state) evalCall(dot, fun reflect.Value, isBuiltin bool, node parse.Node, name string, args []parse.Node, final reflect.Value) reflect.Value {</td></tr>
-<tr id="L712" class="hit"><td>712</td><td>18</td><td>	if args != nil {</td></tr>
-<tr id="L713" class="hit"><td>713</td><td>9</td><td>		args = args[1:] // Zeroth arg is function name/node; not passed to function.</td></tr>
-<tr id="L714" class="hit"><td>714</td><td>9</td><td>	}</td></tr>
-<tr id="L715" class="hit"><td>715</td><td>9</td><td>	typ := fun.Type()</td></tr>
-<tr id="L716" class="hit"><td>716</td><td>9</td><td>	numIn := len(args)</td></tr>
-<tr id="L717" class="hit"><td>717</td><td>18</td><td>	if !isMissing(final) {</td></tr>
-<tr id="L718" class="hit"><td>718</td><td>9</td><td>		numIn++</td></tr>
-<tr id="L719" class="hit"><td>719</td><td>9</td><td>	}</td></tr>
-<tr id="L720" class="hit"><td>720</td><td>9</td><td>	numFixed := len(args)</td></tr>
-<tr id="L721" class="hit"><td>721</td><td>18</td><td>	if typ.IsVariadic() {</td></tr>
-<tr id="L722" class="hit"><td>722</td><td>9</td><td>		numFixed = typ.NumIn() - 1 // last arg is the variadic one.</td></tr>
-<tr id="L723" class="hit"><td>723</td><td>9</td><td>		if numIn &lt; numFixed {</td></tr>
+<tr id="L711" class="hit"><td>711</td><td>5</td><td>func (s *state) evalCall(dot, fun reflect.Value, isBuiltin bool, node parse.Node, name string, args []parse.Node, final reflect.Value) reflect.Value {</td></tr>
+<tr id="L712" class="hit"><td>712</td><td>10</td><td>	if args != nil {</td></tr>
+<tr id="L713" class="hit"><td>713</td><td>5</td><td>		args = args[1:] // Zeroth arg is function name/node; not passed to function.</td></tr>
+<tr id="L714" class="hit"><td>714</td><td>5</td><td>	}</td></tr>
+<tr id="L715" class="hit"><td>715</td><td>5</td><td>	typ := fun.Type()</td></tr>
+<tr id="L716" class="hit"><td>716</td><td>5</td><td>	numIn := len(args)</td></tr>
+<tr id="L717" class="hit"><td>717</td><td>10</td><td>	if !isMissing(final) {</td></tr>
+<tr id="L718" class="hit"><td>718</td><td>5</td><td>		numIn++</td></tr>
+<tr id="L719" class="hit"><td>719</td><td>5</td><td>	}</td></tr>
+<tr id="L720" class="hit"><td>720</td><td>5</td><td>	numFixed := len(args)</td></tr>
+<tr id="L721" class="hit"><td>721</td><td>10</td><td>	if typ.IsVariadic() {</td></tr>
+<tr id="L722" class="hit"><td>722</td><td>5</td><td>		numFixed = typ.NumIn() - 1 // last arg is the variadic one.</td></tr>
+<tr id="L723" class="hit"><td>723</td><td>5</td><td>		if numIn &lt; numFixed {</td></tr>
 <tr id="L724" class="miss"><td>724</td><td>0</td><td>			s.errorf(&#34;wrong number of args for %s: want at least %d got %d&#34;, name, typ.NumIn()-1, len(args))</td></tr>
 <tr id="L725" class="miss"><td>725</td><td>0</td><td>		}</td></tr>
 <tr id="L726" class="miss"><td>726</td><td>0</td><td>	} else if numIn != typ.NumIn() {</td></tr>
 <tr id="L727" class="miss"><td>727</td><td>0</td><td>		s.errorf(&#34;wrong number of args for %s: want %d got %d&#34;, name, typ.NumIn(), numIn)</td></tr>
 <tr id="L728" class="miss"><td>728</td><td>0</td><td>	}</td></tr>
-<tr id="L729" class="hit"><td>729</td><td>9</td><td>	if !goodFunc(typ) {</td></tr>
+<tr id="L729" class="hit"><td>729</td><td>5</td><td>	if !goodFunc(typ) {</td></tr>
 <tr id="L730" class="miss"><td>730</td><td>0</td><td>		// TODO: This could still be a confusing error; maybe goodFunc should provide info.</td></tr>
 <tr id="L731" class="miss"><td>731</td><td>0</td><td>		s.errorf(&#34;can&#39;t call method/function %q with %d results&#34;, name, typ.NumOut())</td></tr>
 <tr id="L732" class="miss"><td>732</td><td>0</td><td>	}</td></tr>
 <tr id="L733"><td>733</td><td></td><td></td></tr>
-<tr id="L734" class="hit"><td>734</td><td>18</td><td>	unwrap := func(v reflect.Value) reflect.Value {</td></tr>
-<tr id="L735" class="hit"><td>735</td><td>9</td><td>		if v.Type() == reflectValueType {</td></tr>
+<tr id="L734" class="hit"><td>734</td><td>10</td><td>	unwrap := func(v reflect.Value) reflect.Value {</td></tr>
+<tr id="L735" class="hit"><td>735</td><td>5</td><td>		if v.Type() == reflectValueType {</td></tr>
 <tr id="L736" class="miss"><td>736</td><td>0</td><td>			v = v.Interface().(reflect.Value)</td></tr>
 <tr id="L737" class="miss"><td>737</td><td>0</td><td>		}</td></tr>
-<tr id="L738" class="hit"><td>738</td><td>9</td><td>		return v</td></tr>
+<tr id="L738" class="hit"><td>738</td><td>5</td><td>		return v</td></tr>
 <tr id="L739"><td>739</td><td></td><td>	}</td></tr>
 <tr id="L740"><td>740</td><td></td><td></td></tr>
 <tr id="L741"><td>741</td><td></td><td>	// Special case for builtin and/or, which short-circuit.</td></tr>
-<tr id="L742" class="hit"><td>742</td><td>9</td><td>	if isBuiltin &amp;&amp; (name == &#34;and&#34; || name == &#34;or&#34;) {</td></tr>
+<tr id="L742" class="hit"><td>742</td><td>5</td><td>	if isBuiltin &amp;&amp; (name == &#34;and&#34; || name == &#34;or&#34;) {</td></tr>
 <tr id="L743" class="miss"><td>743</td><td>0</td><td>		argType := typ.In(0)</td></tr>
 <tr id="L744" class="miss"><td>744</td><td>0</td><td>		var v reflect.Value</td></tr>
 <tr id="L745" class="miss"><td>745</td><td>0</td><td>		for _, arg := range args {</td></tr>
@@ -833,43 +833,43 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L763"><td>763</td><td></td><td>	}</td></tr>
 <tr id="L764"><td>764</td><td></td><td></td></tr>
 <tr id="L765"><td>765</td><td></td><td>	// Build the arg list.</td></tr>
-<tr id="L766" class="hit"><td>766</td><td>9</td><td>	argv := make([]reflect.Value, numIn)</td></tr>
-<tr id="L767" class="hit"><td>767</td><td>9</td><td>	// Args must be evaluated. Fixed args first.</td></tr>
-<tr id="L768" class="hit"><td>768</td><td>9</td><td>	i := 0</td></tr>
-<tr id="L769" class="hit"><td>769</td><td>9</td><td>	for ; i &lt; numFixed &amp;&amp; i &lt; len(args); i++ {</td></tr>
+<tr id="L766" class="hit"><td>766</td><td>5</td><td>	argv := make([]reflect.Value, numIn)</td></tr>
+<tr id="L767" class="hit"><td>767</td><td>5</td><td>	// Args must be evaluated. Fixed args first.</td></tr>
+<tr id="L768" class="hit"><td>768</td><td>5</td><td>	i := 0</td></tr>
+<tr id="L769" class="hit"><td>769</td><td>5</td><td>	for ; i &lt; numFixed &amp;&amp; i &lt; len(args); i++ {</td></tr>
 <tr id="L770" class="miss"><td>770</td><td>0</td><td>		argv[i] = s.evalArg(dot, typ.In(i), args[i])</td></tr>
 <tr id="L771" class="miss"><td>771</td><td>0</td><td>	}</td></tr>
 <tr id="L772"><td>772</td><td></td><td>	// Now the ... args.</td></tr>
-<tr id="L773" class="hit"><td>773</td><td>18</td><td>	if typ.IsVariadic() {</td></tr>
-<tr id="L774" class="hit"><td>774</td><td>9</td><td>		argType := typ.In(typ.NumIn() - 1).Elem() // Argument is a slice.</td></tr>
-<tr id="L775" class="hit"><td>775</td><td>9</td><td>		for ; i &lt; len(args); i++ {</td></tr>
+<tr id="L773" class="hit"><td>773</td><td>10</td><td>	if typ.IsVariadic() {</td></tr>
+<tr id="L774" class="hit"><td>774</td><td>5</td><td>		argType := typ.In(typ.NumIn() - 1).Elem() // Argument is a slice.</td></tr>
+<tr id="L775" class="hit"><td>775</td><td>5</td><td>		for ; i &lt; len(args); i++ {</td></tr>
 <tr id="L776" class="miss"><td>776</td><td>0</td><td>			argv[i] = s.evalArg(dot, argType, args[i])</td></tr>
 <tr id="L777" class="miss"><td>777</td><td>0</td><td>		}</td></tr>
 <tr id="L778"><td>778</td><td></td><td>	}</td></tr>
 <tr id="L779"><td>779</td><td></td><td>	// Add final value if necessary.</td></tr>
-<tr id="L780" class="hit"><td>780</td><td>18</td><td>	if !isMissing(final) {</td></tr>
-<tr id="L781" class="hit"><td>781</td><td>9</td><td>		t := typ.In(typ.NumIn() - 1)</td></tr>
-<tr id="L782" class="hit"><td>782</td><td>18</td><td>		if typ.IsVariadic() {</td></tr>
-<tr id="L783" class="hit"><td>783</td><td>9</td><td>			if numIn-1 &lt; numFixed {</td></tr>
+<tr id="L780" class="hit"><td>780</td><td>10</td><td>	if !isMissing(final) {</td></tr>
+<tr id="L781" class="hit"><td>781</td><td>5</td><td>		t := typ.In(typ.NumIn() - 1)</td></tr>
+<tr id="L782" class="hit"><td>782</td><td>10</td><td>		if typ.IsVariadic() {</td></tr>
+<tr id="L783" class="hit"><td>783</td><td>5</td><td>			if numIn-1 &lt; numFixed {</td></tr>
 <tr id="L784" class="miss"><td>784</td><td>0</td><td>				// The added final argument corresponds to a fixed parameter of the function.</td></tr>
 <tr id="L785" class="miss"><td>785</td><td>0</td><td>				// Validate against the type of the actual parameter.</td></tr>
 <tr id="L786" class="miss"><td>786</td><td>0</td><td>				t = typ.In(numIn - 1)</td></tr>
-<tr id="L787" class="hit"><td>787</td><td>9</td><td>			} else {</td></tr>
-<tr id="L788" class="hit"><td>788</td><td>9</td><td>				// The added final argument corresponds to the variadic part.</td></tr>
-<tr id="L789" class="hit"><td>789</td><td>9</td><td>				// Validate against the type of the elements of the variadic slice.</td></tr>
-<tr id="L790" class="hit"><td>790</td><td>9</td><td>				t = t.Elem()</td></tr>
-<tr id="L791" class="hit"><td>791</td><td>9</td><td>			}</td></tr>
+<tr id="L787" class="hit"><td>787</td><td>5</td><td>			} else {</td></tr>
+<tr id="L788" class="hit"><td>788</td><td>5</td><td>				// The added final argument corresponds to the variadic part.</td></tr>
+<tr id="L789" class="hit"><td>789</td><td>5</td><td>				// Validate against the type of the elements of the variadic slice.</td></tr>
+<tr id="L790" class="hit"><td>790</td><td>5</td><td>				t = t.Elem()</td></tr>
+<tr id="L791" class="hit"><td>791</td><td>5</td><td>			}</td></tr>
 <tr id="L792"><td>792</td><td></td><td>		}</td></tr>
-<tr id="L793" class="hit"><td>793</td><td>9</td><td>		argv[i] = s.validateType(final, t)</td></tr>
+<tr id="L793" class="hit"><td>793</td><td>5</td><td>		argv[i] = s.validateType(final, t)</td></tr>
 <tr id="L794"><td>794</td><td></td><td>	}</td></tr>
-<tr id="L795" class="hit"><td>795</td><td>9</td><td>	v, err := safeCall(fun, argv)</td></tr>
-<tr id="L796" class="hit"><td>796</td><td>9</td><td>	// If we have an error that is not nil, stop execution and return that</td></tr>
-<tr id="L797" class="hit"><td>797</td><td>9</td><td>	// error to the caller.</td></tr>
-<tr id="L798" class="hit"><td>798</td><td>9</td><td>	if err != nil {</td></tr>
+<tr id="L795" class="hit"><td>795</td><td>5</td><td>	v, err := safeCall(fun, argv)</td></tr>
+<tr id="L796" class="hit"><td>796</td><td>5</td><td>	// If we have an error that is not nil, stop execution and return that</td></tr>
+<tr id="L797" class="hit"><td>797</td><td>5</td><td>	// error to the caller.</td></tr>
+<tr id="L798" class="hit"><td>798</td><td>5</td><td>	if err != nil {</td></tr>
 <tr id="L799" class="miss"><td>799</td><td>0</td><td>		s.at(node)</td></tr>
 <tr id="L800" class="miss"><td>800</td><td>0</td><td>		s.errorf(&#34;error calling %s: %w&#34;, name, err)</td></tr>
 <tr id="L801" class="miss"><td>801</td><td>0</td><td>	}</td></tr>
-<tr id="L802" class="hit"><td>802</td><td>9</td><td>	return unwrap(v)</td></tr>
+<tr id="L802" class="hit"><td>802</td><td>5</td><td>	return unwrap(v)</td></tr>
 <tr id="L803"><td>803</td><td></td><td>}</td></tr>
 <tr id="L804"><td>804</td><td></td><td></td></tr>
 <tr id="L805"><td>805</td><td></td><td>// canBeNil reports whether an untyped nil can be assigned to the type. See reflect.Zero.</td></tr>
@@ -884,8 +884,8 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L814"><td>814</td><td></td><td>}</td></tr>
 <tr id="L815"><td>815</td><td></td><td></td></tr>
 <tr id="L816"><td>816</td><td></td><td>// validateType guarantees that the value is valid and assignable to the type.</td></tr>
-<tr id="L817" class="hit"><td>817</td><td>9</td><td>func (s *state) validateType(value reflect.Value, typ reflect.Type) reflect.Value {</td></tr>
-<tr id="L818" class="hit"><td>818</td><td>9</td><td>	if !value.IsValid() {</td></tr>
+<tr id="L817" class="hit"><td>817</td><td>5</td><td>func (s *state) validateType(value reflect.Value, typ reflect.Type) reflect.Value {</td></tr>
+<tr id="L818" class="hit"><td>818</td><td>5</td><td>	if !value.IsValid() {</td></tr>
 <tr id="L819" class="miss"><td>819</td><td>0</td><td>		if typ == nil {</td></tr>
 <tr id="L820" class="miss"><td>820</td><td>0</td><td>			// An untyped nil interface{}. Accept as a proper nil value.</td></tr>
 <tr id="L821" class="miss"><td>821</td><td>0</td><td>			return reflect.ValueOf(nil)</td></tr>
@@ -896,10 +896,10 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L826" class="miss"><td>826</td><td>0</td><td>		}</td></tr>
 <tr id="L827" class="miss"><td>827</td><td>0</td><td>		s.errorf(&#34;invalid value; expected %s&#34;, typ)</td></tr>
 <tr id="L828"><td>828</td><td></td><td>	}</td></tr>
-<tr id="L829" class="hit"><td>829</td><td>9</td><td>	if typ == reflectValueType &amp;&amp; value.Type() != typ {</td></tr>
+<tr id="L829" class="hit"><td>829</td><td>5</td><td>	if typ == reflectValueType &amp;&amp; value.Type() != typ {</td></tr>
 <tr id="L830" class="miss"><td>830</td><td>0</td><td>		return reflect.ValueOf(value)</td></tr>
 <tr id="L831" class="miss"><td>831</td><td>0</td><td>	}</td></tr>
-<tr id="L832" class="hit"><td>832</td><td>9</td><td>	if typ != nil &amp;&amp; !value.Type().AssignableTo(typ) {</td></tr>
+<tr id="L832" class="hit"><td>832</td><td>5</td><td>	if typ != nil &amp;&amp; !value.Type().AssignableTo(typ) {</td></tr>
 <tr id="L833" class="miss"><td>833</td><td>0</td><td>		if value.Kind() == reflect.Interface &amp;&amp; !value.IsNil() {</td></tr>
 <tr id="L834" class="miss"><td>834</td><td>0</td><td>			value = value.Elem()</td></tr>
 <tr id="L835" class="miss"><td>835</td><td>0</td><td>			if value.Type().AssignableTo(typ) {</td></tr>
@@ -923,7 +923,7 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L853" class="miss"><td>853</td><td>0</td><td>			s.errorf(&#34;wrong type for value; expected %s; got %s&#34;, typ, value.Type())</td></tr>
 <tr id="L854"><td>854</td><td></td><td>		}</td></tr>
 <tr id="L855"><td>855</td><td></td><td>	}</td></tr>
-<tr id="L856" class="hit"><td>856</td><td>9</td><td>	return value</td></tr>
+<tr id="L856" class="hit"><td>856</td><td>5</td><td>	return value</td></tr>
 <tr id="L857"><td>857</td><td></td><td>}</td></tr>
 <tr id="L858"><td>858</td><td></td><td></td></tr>
 <tr id="L859" class="miss"><td>859</td><td>0</td><td>func (s *state) evalArg(dot reflect.Value, typ reflect.Type, n parse.Node) reflect.Value {</td></tr>
@@ -1068,23 +1068,23 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L998"><td>998</td><td></td><td>// indirect returns the item at the end of indirection, and a bool to indicate</td></tr>
 <tr id="L999"><td>999</td><td></td><td>// if it&#39;s nil. If the returned bool is true, the returned value&#39;s kind will be</td></tr>
 <tr id="L1000"><td>1000</td><td></td><td>// either a pointer or interface.</td></tr>
-<tr id="L1001" class="hit"><td>1001</td><td>9</td><td>func indirect(v reflect.Value) (rv reflect.Value, isNil bool) {</td></tr>
-<tr id="L1002" class="hit"><td>1002</td><td>9</td><td>	for ; v.Kind() == reflect.Pointer || v.Kind() == reflect.Interface; v = v.Elem() {</td></tr>
+<tr id="L1001" class="hit"><td>1001</td><td>5</td><td>func indirect(v reflect.Value) (rv reflect.Value, isNil bool) {</td></tr>
+<tr id="L1002" class="hit"><td>1002</td><td>5</td><td>	for ; v.Kind() == reflect.Pointer || v.Kind() == reflect.Interface; v = v.Elem() {</td></tr>
 <tr id="L1003" class="miss"><td>1003</td><td>0</td><td>		if v.IsNil() {</td></tr>
 <tr id="L1004" class="miss"><td>1004</td><td>0</td><td>			return v, true</td></tr>
 <tr id="L1005" class="miss"><td>1005</td><td>0</td><td>		}</td></tr>
 <tr id="L1006"><td>1006</td><td></td><td>	}</td></tr>
-<tr id="L1007" class="hit"><td>1007</td><td>9</td><td>	return v, false</td></tr>
+<tr id="L1007" class="hit"><td>1007</td><td>5</td><td>	return v, false</td></tr>
 <tr id="L1008"><td>1008</td><td></td><td>}</td></tr>
 <tr id="L1009"><td>1009</td><td></td><td></td></tr>
 <tr id="L1010"><td>1010</td><td></td><td>// indirectInterface returns the concrete value in an interface value,</td></tr>
 <tr id="L1011"><td>1011</td><td></td><td>// or else the zero reflect.Value.</td></tr>
 <tr id="L1012"><td>1012</td><td></td><td>// That is, if v represents the interface value x, the result is the same as reflect.ValueOf(x):</td></tr>
 <tr id="L1013"><td>1013</td><td></td><td>// the fact that x was an interface value is forgotten.</td></tr>
-<tr id="L1014" class="hit"><td>1014</td><td>5</td><td>func indirectInterface(v reflect.Value) reflect.Value {</td></tr>
-<tr id="L1015" class="hit"><td>1015</td><td>10</td><td>	if v.Kind() != reflect.Interface {</td></tr>
-<tr id="L1016" class="hit"><td>1016</td><td>5</td><td>		return v</td></tr>
-<tr id="L1017" class="hit"><td>1017</td><td>5</td><td>	}</td></tr>
+<tr id="L1014" class="hit"><td>1014</td><td>1</td><td>func indirectInterface(v reflect.Value) reflect.Value {</td></tr>
+<tr id="L1015" class="hit"><td>1015</td><td>2</td><td>	if v.Kind() != reflect.Interface {</td></tr>
+<tr id="L1016" class="hit"><td>1016</td><td>1</td><td>		return v</td></tr>
+<tr id="L1017" class="hit"><td>1017</td><td>1</td><td>	}</td></tr>
 <tr id="L1018" class="miss"><td>1018</td><td>0</td><td>	if v.IsNil() {</td></tr>
 <tr id="L1019" class="miss"><td>1019</td><td>0</td><td>		return reflect.Value{}</td></tr>
 <tr id="L1020" class="miss"><td>1020</td><td>0</td><td>	}</td></tr>
@@ -1093,39 +1093,39 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L1023"><td>1023</td><td></td><td></td></tr>
 <tr id="L1024"><td>1024</td><td></td><td>// printValue writes the textual representation of the value to the output of</td></tr>
 <tr id="L1025"><td>1025</td><td></td><td>// the template.</td></tr>
-<tr id="L1026" class="hit"><td>1026</td><td>9</td><td>func (s *state) printValue(n parse.Node, v reflect.Value) {</td></tr>
-<tr id="L1027" class="hit"><td>1027</td><td>9</td><td>	s.at(n)</td></tr>
-<tr id="L1028" class="hit"><td>1028</td><td>9</td><td>	iface, ok := printableValue(v)</td></tr>
-<tr id="L1029" class="hit"><td>1029</td><td>9</td><td>	if !ok {</td></tr>
+<tr id="L1026" class="hit"><td>1026</td><td>5</td><td>func (s *state) printValue(n parse.Node, v reflect.Value) {</td></tr>
+<tr id="L1027" class="hit"><td>1027</td><td>5</td><td>	s.at(n)</td></tr>
+<tr id="L1028" class="hit"><td>1028</td><td>5</td><td>	iface, ok := printableValue(v)</td></tr>
+<tr id="L1029" class="hit"><td>1029</td><td>5</td><td>	if !ok {</td></tr>
 <tr id="L1030" class="miss"><td>1030</td><td>0</td><td>		s.errorf(&#34;can&#39;t print %s of type %s&#34;, n, v.Type())</td></tr>
 <tr id="L1031" class="miss"><td>1031</td><td>0</td><td>	}</td></tr>
-<tr id="L1032" class="hit"><td>1032</td><td>9</td><td>	_, err := fmt.Fprint(s.wr, iface)</td></tr>
-<tr id="L1033" class="hit"><td>1033</td><td>9</td><td>	if err != nil {</td></tr>
+<tr id="L1032" class="hit"><td>1032</td><td>5</td><td>	_, err := fmt.Fprint(s.wr, iface)</td></tr>
+<tr id="L1033" class="hit"><td>1033</td><td>5</td><td>	if err != nil {</td></tr>
 <tr id="L1034" class="miss"><td>1034</td><td>0</td><td>		s.writeError(err)</td></tr>
 <tr id="L1035" class="miss"><td>1035</td><td>0</td><td>	}</td></tr>
 <tr id="L1036"><td>1036</td><td></td><td>}</td></tr>
 <tr id="L1037"><td>1037</td><td></td><td></td></tr>
 <tr id="L1038"><td>1038</td><td></td><td>// printableValue returns the, possibly indirected, interface value inside v that</td></tr>
 <tr id="L1039"><td>1039</td><td></td><td>// is best for a call to formatted printer.</td></tr>
-<tr id="L1040" class="hit"><td>1040</td><td>9</td><td>func printableValue(v reflect.Value) (any, bool) {</td></tr>
-<tr id="L1041" class="hit"><td>1041</td><td>9</td><td>	if v.Kind() == reflect.Pointer {</td></tr>
+<tr id="L1040" class="hit"><td>1040</td><td>5</td><td>func printableValue(v reflect.Value) (any, bool) {</td></tr>
+<tr id="L1041" class="hit"><td>1041</td><td>5</td><td>	if v.Kind() == reflect.Pointer {</td></tr>
 <tr id="L1042" class="miss"><td>1042</td><td>0</td><td>		v, _ = indirect(v) // fmt.Fprint handles nil.</td></tr>
 <tr id="L1043" class="miss"><td>1043</td><td>0</td><td>	}</td></tr>
-<tr id="L1044" class="hit"><td>1044</td><td>9</td><td>	if !v.IsValid() {</td></tr>
+<tr id="L1044" class="hit"><td>1044</td><td>5</td><td>	if !v.IsValid() {</td></tr>
 <tr id="L1045" class="miss"><td>1045</td><td>0</td><td>		return &#34;&lt;no value&gt;&#34;, true</td></tr>
 <tr id="L1046" class="miss"><td>1046</td><td>0</td><td>	}</td></tr>
 <tr id="L1047"><td>1047</td><td></td><td></td></tr>
-<tr id="L1048" class="hit"><td>1048</td><td>18</td><td>	if !v.Type().Implements(errorType) &amp;&amp; !v.Type().Implements(fmtStringerType) {</td></tr>
-<tr id="L1049" class="hit"><td>1049</td><td>9</td><td>		if v.CanAddr() &amp;&amp; (reflect.PointerTo(v.Type()).Implements(errorType) || reflect.PointerTo(v.Type()).Implements(fmtStringerType)) {</td></tr>
+<tr id="L1048" class="hit"><td>1048</td><td>10</td><td>	if !v.Type().Implements(errorType) &amp;&amp; !v.Type().Implements(fmtStringerType) {</td></tr>
+<tr id="L1049" class="hit"><td>1049</td><td>5</td><td>		if v.CanAddr() &amp;&amp; (reflect.PointerTo(v.Type()).Implements(errorType) || reflect.PointerTo(v.Type()).Implements(fmtStringerType)) {</td></tr>
 <tr id="L1050" class="miss"><td>1050</td><td>0</td><td>			v = v.Addr()</td></tr>
-<tr id="L1051" class="hit"><td>1051</td><td>9</td><td>		} else {</td></tr>
-<tr id="L1052" class="hit"><td>1052</td><td>9</td><td>			switch v.Kind() {</td></tr>
+<tr id="L1051" class="hit"><td>1051</td><td>5</td><td>		} else {</td></tr>
+<tr id="L1052" class="hit"><td>1052</td><td>5</td><td>			switch v.Kind() {</td></tr>
 <tr id="L1053" class="miss"><td>1053</td><td>0</td><td>			case reflect.Chan, reflect.Func:</td></tr>
 <tr id="L1054" class="miss"><td>1054</td><td>0</td><td>				return nil, false</td></tr>
 <tr id="L1055"><td>1055</td><td></td><td>			}</td></tr>
 <tr id="L1056"><td>1056</td><td></td><td>		}</td></tr>
 <tr id="L1057"><td>1057</td><td></td><td>	}</td></tr>
-<tr id="L1058" class="hit"><td>1058</td><td>9</td><td>	return v.Interface(), true</td></tr>
+<tr id="L1058" class="hit"><td>1058</td><td>5</td><td>	return v.Interface(), true</td></tr>
 <tr id="L1059"><td>1059</td><td></td><td>}</td></tr>
 </tbody></table>
 </div></div>

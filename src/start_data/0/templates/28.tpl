@@ -24,8 +24,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta content="{{.authenticity_token}}" name="authenticity_token">
 <meta content="{{.nonce_token}}" name="csp-nonce">
-{{/*Handle Razorpay*/}}
-{{/*<meta name="subscription_ID" content="{{.subscriptionID}}">*/}}
+{{/*Comment*/}}
+{{/*Comment*/}}
 <meta name="publishing_key" content="{{.publishingKey}}">
 <meta name="price_ID" content="{{.priceID}}">
 <meta name="product_ID" content="{{.story.ID}}">

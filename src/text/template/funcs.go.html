@@ -50,7 +50,7 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <div class="pure-g pure-gutter-md"><div class="pure-u-1 pure-u-md-1-2">
 <h2>Metadata</h2>
 <table class="pure-table pure-table-horizontal">
-<tr><td>Date:</td><td>Tue Mar 21 16:20:02 UTC 2023</td></tr>
+<tr><td>Date:</td><td>Sun Apr  2 22:02:43 UTC 2023</td></tr>
 <tr><td>Filename:</td><td>text/template/funcs.go</td></tr>
 </table>
 </div><div class="pure-u-1 pure-u-md-1-2">
@@ -179,11 +179,11 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L109"><td>109</td><td></td><td>}</td></tr>
 <tr id="L110"><td>110</td><td></td><td></td></tr>
 <tr id="L111"><td>111</td><td></td><td>// goodFunc reports whether the function or method has the right result signature.</td></tr>
-<tr id="L112" class="hit"><td>112</td><td>42</td><td>func goodFunc(typ reflect.Type) bool {</td></tr>
-<tr id="L113" class="hit"><td>113</td><td>42</td><td>	// We allow functions with 1 result or 2 results where the second is an error.</td></tr>
-<tr id="L114" class="hit"><td>114</td><td>42</td><td>	switch {</td></tr>
-<tr id="L115" class="hit"><td>115</td><td>42</td><td>	case typ.NumOut() == 1:</td></tr>
-<tr id="L116" class="hit"><td>116</td><td>42</td><td>		return true</td></tr>
+<tr id="L112" class="hit"><td>112</td><td>21</td><td>func goodFunc(typ reflect.Type) bool {</td></tr>
+<tr id="L113" class="hit"><td>113</td><td>21</td><td>	// We allow functions with 1 result or 2 results where the second is an error.</td></tr>
+<tr id="L114" class="hit"><td>114</td><td>21</td><td>	switch {</td></tr>
+<tr id="L115" class="hit"><td>115</td><td>21</td><td>	case typ.NumOut() == 1:</td></tr>
+<tr id="L116" class="hit"><td>116</td><td>21</td><td>		return true</td></tr>
 <tr id="L117" class="miss"><td>117</td><td>0</td><td>	case typ.NumOut() == 2 &amp;&amp; typ.Out(1) == errorType:</td></tr>
 <tr id="L118" class="miss"><td>118</td><td>0</td><td>		return true</td></tr>
 <tr id="L119"><td>119</td><td></td><td>	}</td></tr>
@@ -208,13 +208,13 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L138"><td>138</td><td></td><td>}</td></tr>
 <tr id="L139"><td>139</td><td></td><td></td></tr>
 <tr id="L140"><td>140</td><td></td><td>// findFunction looks for a function in the template, and global map.</td></tr>
-<tr id="L141" class="hit"><td>141</td><td>9</td><td>func findFunction(name string, tmpl *Template) (v reflect.Value, isBuiltin, ok bool) {</td></tr>
-<tr id="L142" class="hit"><td>142</td><td>18</td><td>	if tmpl != nil &amp;&amp; tmpl.common != nil {</td></tr>
-<tr id="L143" class="hit"><td>143</td><td>9</td><td>		tmpl.muFuncs.RLock()</td></tr>
-<tr id="L144" class="hit"><td>144</td><td>9</td><td>		defer tmpl.muFuncs.RUnlock()</td></tr>
-<tr id="L145" class="hit"><td>145</td><td>18</td><td>		if fn := tmpl.execFuncs[name]; fn.IsValid() {</td></tr>
-<tr id="L146" class="hit"><td>146</td><td>9</td><td>			return fn, false, true</td></tr>
-<tr id="L147" class="hit"><td>147</td><td>9</td><td>		}</td></tr>
+<tr id="L141" class="hit"><td>141</td><td>5</td><td>func findFunction(name string, tmpl *Template) (v reflect.Value, isBuiltin, ok bool) {</td></tr>
+<tr id="L142" class="hit"><td>142</td><td>10</td><td>	if tmpl != nil &amp;&amp; tmpl.common != nil {</td></tr>
+<tr id="L143" class="hit"><td>143</td><td>5</td><td>		tmpl.muFuncs.RLock()</td></tr>
+<tr id="L144" class="hit"><td>144</td><td>5</td><td>		defer tmpl.muFuncs.RUnlock()</td></tr>
+<tr id="L145" class="hit"><td>145</td><td>10</td><td>		if fn := tmpl.execFuncs[name]; fn.IsValid() {</td></tr>
+<tr id="L146" class="hit"><td>146</td><td>5</td><td>			return fn, false, true</td></tr>
+<tr id="L147" class="hit"><td>147</td><td>5</td><td>		}</td></tr>
 <tr id="L148"><td>148</td><td></td><td>	}</td></tr>
 <tr id="L149" class="miss"><td>149</td><td>0</td><td>	if fn := builtinFuncs()[name]; fn.IsValid() {</td></tr>
 <tr id="L150" class="miss"><td>150</td><td>0</td><td>		return fn, true, true</td></tr>
@@ -424,9 +424,9 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L354"><td>354</td><td></td><td></td></tr>
 <tr id="L355"><td>355</td><td></td><td>// safeCall runs fun.Call(args), and returns the resulting value and error, if</td></tr>
 <tr id="L356"><td>356</td><td></td><td>// any. If the call panics, the panic value is returned as an error.</td></tr>
-<tr id="L357" class="hit"><td>357</td><td>9</td><td>func safeCall(fun reflect.Value, args []reflect.Value) (val reflect.Value, err error) {</td></tr>
-<tr id="L358" class="hit"><td>358</td><td>18</td><td>	defer func() {</td></tr>
-<tr id="L359" class="hit"><td>359</td><td>9</td><td>		if r := recover(); r != nil {</td></tr>
+<tr id="L357" class="hit"><td>357</td><td>5</td><td>func safeCall(fun reflect.Value, args []reflect.Value) (val reflect.Value, err error) {</td></tr>
+<tr id="L358" class="hit"><td>358</td><td>10</td><td>	defer func() {</td></tr>
+<tr id="L359" class="hit"><td>359</td><td>5</td><td>		if r := recover(); r != nil {</td></tr>
 <tr id="L360" class="miss"><td>360</td><td>0</td><td>			if e, ok := r.(error); ok {</td></tr>
 <tr id="L361" class="miss"><td>361</td><td>0</td><td>				err = e</td></tr>
 <tr id="L362" class="miss"><td>362</td><td>0</td><td>			} else {</td></tr>
@@ -434,11 +434,11 @@ footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: 
 <tr id="L364" class="miss"><td>364</td><td>0</td><td>			}</td></tr>
 <tr id="L365"><td>365</td><td></td><td>		}</td></tr>
 <tr id="L366"><td>366</td><td></td><td>	}()</td></tr>
-<tr id="L367" class="hit"><td>367</td><td>9</td><td>	ret := fun.Call(args)</td></tr>
-<tr id="L368" class="hit"><td>368</td><td>9</td><td>	if len(ret) == 2 &amp;&amp; !ret[1].IsNil() {</td></tr>
+<tr id="L367" class="hit"><td>367</td><td>5</td><td>	ret := fun.Call(args)</td></tr>
+<tr id="L368" class="hit"><td>368</td><td>5</td><td>	if len(ret) == 2 &amp;&amp; !ret[1].IsNil() {</td></tr>
 <tr id="L369" class="miss"><td>369</td><td>0</td><td>		return ret[0], ret[1].Interface().(error)</td></tr>
 <tr id="L370" class="miss"><td>370</td><td>0</td><td>	}</td></tr>
-<tr id="L371" class="hit"><td>371</td><td>9</td><td>	return ret[0], nil</td></tr>
+<tr id="L371" class="hit"><td>371</td><td>5</td><td>	return ret[0], nil</td></tr>
 <tr id="L372"><td>372</td><td></td><td>}</td></tr>
 <tr id="L373"><td>373</td><td></td><td></td></tr>
 <tr id="L374"><td>374</td><td></td><td>// Boolean logic.</td></tr>

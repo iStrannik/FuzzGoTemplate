@@ -1,4 +1,4 @@
-# Generated from count_parser.g4 by ANTLR 4.11.1
+# Generated from count_parser.g4 by ANTLR 4.12.0
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .count_parser import count_parser
@@ -87,6 +87,15 @@ class count_parserListener(ParseTreeListener):
 
     # Exit a parse tree produced by count_parser#templateaction.
     def exitTemplateaction(self, ctx:count_parser.TemplateactionContext):
+        pass
+
+
+    # Enter a parse tree produced by count_parser#defineAction.
+    def enterDefineAction(self, ctx:count_parser.DefineActionContext):
+        pass
+
+    # Exit a parse tree produced by count_parser#defineAction.
+    def exitDefineAction(self, ctx:count_parser.DefineActionContext):
         pass
 
 
@@ -207,12 +216,21 @@ class count_parserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by count_parser#name.
-    def enterName(self, ctx:count_parser.NameContext):
+    # Enter a parse tree produced by count_parser#globalFunctions.
+    def enterGlobalFunctions(self, ctx:count_parser.GlobalFunctionsContext):
         pass
 
-    # Exit a parse tree produced by count_parser#name.
-    def exitName(self, ctx:count_parser.NameContext):
+    # Exit a parse tree produced by count_parser#globalFunctions.
+    def exitGlobalFunctions(self, ctx:count_parser.GlobalFunctionsContext):
+        pass
+
+
+    # Enter a parse tree produced by count_parser#local.
+    def enterLocal(self, ctx:count_parser.LocalContext):
+        pass
+
+    # Exit a parse tree produced by count_parser#local.
+    def exitLocal(self, ctx:count_parser.LocalContext):
         pass
 
 
