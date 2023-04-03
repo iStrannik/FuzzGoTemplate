@@ -16,8 +16,9 @@ def parse_report_file(filename):
 def merge_reports(oldreport, newreport):
     result = False
     for key, value in newreport.items():
-        if key not in oldreport or newreport[key][1] > oldreport[key][1]:
+        if key not in oldreport or (oldreport[key][1] == 0 and newreport[key][1] != 0):
             result = True
+        if key not in oldreport or newreport[key][1] > oldreport[key][1]:
             oldreport[key] = value
     return oldreport, result
 

@@ -1,6 +1,6 @@
 import json
 import re
-
+from mutations import random_probability_change
 
 def convert_cnt_to_probability(cnt):
     result = {}
@@ -14,12 +14,15 @@ def convert_cnt_to_probability(cnt):
     return result
 
 
-def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar):
+def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar, need_mutation=False):
     with open(counter, 'r') as f:
         cnt = json.load(f)
 
     probabilities = convert_cnt_to_probability(cnt)
-
+    
+    if need_mutation:
+        probabilities = random_probability_change(probabilities)
+    
     with open(grammar, 'r') as f:
         with open(probabilistic_grammar, 'w') as out:
             for i in f.readlines():
@@ -28,7 +31,7 @@ def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar):
 
                 if tag == 'text':
                     out.write(
-                        'Text = Href @@ 0.3| Default @@ 0.2 | Img @@ 0.3 | Style @@ 0.2;\n')
+                        'Text = Href @@ 0.3| Default @@ 0.1 | Img @@ 0.1 | Style @@ 0.2 | Js @@ 0.3 ;\n')
                     continue
 
                 if tag == 'name':
@@ -74,10 +77,11 @@ def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar):
                     res = res[:idx] + res[idx + 1:] + ' ;'
                     out.write(res + '\n')
             out.write('''
-Style = "<style>" Template "</style>" @@ 1.0;\n
-Img = "<img src=xx:" Template ">" @@ 1.0;\n
-Default = "<br>" Template "</br>" @@ 1.0;\n
-Href = AStart Template AEnd @@ 0.5 | HrefStart Template HrefEnd @@ 0.5;\n
+Style = "<style>" template "</style>" @@ 1.0;\n
+Js = "<script>" template "</script>" @@ 1.0;\n
+Img = "<img src=xx:" template ">" @@ 1.0;\n
+Default = "<br>" template "</br>" @@ 1.0;\n
+Href = AStart template AEnd @@ 0.5 | HrefStart template HrefEnd @@ 0.5;\n
 AStart = "<a href=\\"#\\">" @@ 1.0;\n
 AEnd = "</a>" @@ 1.0;\n
 HrefStart = "<a href=\\"" @@ 1.0;\n
