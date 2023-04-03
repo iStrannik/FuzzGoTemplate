@@ -35,6 +35,8 @@ basetemplates = [read_template(join(pathToTemplates, f)) for f in listdir(
 
 basetemplates = [preprocess_template(tpl) for tpl in basetemplates]
 updatedcoverage = {}
+tree_depth = 10
+number_of_tests = 10
 needMutation = False
 with open('history.csv', 'w') as history:
     history.write('epoch\tcoverage\n')
@@ -61,7 +63,7 @@ with open('history.csv', 'w') as history:
         needMutation = False
         os.rename('counter.json', join(args.workingDir, f'{epoch}/counter.json'))
         os.system(
-            f'java -jar {args.tribble} generate --mode=10-probabilistic-10 --out-dir={pathToTemplates} --suffix=.tpl --grammar-file={probabilistic_grammar}')
+            f'java -jar {args.tribble} generate --mode={tree_depth}-probabilistic-{number_of_tests} --out-dir={pathToTemplates} --suffix=.tpl --grammar-file={probabilistic_grammar}')
         #_ = input('Waiting...')
         templates = [f for f in listdir(
             pathToTemplates) if isfile(join(pathToTemplates, f))]

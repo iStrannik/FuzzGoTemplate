@@ -11,6 +11,11 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
     tpl.Execute(w, nil)
 }
 
+func kekHandler(w http.ResponseWriter, r *http.Request) {
+	var tpl = template.Must(template.ParseFiles("./With_mutation_update.html"))
+    tpl.Execute(w, nil)
+}
+
 func main() {
     port := os.Getenv("PORT")
     if port == "" {
@@ -19,6 +24,7 @@ func main() {
 
     mux := http.NewServeMux()
 
+    mux.HandleFunc("/kek", kekHandler)
     mux.HandleFunc("/", indexHandler)
     http.ListenAndServe(":"+port, mux)
 }

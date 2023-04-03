@@ -77,11 +77,11 @@ def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar, n
                     res = res[:idx] + res[idx + 1:] + ' ;'
                     out.write(res + '\n')
             out.write('''
-Style = "<style>" template "</style>" @@ 1.0;\n
-Js = "<script>" template "</script>" @@ 1.0;\n
-Img = "<img src=xx:" template ">" @@ 1.0;\n
-Default = "<br>" template "</br>" @@ 1.0;\n
-Href = AStart template AEnd @@ 0.5 | HrefStart template HrefEnd @@ 0.5;\n
+Style = "<style>" GoAction "</style>" @@ 1.0;\n
+Js = "<script>" GoAction "</script>" @@ 1.0;\n
+Img = "<img src=xx:" GoAction ">" @@ 1.0;\n
+Default = "<br>" GoAction "</br>" @@ 1.0;\n
+Href = AStart GoAction AEnd @@ 0.5 | HrefStart GoAction HrefEnd @@ 0.5;\n
 AStart = "<a href=\\"#\\">" @@ 1.0;\n
 AEnd = "</a>" @@ 1.0;\n
 HrefStart = "<a href=\\"" @@ 1.0;\n
