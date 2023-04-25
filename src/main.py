@@ -4,6 +4,9 @@ from os import listdir
 from os.path import isfile, join
 from shutil import rmtree
 import subprocess
+from enum import Enum
+import random
+import logging
 
 import grammar
 from add_probabilities import create_grammar_with_probabilities
@@ -11,21 +14,44 @@ from generate_test import get_coverage
 from preprocess_template import preprocess_template
 from parse_percents import get_percents
 
+TREE_DEPTH = 10
+NUMVER_OF_TESTS = 10
+EPOCHS = 100
+EPOCHS_WITHOUT_NEW_COVERAGE = 1
+SIMILARITY = 1.0
+
+class Mutation(Enum):
+    Random = 1
+    Invert = 2
+
+
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--mutate', action='store_true', default=False)
+parser.add_argument('--random_mutation', action='store_true', default=False)
+parser.add_argument('--invert_mutation', action='store_true', default=False)
 parser.add_argument('--workingDir', dest='workingDir')
+parser.add_argument('--decay', dest='decay', default=1.0, type=float)
 parser.add_argument('--tribble', dest='tribble',
                     default='../tribble/tribble.jar')
 
 args = parser.parse_args()
-print(args.mutate)
 
 def read_template(filename):
     with open(filename, 'r') as file:
         result = file.readlines()
     return result
 
+logging.basicConfig(filename=join(args.workingDir, 'example.log'), encoding='utf-8', level=logging.DEBUG)
+
+mutations = []
+
+if args.random_mutation:
+    mutations.append(Mutation.Random)
+
+if args.invert_mutation:
+    mutations.append(Mutation.Invert)
+
+logging.info(f'availiable mutations: {mutations}')
 
 baseGrammarFile = join(args.workingDir, 'grammar.tribble')
 pathToTemplates = join(args.workingDir, '0/templates/')
@@ -35,15 +61,25 @@ basetemplates = [read_template(join(pathToTemplates, f)) for f in listdir(
 
 basetemplates = [preprocess_template(tpl) for tpl in basetemplates]
 updatedcoverage = {}
-tree_depth = 10
-number_of_tests = 10
-needMutation = False
+
+rounds_without_updates = 0
+probabilities = None
+
+if not os.path.exists(join(args.workingDir, 'possible_xss')):
+    os.mkdir(join(args.workingDir, 'possible_xss'))
+
 with open('history.csv', 'w') as history:
     history.write('epoch\tcoverage\n')
     history.flush()
-    for epoch in range(1, 1000000):
-        if not args.mutate:
-            needMutation = False
+    for epoch in range(1, EPOCHS):
+        logging.info(f'new epoch is {epoch}')
+        logging.info(f'rouneds without updates {rounds_without_updates}')
+        similarity = SIMILARITY
+        current_mutation = None
+        if rounds_without_updates >= EPOCHS_WITHOUT_NEW_COVERAGE:
+            if not (len(mutations) == 0):
+                current_mutation = random.choice(mutations)
+        logging.info(f'current mutation is {current_mutation}')
         if os.path.exists(join(args.workingDir, f'{epoch}/')):
             rmtree(join(args.workingDir, f'{epoch}/'))
         os.mkdir(join(args.workingDir, f'{epoch}/'))
@@ -58,12 +94,15 @@ with open('history.csv', 'w') as history:
 
         probabilistic_grammar = join(
             args.workingDir, f'{epoch}/probabilistic_grammar.tribble')
-        create_grammar_with_probabilities(
-            'counter.json', baseGrammarFile, probabilistic_grammar, needMutation)
-        needMutation = False
+        probabilities = create_grammar_with_probabilities(
+            'counter.json', baseGrammarFile, probabilistic_grammar, current_mutation is Mutation.Random, old_probabilities=probabilities, decay=args.decay)
+        logging.info(f'probabilities are {probabilities}')
         os.rename('counter.json', join(args.workingDir, f'{epoch}/counter.json'))
+
+        if current_mutation is Mutation.Invert:
+            similarity = -1.0
         os.system(
-            f'java -jar {args.tribble} generate --mode={tree_depth}-probabilistic-{number_of_tests} --out-dir={pathToTemplates} --suffix=.tpl --grammar-file={probabilistic_grammar}')
+            f'java -jar {args.tribble} generate --similarity={similarity} --mode={TREE_DEPTH}-probabilistic-{NUMVER_OF_TESTS} --out-dir={pathToTemplates} --suffix=.tpl --grammar-file={probabilistic_grammar}')
         #_ = input('Waiting...')
         templates = [f for f in listdir(
             pathToTemplates) if isfile(join(pathToTemplates, f))]
@@ -86,7 +125,9 @@ with open('history.csv', 'w') as history:
         basetemplates = [read_template(join(goodTemplates, f)) for f in listdir(
             goodTemplates) if isfile(join(goodTemplates, f))]
         if len(basetemplates) == 0:
-            needMutation = True
+            rounds_without_updates += 1
             basetemplates = [read_template(join(pathToTemplates, f)) for f in listdir(
                 pathToTemplates) if isfile(join(pathToTemplates, f))]
+        else:
+            rounds_without_updates = 0
         basetemplates = [preprocess_template(tpl) for tpl in basetemplates]

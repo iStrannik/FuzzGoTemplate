@@ -13,13 +13,23 @@ def convert_cnt_to_probability(cnt):
             result[key.lower()][x.lower()] = y / total
     return result
 
+def decaying_probabilities_method(old_probabilities, new_probabilities, decay):
+    for key, val in old_probabilities.items():
+        if key not in new_probabilities:
+            new_probabilities[key] = {}
+        for key1, val1 in val.items():
+            new_probabilities[key][key1] = val1 * (1 - decay) + new_probabilities[key].get(key1, 0) * decay
+    return new_probabilities
 
-def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar, need_mutation=False):
+def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar, need_mutation=False, old_probabilities=None, decay=1):
     with open(counter, 'r') as f:
         cnt = json.load(f)
 
     probabilities = convert_cnt_to_probability(cnt)
-    
+
+    if old_probabilities:
+        probabilities = decaying_probabilities_method(old_probabilities, probabilities, decay)
+
     if need_mutation:
         probabilities = random_probability_change(probabilities)
     
@@ -35,7 +45,7 @@ def create_grammar_with_probabilities(counter, grammar, probabilistic_grammar, n
                     continue
 
                 if tag == 'name':
-                    out.write('Name = "A" @@ 1.0;\n')
+                    out.write('Name = "A " @@ 1.0;\n')
                     continue
                 if tag == 'digit' or tag == 'letter':
                     continue
@@ -87,3 +97,4 @@ AEnd = "</a>" @@ 1.0;\n
 HrefStart = "<a href=\\"" @@ 1.0;\n
 HrefEnd = "\\">abc</a>" @@ 1.0;\n
                       ''')
+    return probabilities

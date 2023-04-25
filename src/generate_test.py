@@ -1,5 +1,6 @@
 import itertools
 import subprocess
+import uuid
 from os import getcwd
 from os.path import join
 
@@ -16,9 +17,9 @@ def parse_report_file(filename):
 def merge_reports(oldreport, newreport):
     result = False
     for key, value in newreport.items():
-        if key not in oldreport or (oldreport[key][1] == 0 and newreport[key][1] != 0):
+        if key not in oldreport or (int(oldreport[key][1]) == 0 and int(newreport[key][1]) != 0):
             result = True
-        if key not in oldreport or newreport[key][1] > oldreport[key][1]:
+        if key not in oldreport or int(newreport[key][1]) > int(oldreport[key][1]):
             oldreport[key] = value
     return oldreport, result
 
@@ -62,7 +63,7 @@ def subsets(data):
     return itertools.chain.from_iterable(itertools.combinations_with_replacement(data, r) for r in range(len(data)+1))
 
 
-def get_coverage(template, package, coverpkg=['.', 'text/template'], oldcoverage={}):
+def get_coverage(template, package, coverpkg=['.', 'text/template'], oldcoverage={}, success_path='./epochs/possible_xss'):
 
     with open(template, 'r') as file:
         template_data = file.read().replace('\n', '')
@@ -78,7 +79,8 @@ def get_coverage(template, package, coverpkg=['.', 'text/template'], oldcoverage
 
     for i in data:
         with open(package + '/kek_test.go', 'w') as file:
-            file.write(generate_test(template_data, i))
+            code = generate_test(template_data, i)
+            file.write(code)
         for pkg in coverpkg:
             a = subprocess.Popen(
                 ["go", "test", "-coverprofile", join(getcwd(), "report.txt"), "-covermode", "count", "-coverpkg", pkg, "."], cwd=package)
@@ -90,7 +92,13 @@ def get_coverage(template, package, coverpkg=['.', 'text/template'], oldcoverage
                 b.stdin.close()
                 ans = b.stdout.readline()
                 if b'pwned_succesfull' in ans:
-                    print(f'temaplate {template} pwned!!!!!!!!!!!!!')
+                    with open(template, 'r') as file:
+                        success_data = file.read()
+                    template_name = uuid.uuid4()
+                    with open(join(success_path, template_name + '.tpl'), 'w') as file:
+                        file.write(success_data)
+                    with open(join(success_path, template_name + '.go'), 'w') as file:
+                        file.write(code)
             newcoverage = parse_report_file("report.txt")
             updatedcoverage, res = merge_reports(updatedcoverage, newcoverage)
             if res:
