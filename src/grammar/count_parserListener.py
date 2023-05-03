@@ -216,12 +216,66 @@ class count_parserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by count_parser#globalFunctions.
-    def enterGlobalFunctions(self, ctx:count_parser.GlobalFunctionsContext):
+    # Enter a parse tree produced by count_parser#globalfunctions.
+    def enterGlobalfunctions(self, ctx:count_parser.GlobalfunctionsContext):
         pass
 
-    # Exit a parse tree produced by count_parser#globalFunctions.
-    def exitGlobalFunctions(self, ctx:count_parser.GlobalFunctionsContext):
+    # Exit a parse tree produced by count_parser#globalfunctions.
+    def exitGlobalfunctions(self, ctx:count_parser.GlobalfunctionsContext):
+        pass
+
+
+    # Enter a parse tree produced by count_parser#text.
+    def enterText(self, ctx:count_parser.TextContext):
+        pass
+
+    # Exit a parse tree produced by count_parser#text.
+    def exitText(self, ctx:count_parser.TextContext):
+        pass
+
+
+    # Enter a parse tree produced by count_parser#style.
+    def enterStyle(self, ctx:count_parser.StyleContext):
+        pass
+
+    # Exit a parse tree produced by count_parser#style.
+    def exitStyle(self, ctx:count_parser.StyleContext):
+        pass
+
+
+    # Enter a parse tree produced by count_parser#js.
+    def enterJs(self, ctx:count_parser.JsContext):
+        pass
+
+    # Exit a parse tree produced by count_parser#js.
+    def exitJs(self, ctx:count_parser.JsContext):
+        pass
+
+
+    # Enter a parse tree produced by count_parser#img.
+    def enterImg(self, ctx:count_parser.ImgContext):
+        pass
+
+    # Exit a parse tree produced by count_parser#img.
+    def exitImg(self, ctx:count_parser.ImgContext):
+        pass
+
+
+    # Enter a parse tree produced by count_parser#default.
+    def enterDefault(self, ctx:count_parser.DefaultContext):
+        pass
+
+    # Exit a parse tree produced by count_parser#default.
+    def exitDefault(self, ctx:count_parser.DefaultContext):
+        pass
+
+
+    # Enter a parse tree produced by count_parser#href.
+    def enterHref(self, ctx:count_parser.HrefContext):
+        pass
+
+    # Exit a parse tree produced by count_parser#href.
+    def exitHref(self, ctx:count_parser.HrefContext):
         pass
 
 

@@ -1,0 +1,1 @@
+{{.C }}TEXT{{.A }}{{.A }}{{ if .C }}<script>{{.C }}</script>{{end}}TEXT<script>{{.D }}</script><img src=xx:{{ if .LocalName }}{{ if .B }}{{ if .C }}{{.B }}{{end}}{{end}}{{end}}>

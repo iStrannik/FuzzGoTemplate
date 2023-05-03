@@ -23,7 +23,11 @@ if not os.path.exists('counter.json'):
     self.counter['pipeline'] = self.counter['pipeline'] if 'pipeline' in self.counter else {};
     self.counter['argument'] = self.counter['argument'] if 'argument' in self.counter else {};
     self.counter['methodcall'] = self.counter['methodcall'] if 'methodcall' in self.counter else {};
-    self.counter['globalFunctions'] = self.counter['globalFunctions'] if 'globalFunctions' in self.counter else {};
+    self.counter['globalfunctions'] = self.counter['globalfunctions'] if 'globalfunctions' in self.counter else {};
+    self.counter['text'] = self.counter['text'] if 'text' in self.counter else {};
+    self.counter['href'] = self.counter['href'] if 'href' in self.counter else {};
+    self.counter['globalfunctions']['myprint'] = self.counter['globalfunctions'].get('myprint', 0);
+    self.counter['globalfunctions']['random'] = self.counter['globalfunctions'].get('random', 0);
 }
 
 start @after{
@@ -34,9 +38,9 @@ with open('counter.json', 'w') as f:
 
 template
 : 
-(Text {self.counter[inspect.stack()[0][3]]['Text'] = self.counter[inspect.stack()[0][3]]['Text'] + 1 if 'Text' in self.counter[inspect.stack()[0][3]] else 1} 
+(text {self.counter[inspect.stack()[0][3]]['text'] = self.counter[inspect.stack()[0][3]]['text'] + 1 if 'text' in self.counter[inspect.stack()[0][3]] else 1} 
 | goaction {self.counter[inspect.stack()[0][3]]['goaction'] = self.counter[inspect.stack()[0][3]]['goaction'] + 1 if 'goaction' in self.counter[inspect.stack()[0][3]] else 1}) 
-(Text {self.counter[inspect.stack()[0][3]]['Text'] = self.counter[inspect.stack()[0][3]]['Text'] + 1 if 'Text' in self.counter[inspect.stack()[0][3]] else 1}
+(text {self.counter[inspect.stack()[0][3]]['text'] = self.counter[inspect.stack()[0][3]]['text'] + 1 if 'text' in self.counter[inspect.stack()[0][3]] else 1}
 | goaction {self.counter[inspect.stack()[0][3]]['goaction'] = self.counter[inspect.stack()[0][3]]['goaction'] + 1 if 'goaction' in self.counter[inspect.stack()[0][3]] else 1})* ;
 goaction : 
 commentaction {self.counter[inspect.stack()[0][3]]['commentaction'] = self.counter[inspect.stack()[0][3]]['commentaction'] + 1 if 'commentaction' in self.counter[inspect.stack()[0][3]] else 1}
@@ -79,7 +83,7 @@ Nil {self.counter[inspect.stack()[0][3]]['Nil'] = self.counter[inspect.stack()[0
 {self.counter[inspect.stack()[0][3]]['LeftParenthesis'] = self.counter[inspect.stack()[0][3]]['LeftParenthesis'] + 1 if 'LeftParenthesis' in self.counter[inspect.stack()[0][3]] else 1};
 variable : Dollar (Name)? ;
 fields : (variable)? Dot (Name)? ( Dot (Name)?)? ;
-funccall : globalFunctions ;
+funccall : globalfunctions ;
 methodcall : ( 
     variable {self.counter[inspect.stack()[0][3]]['variable'] = self.counter[inspect.stack()[0][3]]['variable'] + 1 if 'variable' in self.counter[inspect.stack()[0][3]] else 1}
     | fields {self.counter[inspect.stack()[0][3]]['fields'] = self.counter[inspect.stack()[0][3]]['fields'] + 1 if 'fields' in self.counter[inspect.stack()[0][3]] else 1}
@@ -87,7 +91,7 @@ methodcall : (
 end : ld End rd ;
 ld : BlockStart (Dash)? ;
 rd : (Dash)? BlockEnd ;
-globalFunctions : (And argument argument) {self.counter[inspect.stack()[0][3]]['And'] = self.counter[inspect.stack()[0][3]]['And'] + 1 if 'And' in self.counter[inspect.stack()[0][3]] else 1}
+globalfunctions : (And argument argument) {self.counter[inspect.stack()[0][3]]['And'] = self.counter[inspect.stack()[0][3]]['And'] + 1 if 'And' in self.counter[inspect.stack()[0][3]] else 1}
 | Index argument (argument)* {self.counter[inspect.stack()[0][3]]['Index'] = self.counter[inspect.stack()[0][3]]['Index'] + 1 if 'Index' in self.counter[inspect.stack()[0][3]] else 1}
 | Slice argument (argument)* {self.counter[inspect.stack()[0][3]]['Slice'] = self.counter[inspect.stack()[0][3]]['Slice'] + 1 if 'Slice' in self.counter[inspect.stack()[0][3]] else 1}
 | Len argument {self.counter[inspect.stack()[0][3]]['Len'] = self.counter[inspect.stack()[0][3]]['Len'] + 1 if 'Len' in self.counter[inspect.stack()[0][3]] else 1}
@@ -100,5 +104,21 @@ globalFunctions : (And argument argument) {self.counter[inspect.stack()[0][3]]['
 | Le argument argument {self.counter[inspect.stack()[0][3]]['Le'] = self.counter[inspect.stack()[0][3]]['Le'] + 1 if 'Le' in self.counter[inspect.stack()[0][3]] else 1}
 | (Gt argument argument) {self.counter[inspect.stack()[0][3]]['Gt'] = self.counter[inspect.stack()[0][3]]['Gt'] + 1 if 'Gt' in self.counter[inspect.stack()[0][3]] else 1}
 | Ge argument argument {self.counter[inspect.stack()[0][3]]['Ge'] = self.counter[inspect.stack()[0][3]]['Ge'] + 1 if 'Ge' in self.counter[inspect.stack()[0][3]] else 1}
-| local (argument)* {self.counter[inspect.stack()[0][3]]['local'] = self.counter[inspect.stack()[0][3]]['local'] + 1 if 'local' in self.counter[inspect.stack()[0][3]] else 1};
+| Random {self.counter[inspect.stack()[0][3]]['random'] = self.counter[inspect.stack()[0][3]]['random'] + 1 if 'random' in self.counter[inspect.stack()[0][3]] else 1}
+| Myprint argument {self.counter[inspect.stack()[0][3]]['myprint'] = self.counter[inspect.stack()[0][3]]['myprint'] + 1 if 'myprint' in self.counter[inspect.stack()[0][3]] else 1};
+text :
+Text {self.counter[inspect.stack()[0][3]]['Text'] = self.counter[inspect.stack()[0][3]]['Text'] + 1 if 'Text' in self.counter[inspect.stack()[0][3]] else 1}
+| style {self.counter[inspect.stack()[0][3]]['style'] = self.counter[inspect.stack()[0][3]]['style'] + 1 if 'style' in self.counter[inspect.stack()[0][3]] else 1}
+| js {self.counter[inspect.stack()[0][3]]['js'] = self.counter[inspect.stack()[0][3]]['js'] + 1 if 'js' in self.counter[inspect.stack()[0][3]] else 1}
+| img {self.counter[inspect.stack()[0][3]]['img'] = self.counter[inspect.stack()[0][3]]['img'] + 1 if 'img' in self.counter[inspect.stack()[0][3]] else 1}
+| default {self.counter[inspect.stack()[0][3]]['default'] = self.counter[inspect.stack()[0][3]]['default'] + 1 if 'default' in self.counter[inspect.stack()[0][3]] else 1}
+| href {self.counter[inspect.stack()[0][3]]['href'] = self.counter[inspect.stack()[0][3]]['href'] + 1 if 'href' in self.counter[inspect.stack()[0][3]] else 1};
+
+style : StyleStart goaction StyleEnd;
+js : ScriptStart goaction ScriptEnd;
+img : ImgStart goaction ImgEnd;
+default : BrStart goaction BrEnd;
+href : 
+AStart goaction AEnd {self.counter[inspect.stack()[0][3]]['AStart'] = self.counter[inspect.stack()[0][3]]['AStart'] + 1 if 'AStart' in self.counter[inspect.stack()[0][3]] else 1}
+| HrefStart goaction HrefEnd {self.counter[inspect.stack()[0][3]]['HrefStart'] = self.counter[inspect.stack()[0][3]]['HrefStart'] + 1 if 'HrefStart' in self.counter[inspect.stack()[0][3]] else 1};
 local : Name;

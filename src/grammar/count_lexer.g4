@@ -38,7 +38,24 @@ Or : 'or';
 Index : 'index';
 Slice : 'slice';
 Printf : 'printf';
+Myprint : 'print';
+Random : 'random_string';
 AnyText : 'Comment';
+
+AStart : '<a href="#">';
+HrefStart : '<a href="';
+HrefEnd : '">abc</a>';
+ScriptStart : '<script>';
+ScriptEnd : '</script>';
+StyleStart : '<style>';
+StyleEnd : '</style>';
+BrStart : '<br>';
+BrEnd : '</br>';
+ImgStart : '<img src=xx:';
+
+AEnd : '</a>';
+
+ImgEnd : '>';
 
 StringConstant: '"' /[ a-zA-Z0-9_\-/\\.]*/ '"';
 

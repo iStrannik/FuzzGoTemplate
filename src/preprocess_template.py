@@ -42,3 +42,29 @@ def preprocess_template(tpl):
         if cur > 0:
             result += line[max(0, start - 1):]
     return result
+
+def simple_preprocess_template(tpl):
+    result = ''
+    for line in tpl:
+        start = 0
+        end = len(line)
+        while start < end:
+            pos_open = line.find('{{', start)
+            pos_close = line.find('}}', start)
+            if pos_open == -1:
+                pos_open = len(line)
+
+            if pos_close == -1:
+                pos_close = len(line)
+
+            if pos_open <= pos_close:
+                if pos_open == len(line):
+                    result += line[start:] + '\n'
+                    break
+                result += line[start:pos_open] + '\n{{'
+                next_start = pos_open + 2
+            else:
+                result += line[start:pos_close] + '}}\n'
+                next_start = pos_close + 2
+            start = next_start
+    return result
