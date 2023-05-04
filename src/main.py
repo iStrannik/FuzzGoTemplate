@@ -34,6 +34,7 @@ parser.add_argument('--invert_mutation', action='store_true', default=False)
 parser.add_argument('--workingDir', dest='workingDir')
 parser.add_argument('--decay', dest='decay', default=1.0, type=float)
 parser.add_argument('--tree_depth', dest='tree_depth', default=10, type=int)
+parser.add_argument('--generation', dest='generation', default=10, type=int)
 parser.add_argument('--tribble', dest='tribble', default='../tribble/tribble.jar')
 
 args = parser.parse_args()
@@ -43,6 +44,7 @@ if not os.path.exists(args.workingDir):
     os.system(f'cp -r ./start_data/* {args.workingDir}/')
 
 TREE_DEPTH = args.tree_depth
+NUMVER_OF_TESTS = args.generation
 
 
 def read_template(filename):

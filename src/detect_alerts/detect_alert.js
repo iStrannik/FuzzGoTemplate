@@ -2,11 +2,26 @@
 
 const puppeteer = require('puppeteer');    
 (async() => {    
-const browser = await puppeteer.launch();
+const browser = await puppeteer.launch({headless: true});
 const page = await browser.newPage();   
 let pwned = 'safe_code';
-var fs = require("fs");
-var pathToFile = fs.readFileSync(0).toString(); // STDIN_FILENO = 0
+const readline = require('readline');
+
+function askQuestion(query) {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+
+    return new Promise(resolve => rl.question(query, ans => {
+        rl.close();
+        resolve(ans);
+    }))
+}
+
+
+const pathToFile = await askQuestion("type path to file");
+console.log('PathToFile is ' + pathToFile)
 page.on('dialog', async dialog => {
     pwned = 'pwned_succesfull';
     await dialog.dismiss();

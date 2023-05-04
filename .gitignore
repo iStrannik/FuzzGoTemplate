@@ -5,5 +5,5 @@ node_modules
 html
 .npmrc
 *.aut
-epochs
+epochs*
 text

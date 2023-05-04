@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCov</title>
+<meta name="description" content="Code coverage report">
+<meta name="generator" content="https://gitlab.com/stone.code/scov">
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<!--[if lte IE 8]>
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+<!--<![endif]-->
+<style>
+html { padding:1em; }
+body { max-width:70em; margin:auto; }
+table { margin-bottom: 1em; }
+.coverage { min-width:100%; }
+.coverage td:nth-child(2), .coverage th:nth-child(2) { text-align:center; }
+.coverage td:nth-child(3), .coverage th:nth-child(3) { text-align:center; }
+.coverage td:nth-child(4), .coverage th:nth-child(4) { text-align:center; }
+.sparkbar { border: 1px solid black; border-radius:1px; min-width:50px; height:1em; }
+.sparkbar .fill { display: inline-block; height: 100%; }
+.sparkbar .high { background-color:lightgreen; }
+.sparkbar .medium { background-color:yellow; }
+.sparkbar .low { background-color:red; }
+.sparkbar .empty { display: inline-block; height: 1em; background-color: white; }
+footer { border-top: 1px solid rgb(203, 203, 203); margin-top: 1em; background: #e0e0e0; padding: .5em 1em; }
+@media screen and (min-width: 48em) {
+	.pure-gutter-md > div { box-sizing: border-box; padding: 0 0.5em; }
+	.pure-gutter-md > div:first-child { padding-left: 0; }
+	.pure-gutter-md > div:last-child { padding-right: 0; }
+}
+@media screen and (max-width: 48em) {
+	.table-md td, .table-md th { padding: 0.5em; }
+}
+</style>
+</head>
+<body>
+<div class="pure-g"><h1 class="pure-u">SCov</h1></div>
+<div class="pure-g pure-gutter-md"><div class="pure-u-1 pure-u-md-1-2">
+<h2>Metadata</h2>
+<p>Date: Wed May  3 15:56:56 UTC 2023</p>
+</div><div class="pure-u-1 pure-u-md-1-2">
+<h2>Coverage Summary</h2>
+<table class="pure-table pure-table-horizontal coverage">
+<thead><tr><th></th><th>Hits</th><th>Total</th><th>Coverage</th></tr></thead>
+<tbody>
+<tr><td>Lines:</td><td>1361</td><td>3527</td><td>38.6%</td></tr>
+<tr><td>Regions:</td><td>595</td><td>1579</td><td>37.7%</td></tr>
+</tbody>
+</table></div></div>
+<div class="pure-g"><div class="pure-u-1">
+<h2>By File</h2>
+<table class="pure-table pure-table-bordered table-md" style="width:100%">
+<thead><tr><th>Filename</th><th colspan="3">Line Coverage</th><th colspan="3">Region Coverage</th></tr></thead>
+<tbody>
+<tr><td><a href="html/template/attr.go.html">html/template/attr.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:26.1%"></div><div class="empty" style="width:73.9%"></div></div></td><td>6/23</td><td>26.1%</td><td><div class="sparkbar"><div class="fill low" style="width:30.8%"></div><div class="empty" style="width:69.2%"></div></div></td><td>4/13</td><td>30.8%</td></tr>
+<tr><td><a href="html/template/attr_string.go.html">html/template/attr_string.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:60.0%"></div><div class="empty" style="width:40.0%"></div></div></td><td>3/5</td><td>60.0%</td><td><div class="sparkbar"><div class="fill low" style="width:66.7%"></div><div class="empty" style="width:33.3%"></div></div></td><td>2/3</td><td>66.7%</td></tr>
+<tr><td><a href="html/template/content.go.html">html/template/content.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:49.0%"></div><div class="empty" style="width:51.0%"></div></div></td><td>25/51</td><td>49.0%</td><td><div class="sparkbar"><div class="fill low" style="width:48.1%"></div><div class="empty" style="width:51.9%"></div></div></td><td>13/27</td><td>48.1%</td></tr>
+<tr><td><a href="html/template/context.go.html">html/template/context.go</a></td><td><div class="sparkbar"><div class="fill medium" style="width:76.6%"></div><div class="empty" style="width:23.4%"></div></div></td><td>36/47</td><td>76.6%</td><td><div class="sparkbar"><div class="fill low" style="width:73.9%"></div><div class="empty" style="width:26.1%"></div></div></td><td>17/23</td><td>73.9%</td></tr>
+<tr><td><a href="html/template/css.go.html">html/template/css.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:30.3%"></div><div class="empty" style="width:69.7%"></div></div></td><td>50/165</td><td>30.3%</td><td><div class="sparkbar"><div class="fill low" style="width:18.8%"></div><div class="empty" style="width:81.2%"></div></div></td><td>12/64</td><td>18.8%</td></tr>
+<tr><td><a href="html/template/delim_string.go.html">html/template/delim_string.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:60.0%"></div><div class="empty" style="width:40.0%"></div></div></td><td>3/5</td><td>60.0%</td><td><div class="sparkbar"><div class="fill low" style="width:66.7%"></div><div class="empty" style="width:33.3%"></div></div></td><td>2/3</td><td>66.7%</td></tr>
+<tr><td><a href="html/template/element_string.go.html">html/template/element_string.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:60.0%"></div><div class="empty" style="width:40.0%"></div></div></td><td>3/5</td><td>60.0%</td><td><div class="sparkbar"><div class="fill low" style="width:66.7%"></div><div class="empty" style="width:33.3%"></div></div></td><td>2/3</td><td>66.7%</td></tr>
+<tr><td><a href="html/template/error.go.html">html/template/error.go</a></td><td><div class="sparkbar"><div class="fill medium" style="width:76.9%"></div><div class="empty" style="width:23.1%"></div></div></td><td>10/13</td><td>76.9%</td><td><div class="sparkbar"><div class="fill low" style="width:66.7%"></div><div class="empty" style="width:33.3%"></div></div></td><td>4/6</td><td>66.7%</td></tr>
+<tr><td><a href="html/template/escape.go.html">html/template/escape.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:60.9%"></div><div class="empty" style="width:39.1%"></div></div></td><td>368/604</td><td>60.9%</td><td><div class="sparkbar"><div class="fill low" style="width:63.3%"></div><div class="empty" style="width:36.7%"></div></div></td><td>167/264</td><td>63.3%</td></tr>
+<tr><td><a href="html/template/html.go.html">html/template/html.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:29.8%"></div><div class="empty" style="width:70.2%"></div></div></td><td>37/124</td><td>29.8%</td><td><div class="sparkbar"><div class="fill low" style="width:29.0%"></div><div class="empty" style="width:71.0%"></div></div></td><td>18/62</td><td>29.0%</td></tr>
+<tr><td><a href="html/template/js.go.html">html/template/js.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:29.4%"></div><div class="empty" style="width:70.6%"></div></div></td><td>58/197</td><td>29.4%</td><td><div class="sparkbar"><div class="fill low" style="width:31.3%"></div><div class="empty" style="width:68.7%"></div></div></td><td>26/83</td><td>31.3%</td></tr>
+<tr><td><a href="html/template/jsctx_string.go.html">html/template/jsctx_string.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:60.0%"></div><div class="empty" style="width:40.0%"></div></div></td><td>3/5</td><td>60.0%</td><td><div class="sparkbar"><div class="fill low" style="width:66.7%"></div><div class="empty" style="width:33.3%"></div></div></td><td>2/3</td><td>66.7%</td></tr>
+<tr><td><a href="html/template/state_string.go.html">html/template/state_string.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:60.0%"></div><div class="empty" style="width:40.0%"></div></div></td><td>3/5</td><td>60.0%</td><td><div class="sparkbar"><div class="fill low" style="width:66.7%"></div><div class="empty" style="width:33.3%"></div></div></td><td>2/3</td><td>66.7%</td></tr>
+<tr><td><a href="html/template/template.go.html">html/template/template.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:19.8%"></div><div class="empty" style="width:80.2%"></div></div></td><td>56/283</td><td>19.8%</td><td><div class="sparkbar"><div class="fill low" style="width:20.2%"></div><div class="empty" style="width:79.8%"></div></div></td><td>22/109</td><td>20.2%</td></tr>
+<tr><td><a href="html/template/transition.go.html">html/template/transition.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:48.6%"></div><div class="empty" style="width:51.4%"></div></div></td><td>189/389</td><td>48.6%</td><td><div class="sparkbar"><div class="fill low" style="width:48.8%"></div><div class="empty" style="width:51.2%"></div></div></td><td>82/168</td><td>48.8%</td></tr>
+<tr><td><a href="html/template/url.go.html">html/template/url.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:45.0%"></div><div class="empty" style="width:55.0%"></div></div></td><td>54/120</td><td>45.0%</td><td><div class="sparkbar"><div class="fill low" style="width:48.1%"></div><div class="empty" style="width:51.9%"></div></div></td><td>26/54</td><td>48.1%</td></tr>
+<tr><td><a href="html/template/urlpart_string.go.html">html/template/urlpart_string.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:60.0%"></div><div class="empty" style="width:40.0%"></div></div></td><td>3/5</td><td>60.0%</td><td><div class="sparkbar"><div class="fill low" style="width:66.7%"></div><div class="empty" style="width:33.3%"></div></div></td><td>2/3</td><td>66.7%</td></tr>
+<tr><td><a href="text/template/exec.go.html">text/template/exec.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:37.2%"></div><div class="empty" style="width:62.8%"></div></div></td><td>273/734</td><td>37.2%</td><td><div class="sparkbar"><div class="fill low" style="width:35.7%"></div><div class="empty" style="width:64.3%"></div></div></td><td>125/350</td><td>35.7%</td></tr>
+<tr><td><a href="text/template/funcs.go.html">text/template/funcs.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:23.0%"></div><div class="empty" style="width:77.0%"></div></div></td><td>117/509</td><td>23.0%</td><td><div class="sparkbar"><div class="fill low" style="width:18.3%"></div><div class="empty" style="width:81.7%"></div></div></td><td>45/246</td><td>18.3%</td></tr>
+<tr><td><a href="text/template/helper.go.html">text/template/helper.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:0.0%"></div><div class="empty" style="width:100.0%"></div></div></td><td>0/88</td><td>0.0%</td><td><div class="sparkbar"><div class="fill low" style="width:0.0%"></div><div class="empty" style="width:100.0%"></div></div></td><td>0/37</td><td>0.0%</td></tr>
+<tr><td><a href="text/template/option.go.html">text/template/option.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:0.0%"></div><div class="empty" style="width:100.0%"></div></div></td><td>0/23</td><td>0.0%</td><td><div class="sparkbar"><div class="fill low" style="width:0.0%"></div><div class="empty" style="width:100.0%"></div></div></td><td>0/12</td><td>0.0%</td></tr>
+<tr><td><a href="text/template/template.go.html">text/template/template.go</a></td><td><div class="sparkbar"><div class="fill low" style="width:50.4%"></div><div class="empty" style="width:49.6%"></div></div></td><td>64/127</td><td>50.4%</td><td><div class="sparkbar"><div class="fill low" style="width:51.2%"></div><div class="empty" style="width:48.8%"></div></div></td><td>22/43</td><td>51.2%</td></tr>
+</tbody>
+</table>
+</div></div>
+
+<footer>Generated by <a href="https://gitlab.com/stone.code/scov">SCov</a>.</footer>
+</body>
+</html>

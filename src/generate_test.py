@@ -132,7 +132,7 @@ def get_coverage(template,
             b = subprocess.Popen(['node', 'detect_alerts/detect_alert.js'],
                                  stdin=subprocess.PIPE,
                                  stdout=subprocess.PIPE)
-            b.stdin.write((package + '/prepared.html').encode())
+            b.stdin.write((package + '/prepared.html' + '\n').encode())
             b.stdin.close()
             ans = b.stdout.readline()
             if b'pwned_succesfull' in ans:
