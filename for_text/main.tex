@@ -4,6 +4,7 @@
 \usepackage[russian]{babel}
 \usepackage{setspace,amsmath}
 \usepackage[left=20mm, top=15mm, right=15mm, bottom=15mm, nohead, footskip=10mm]{geometry}
+\usepackage[pdftex]{lscape}
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
@@ -560,6 +561,14 @@ f(template) =
 
 Оптимальное значение коэффициента - 0.75 (рисунок \ref{Coef}). Действительно, при таком значении коэффициента, в сгенерированных тестах будет чаще срабатывать именно то правило грамматики, благодаря которому обнаружилось покрытие новых строк кода. В то же время остальные строчки частично сохранят вероятности прошлых эпох, что позволит и дальше генерировать разно тесты.
 
+\begin{figure}[ht!]
+    \includegraphics[width=150mm]{mutations.png}
+    \caption{Зависимость покрытия от используемых мутаций}
+    \label{Mutations}
+    \end{figure}
+
+На гистограмме(рисунок \ref{Mutations}) демонстрируется сравнение эффективности разных мутаций. Наиболее полезна - мутация измененения вероятностей на случайные, так как она даёт наибольший прирост функции покрытия. Мутация изменения всех вероятностей в грамматике на обратные не даёт существенного улучшения. Наиболее оптимальный вариант - комбинировать эти мутации во время фаззинга, чаще используя первый тип.
+
 \subsection{Найденные недостатки}
 
 Недостаток в функции template.Execute(wr io.Writer, data any)\footnote{\href{https://pkg.go.dev/html/template\#Template.Execute}{https://pkg.go.dev/html/template\#Template.Execute}}. Если при выполнении шаблона или записи его выходных данных возникает ошибка, выполнение останавливается, но частичные результаты рендеринга шаблона будут записаны в буфер. Данный недостаток был автоматически обнаружен фаззером. Фаззер в процессе работы создаёт код на go, который использует эту функцию, записывая все шаблоны в один и тот же файл. Этот файл открывается для записи в начале программы. Важно отметить, что содержимое файла не очищается, а  переписывается новым шаблоном. Первым шагом фаззер записал в файл шаблон, в которым все символы были корректно экранированы. Затем в начало этого файла из-за ошибки при работе функции записалась только часть следующего шаблона. В результате в конце файла осталась последняя часть первого шаблона, что привело к срабатыванию функции alert, то есть возможной уязвимости. 
@@ -630,5 +639,25 @@ f(template) =
     \bibitem{litlink8}  Systematically Covering Input Structure [Электронный ресурс]. URL: \href{https://publications.cispa.saarland/2971/1/ase19-paper381-published.pdf}{https://publications.cispa.saarland/2971/1/ase19-paper381-published.pdf} (дата обращения: 05.05.2023)
     \bibitem{litlink9}  American fuzzy lop - a security-oriented fuzzer [Электронный ресурс]. URL: \href{https://github.com/google/AFL}{https://github.com/google/AFL} (дата обращения: 05.05.2023)
 \end{thebibliography}
+
+\newpage
+
+\appendix
+
+\begin{landscape}
+\section{Грамматика с вероятностями}
+
+\begin{figure}[ht!]
+    \includegraphics[width=260mm]{probabilities.png}
+    \label{Probabilities}
+    \end{figure}
+\end{landscape}
+
+\section{Пример сгенерированного шаблона}
+
+\begin{figure}[ht!]
+    \includegraphics[width=170mm]{Template.png}
+    \label{GeneratedTemplate}
+    \end{figure}
 
 \end{document}
