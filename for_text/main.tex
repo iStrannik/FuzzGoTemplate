@@ -563,8 +563,39 @@ f(template) =
 \subsection{Найденные недостатки}
 
 Недостаток в функции template.Execute(wr io.Writer, data any)\footnote{\href{https://pkg.go.dev/html/template\#Template.Execute}{https://pkg.go.dev/html/template\#Template.Execute}}. Если при выполнении шаблона или записи его выходных данных возникает ошибка, выполнение останавливается, но частичные результаты рендеринга шаблона будут записаны в буфер. Данный недостаток был автоматически обнаружен фаззером. Фаззер в процессе работы создаёт код на go, который использует эту функцию, записывая все шаблоны в один и тот же файл. Этот файл открывается для записи в начале программы. Важно отметить, что содержимое файла не очищается, а  переписывается новым шаблоном. Первым шагом фаззер записал в файл шаблон, в которым все символы были корректно экранированы. Затем в начало этого файла из-за ошибки при работе функции записалась только часть следующего шаблона. В результате в конце файла осталась последняя часть первого шаблона, что привело к срабатыванию функции alert, то есть возможной уязвимости. 
+
+\subsection{Анализ результатов}
+
+Покрытие кода оказалось на довольно низком уровне - 45.2\%. После анализа участков кода, которых фаззеру не удалось достичь, было выявлено, что в пакетах text/template и html/template присутствуют вспомогательные функции, которые не являются объектами исследования. После их удаления, процент покрытия стал равен XXX.
+Причины, по которым часть кода была не покрыта:
+\begin{itemize}
+    \item Недостаточно разнообразное множество контекстов, встроенных в грамматику. Шаблонизатор гранулярно обрабатывает все символы в тесте, поэтому для более полного покрытия нужно добавлять контексты, основываясь на исходном коде программы.
+    \item Использование в значениях переменных только векторов атаки xss. Из-за этого, например, остался не исследован код, работающий с числовыми константами, который теоретически может влиять на ход исполнения программы.
+\end{itemize}
+
+В ходе тестирования не удалось найти существенных недостатков в функциональности экранирования символов в шаблонизаторе. Это может быть связано как с высокой квалификацией разработчиков, так и с недостаточным покрытием исходного кода.
+
  
 \subsection{Выводы}
+
+\begin{itemize}
+    \item Использование мутаций над грамматикой с вероятностями позволяет выбираться из точек экстремумов.
+    \item Выбор начальных вероятностей по реальным программам позволяет достигать довольно высокого покрытия на ранних эпохах фаззинга.
+    \item Использование обратной связи существенно ускоряет процесс фаззинга и позволяет автоматически направлять фаззер в сторону ещё не исследованного кода
+    \item Разработанный метод с коэффициентом устаревания позволяет эффективно комбинировать вероятности прошлой и текущей эпохи. То есть новые вероятности учитывают разнообразие тестов старой эпохи, и новое покрытие текущей.
+    \item Процесс fuzz-тестирования полностью автоматизирован
+    \item Разработанный фаззер работает крайне медленно. При стандартных параметрах на 100 эпох тратится примерно 5 часов. Каждый сгенерированного шаблон требуется открыть инструментом puppeteer, что очень сильно замедляет работу и является узким местом всего фаззера.
+\end{itemize}
+В целом, идея использования грамматики с вероятностями для создания шаблонов себя полностью оправдала. Сгенерированные тесты получаются довольно сложными. С грамматикой очень удобно работать и строить вокруг неё весь процесс тестирования. Слабым местом фаззера стала генерация кода, который вызывает функцию обработки шаблона. 
+
+Объекты дальнейшего исследования:
+
+\begin{itemize}
+    \item Улучшение грамматики, в частности добавление в неё новых контекстов.
+    \item Использовать вместо метрики покрытия строк кода, покрытие веток кода. Это позволит более точно управлять фаззером и анализировать его работу.
+    \item Ускорить процесс проверки наличия ошибки экранирования.
+    \item Добавление новых методов мутаций.
+\end{itemize}
 
 \newpage
 \section{Результаты}
@@ -573,27 +604,31 @@ f(template) =
 В рамках данной работы были получены следующие результаты:
 \begin{itemize}
     \item Сделан обзор методов fuzz-тестирования программ, принимающих на вход данные, порождаемые КС-грамматикой. Выделены критерии для сравнения таких фаззеров.
-    \item Произведён анализ существующих инструментов. На его основе предложен алгоритм для fuzz-тестирования шаблонизаторов.
+    \item Произведён анализ существующих инструментов генерации входных данных. На его основе предложен алгоритм для fuzz-тестирования шаблонизаторов.
+    \item Разработан полностью автоматический фаззер для стандартного шаблонизатора
+    языка программирования Golang.
+    \item Проанализирована работа фаззера.
+    \item Сделаны выводы о применимости fuzz-тестирования для поиска ошибок в шаблонизаторе стандартной библиотеки языка Golang.
 \end{itemize}
 
 \newpage
 
 \begin{thebibliography}{}
     \addcontentsline{toc}{section}{Список литературы}
-    \bibitem{litlink1}  Inputs from Hell Generating Uncommon Inputs from Common Samples [Электронный ресурс]. URL: \href{https://arxiv.org/pdf/1812.07525.pdf}{https://arxiv.org/pdf/1812.07525.pdf} (дата обращения: 18.05.2022)
-    \bibitem{litlink2}  Evolutionary Grammar-Based Fuzzing [Электронный ресурс]. URL: \href{https://arxiv.org/pdf/2008.01150.pdf}{https://arxiv.org/pdf/2008.01150.pdf} (дата обращения: 18.05.2022)
-    \bibitem{litlink3}  Superion: Grammar-Aware Greybox Fuzzing [Электронный ресурс]. URL: \href{https://arxiv.org/pdf/1812.01197.pdf}{https://arxiv.org/pdf/1812.01197.pdf} (дата обращения: 18.05.2022)
+    \bibitem{litlink1}  Inputs from Hell Generating Uncommon Inputs from Common Samples [Электронный ресурс]. URL: \href{https://arxiv.org/pdf/1812.07525.pdf}{https://arxiv.org/pdf/1812.07525.pdf} (дата обращения: 05.05.2023)
+    \bibitem{litlink2}  Evolutionary Grammar-Based Fuzzing [Электронный ресурс]. URL: \href{https://arxiv.org/pdf/2008.01150.pdf}{https://arxiv.org/pdf/2008.01150.pdf} (дата обращения: 05.05.2023)
+    \bibitem{litlink3}  Superion: Grammar-Aware Greybox Fuzzing [Электронный ресурс]. URL: \href{https://arxiv.org/pdf/1812.01197.pdf}{https://arxiv.org/pdf/1812.01197.pdf} (дата обращения: 05.05.2023)
     \bibitem{litlink4}  Fuzzing With Optimized Grammar-Aware
-    Mutation Strategies [Электронный ресурс]. URL: \href{https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9469897}{https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9469897} (дата обращения: 18.05.2022)
+    Mutation Strategies [Электронный ресурс]. URL: \href{https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9469897}{https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9469897} (дата обращения: 05.05.2023)
     \bibitem{litlink5}  Grammarinator:
     A Grammar-Based Open Source Fuzzer [Электронный ресурс]. 
     URL: \href{https://www.researchgate.net/publication/328510752\_Grammarinator\_a\_grammar-based\_open\_source\_fuzzer}{Grammarinator}
-    (дата обращения: 18.05.2022)
+    (дата обращения: 05.05.2023)
     \bibitem{litlink6}  NAUTILUS:
-    Fishing for Deep Bugs with Grammars [Электронный ресурс]. URL: \href{https://www.ndss-symposium.org/wp-content/uploads/2019/02/ndss2019\_04A-3\_Aschermann\_paper.pdf}{Nautilus} (дата обращения: 18.05.2022)
-    \bibitem{litlink7}  The Fuzzing Book [Электронный ресурс]. URL: \href{https://www.fuzzingbook.org/}{https://www.fuzzingbook.org/} (дата обращения: 18.05.2022)
-    \bibitem{litlink8}  Systematically Covering Input Structure [Электронный ресурс]. URL: \href{https://publications.cispa.saarland/2971/1/ase19-paper381-published.pdf}{https://publications.cispa.saarland/2971/1/ase19-paper381-published.pdf} (дата обращения: 18.05.2022)
-    \bibitem{litlink9}  American fuzzy lop - a security-oriented fuzzer [Электронный ресурс]. URL: \href{https://github.com/google/AFL}{https://github.com/google/AFL} (дата обращения: 24.05.2022)
+    Fishing for Deep Bugs with Grammars [Электронный ресурс]. URL: \href{https://www.ndss-symposium.org/wp-content/uploads/2019/02/ndss2019\_04A-3\_Aschermann\_paper.pdf}{Nautilus} (дата обращения: 05.05.2023)
+    \bibitem{litlink7}  The Fuzzing Book [Электронный ресурс]. URL: \href{https://www.fuzzingbook.org/}{https://www.fuzzingbook.org/} (дата обращения: 05.05.2023)
+    \bibitem{litlink8}  Systematically Covering Input Structure [Электронный ресурс]. URL: \href{https://publications.cispa.saarland/2971/1/ase19-paper381-published.pdf}{https://publications.cispa.saarland/2971/1/ase19-paper381-published.pdf} (дата обращения: 05.05.2023)
+    \bibitem{litlink9}  American fuzzy lop - a security-oriented fuzzer [Электронный ресурс]. URL: \href{https://github.com/google/AFL}{https://github.com/google/AFL} (дата обращения: 05.05.2023)
 \end{thebibliography}
 
 \end{document}
