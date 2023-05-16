@@ -17,7 +17,7 @@ from mutations import random_probability_change
 
 TREE_DEPTH = 10
 NUMVER_OF_TESTS = 10
-EPOCHS = 100
+EPOCHS = 50000
 EPOCHS_WITHOUT_NEW_COVERAGE = 1
 SIMILARITY = 1.0
 

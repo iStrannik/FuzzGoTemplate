@@ -62,7 +62,7 @@ def create_grammar_with_probabilities(counter,
 
                 if tag == 'name':
                     out.write(
-                        'Name = "A " @@ 0.3 | "B " @@ 0.28 | "C " @@ 0.20 | "LocalName " @@ 0.02 | "D " @@ 0.20;\n')
+                        'Name = "A " @@ 0.25 | "B " @@ 0.18 | "C " @@ 0.20 | "LocalName " @@ 0.02 | "D " @@ 0.15 | "E " @@ 0.10 | "F " @@ 0.10; \n')
                     continue
                 if tag == 'digit' or tag == 'letter':
                     continue

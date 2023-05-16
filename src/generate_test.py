@@ -61,6 +61,8 @@ def generate_test(template, Range_data, B_data, C_data, random_string):
                 B string
                 C string
             }
+            E int
+            F int
             print func(a any) any
             random_string func() string
         }{
@@ -76,6 +78,8 @@ def generate_test(template, Range_data, B_data, C_data, random_string):
                 B: ''' + B_data + ''',
                 C: ''' + C_data + ''',
             },
+            E: 5,
+            F: 7,
             print: print,
             random_string: random_string,
         }
@@ -149,6 +153,10 @@ def get_coverage(template,
             if res:
                 findNewCow = True
                 print(f'Find new coverage with data {i}')
+    a = subprocess.Popen([
+            "go", "clean", "-cache"
+        ], cwd=package)
+    _ = a.wait()
 
     return findNewCow, updatedcoverage
 
