@@ -2,7 +2,7 @@
 
 const puppeteer = require('puppeteer');    
 (async() => {    
-const browser = await puppeteer.launch({headless: true});
+const browser = await puppeteer.launch({headless: true, executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox']});
 const page = await browser.newPage();   
 let pwned = 'safe_code';
 const readline = require('readline');

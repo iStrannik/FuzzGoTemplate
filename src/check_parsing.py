@@ -1,13 +1,8 @@
 from preprocess_template import preprocess_template
-from add_probabilities import create_grammar_with_probabilities
 import grammar
 
-import argparse
-import os
 from os import listdir
 from os.path import isfile, join
-from shutil import rmtree
-import subprocess
 
 def read_template(filename):
     with open(filename, 'r') as file:

@@ -1,0 +1,9 @@
+version: '1'
+services:
+  fuzzer:
+    build:
+      context: ./src
+    ports: 
+      - "1337:1337"
+    working_dir: /fuzzer
+    command: sleep 1000

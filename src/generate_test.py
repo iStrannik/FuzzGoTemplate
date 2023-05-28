@@ -159,7 +159,3 @@ def get_coverage(template,
     _ = a.wait()
 
     return findNewCow, updatedcoverage
-
-
-# print(get_coverage('../official_test_templates/file2.tpl',
-#      '/home/strannik/go/src/go/src/html/template'))

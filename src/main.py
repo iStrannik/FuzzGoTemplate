@@ -128,7 +128,7 @@ with open(join(args.workingDir, 'history.csv'), 'w') as history:
         templates = [f for f in listdir(pathToTemplates) if isfile(join(pathToTemplates, f))]
         for tpl in templates:
             findNewCow, updatedcoverage = get_coverage(join(pathToTemplates, tpl),
-                                                       '/home/strannik/go/src/go/src/html/template',
+                                                       '/root/go/src/go/src/html/template',
                                                        oldcoverage=updatedcoverage,
                                                        success_path=join(args.workingDir, 'possible_xss'))
             if findNewCow:
@@ -142,7 +142,7 @@ with open(join(args.workingDir, 'history.csv'), 'w') as history:
         #_ = input('Waiting...')
 
         a = subprocess.Popen(
-            ["scov", "--srcdir", "/home/strannik/go/src/go/src/", "--htmldir", args.workingDir, "total_coverage.out"])
+            ["scov", "--srcdir", "/root/go/src/go/src/", "--htmldir", args.workingDir, "total_coverage.out"])
         _ = a.wait()
         percents = get_percents(join(args.workingDir, 'index.html'))
         history.write(f'{epoch}\t{percents}\n')
